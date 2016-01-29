@@ -74,7 +74,7 @@ MonoBehaviour:
   TileTypeID: 20
   TileSet: baseSet
   Type: 1
-  TileType: 0
+  TileType: 7
 --- !u!212 &21299976
 SpriteRenderer:
   m_ObjectHideFlags: 1
@@ -123,6 +123,10 @@ Prefab:
     - target: {fileID: 0}
       propertyPath: Type
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: TileType
+      value: 7
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 0}
