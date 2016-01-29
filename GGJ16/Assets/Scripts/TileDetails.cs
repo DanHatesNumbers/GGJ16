@@ -1,11 +1,13 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class TileDetails
+public class TileDetails : MonoBehaviour
 {
     public int TileTypeID;
 
-    public int TileSet; 
+    public string TileSet;
+
+    public TileSetType Type; 
 }
 
 	
