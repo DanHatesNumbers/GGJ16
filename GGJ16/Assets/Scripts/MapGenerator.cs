@@ -159,25 +159,5 @@ public class MapGenerator : MonoBehaviour {
                 }
             }
         }
-
-
-
-
-        //int platforms = UnityEngine.Random.Range(1, (int)(HeightSize / Tilesize));  
-
-        //for (int idx = 0; idx < platforms; idx++)
-        //{
-        //    float height = UnityEngine.Random.Range(0f, HeightSize / Tilesize);
-
-        //    float width = UnityEngine.Random.Range(1f, WidthSize / Tilesize);
-
-        //    TileSetType level = height > dividerLevel ? TileSetType.upperLevels : TileSetType.lowerLevels;
-
-        //    for (int xdx = 1; xdx < width; xdx++)
-        //    {
-        //        GameObject obj = availiableTile[level].GetTileType(TileType.Top);
-        //        Instantiate(obj, new Vector3(xdx * Tilesize, height * Tilesize), new Quaternion()); 
-        //    }
-        //}
     }
 }
