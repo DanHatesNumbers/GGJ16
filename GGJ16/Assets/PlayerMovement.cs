@@ -65,6 +65,16 @@ public class PlayerMovement : MonoBehaviour {
 				action.PlayerAction(Player);
 			}
 		}
+
+        var animator = GetComponent<Animator>();
+        if(FacingLeft)
+        {
+            animator.Play("RunLeft");
+        }
+        else
+        {
+            animator.Play("RunRight");
+        }
 	}
 
     void SpawnFireball()
