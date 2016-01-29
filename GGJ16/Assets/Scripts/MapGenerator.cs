@@ -119,21 +119,65 @@ public class MapGenerator : MonoBehaviour {
     {
         int dividerLevel = UnityEngine.Random.Range(0, HeightSize);
 
-        int platforms = (int)UnityEngine.Random.Range(1f, HeightSize / Tilesize);  
-
-        for (int idx = 0; idx < platforms; idx++)
+        TileType[,] map = new TileType[WidthSize, HeightSize];
+        for (int xdx = 0; xdx < map.GetLength(0); xdx++)
         {
-            float height = UnityEngine.Random.Range(0f, HeightSize / Tilesize);
-
-            float width = UnityEngine.Random.Range(1f, WidthSize / Tilesize);
-
-            TileSetType level = height > dividerLevel ? TileSetType.upperLevels : TileSetType.lowerLevels;
-
-            for (int xdx = 1; xdx < width; xdx++)
+            for (int ydx = 0; ydx < map.GetLength(1); ydx++)
             {
-                GameObject obj = availiableTile[level].GetTileType(TileType.Top);
-                Instantiate(obj, new Vector3(xdx * Tilesize, height * Tilesize), new Quaternion()); 
+                map[xdx, ydx] = TileType.None; 
             }
         }
+
+        int platformNo = UnityEngine.Random.Range(0, HeightSize / 10); 
+
+        for (int idx = 0; idx < platformNo; idx++)
+        {
+            int height = UnityEngine.Random.Range(0, HeightSize);
+            int platformLength = UnityEngine.Random.Range(1, WidthSize);
+
+            int platformStart = UnityEngine.Random.Range(1, platformLength);
+
+            while (platformStart < platformLength)
+            {
+                map[platformStart, height] = TileType.Top;
+                platformStart++; 
+            }
+        }
+
+
+        for (int xdx = 0; xdx < map.GetLength(0); xdx++)
+        {
+            for (int ydx = 0; ydx < map.GetLength(1); ydx++)
+            {
+                TileType type = map[xdx, ydx]; 
+                if (type != TileType.None)
+                {
+                    TileSetType level = ydx > dividerLevel ? TileSetType.upperLevels : TileSetType.lowerLevels;
+
+                    GameObject obj = availiableTile[level].GetTileType(type);
+                    Instantiate(obj, new Vector3(xdx * Tilesize, ydx * Tilesize), new Quaternion()); 
+                }
+            }
+        }
+
+
+
+
+        //int platforms = UnityEngine.Random.Range(1, (int)(HeightSize / Tilesize));  
+
+        //for (int idx = 0; idx < platforms; idx++)
+        //{
+        //    float height = UnityEngine.Random.Range(0f, HeightSize / Tilesize);
+
+        //    float width = UnityEngine.Random.Range(1f, WidthSize / Tilesize);
+
+        //    TileSetType level = height > dividerLevel ? TileSetType.upperLevels : TileSetType.lowerLevels;
+
+        //    for (int xdx = 1; xdx < width; xdx++)
+        //    {
+        //        GameObject obj = availiableTile[level].GetTileType(TileType.Top);
+        //        Instantiate(obj, new Vector3(xdx * Tilesize, height * Tilesize), new Quaternion()); 
+        //    }
+        //}
     }
 }
