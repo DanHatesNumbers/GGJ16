@@ -18,12 +18,14 @@ namespace AssemblyCSharp
 		{
 			var rb = c.GetComponent<Rigidbody2D>();
 			rb.AddForce(new Vector2(-0.2f, 0f), ForceMode2D.Impulse);
+            c.GetComponent<PlayerMovement>().FacingLeft = true;
 		};
 
 		public static Action<GameObject> MoveRightAction = c => 
 		{
 			var rb = c.GetComponent<Rigidbody2D>();
 			rb.AddForce(new Vector2(0.2f, 0f), ForceMode2D.Impulse);
+            c.GetComponent<PlayerMovement>().FacingLeft = false;
 		};
 	}
 }

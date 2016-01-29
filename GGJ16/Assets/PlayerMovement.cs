@@ -1,11 +1,19 @@
 ﻿using UnityEngine;
+using System.Collections;
 using System.Collections.Generic;
 using AssemblyCSharp;
 using XboxCtrlrInput;
+using System;
 
 public class PlayerMovement : MonoBehaviour {
 
 	public GameObject Player;
+    public GameObject Fireball;
+
+    public float LastFireTime;
+    public const float FireballCooldown = 0.5f;
+
+    public bool FacingLeft;
 
 	public List<InputAction> InputActions;
 
@@ -33,9 +41,18 @@ public class PlayerMovement : MonoBehaviour {
 			PlayerAction = InputAction.MoveRightAction
 		};
 
-		InputActions.Add (inputJump);
-		InputActions.Add (inputMoveLeft);
-		InputActions.Add (inputMoveRight);
+        var inputFireball = new InputAction
+        {
+            IsTriggered = () => (Input.GetAxis("Fire1") != 0) && CanFireball(),
+            PlayerAction = p => SpawnFireball()
+        };
+
+		InputActions.Add(inputJump);
+		InputActions.Add(inputMoveLeft);
+		InputActions.Add(inputMoveRight);
+        InputActions.Add(inputFireball);
+        LastFireTime = Time.time - FireballCooldown;
+        FacingLeft = false;
 	}
 	
 	// Update is called once per frame
@@ -49,4 +66,17 @@ public class PlayerMovement : MonoBehaviour {
 			}
 		}
 	}
+
+    void SpawnFireball()
+    {
+        var fireball = (GameObject)Instantiate(Fireball, Player.transform.position, Quaternion.Euler(new Vector3(0, 0, 0)));
+        var fireballVelocity = FacingLeft ? new Vector2(-5f, 0f) : new Vector2(5f, 0f);
+        fireball.GetComponent<Rigidbody2D>().velocity = fireballVelocity;
+        LastFireTime = Time.time;
+    }
+
+    bool CanFireball()
+    {
+        return LastFireTime < Time.time - FireballCooldown;
+    }
 }
