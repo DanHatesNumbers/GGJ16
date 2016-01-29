@@ -7,7 +7,9 @@ public class TileDetails : MonoBehaviour
 
     public string TileSet;
 
-    public TileSetType Type; 
+    public TileSetType Type;
+
+    public TileType TileType; 
 }
 
 	

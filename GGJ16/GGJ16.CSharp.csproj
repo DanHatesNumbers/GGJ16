@@ -72,7 +72,10 @@
   <ItemGroup>
     <Compile Include="Assets\Scripts\MapGenerator.cs" />
     <Compile Include="Assets\Scripts\TileDetails.cs" />
+    <Compile Include="Assets\Scripts\TileLevel.cs" />
+    <Compile Include="Assets\Scripts\TileNotFoundException.cs" />
     <Compile Include="Assets\Scripts\TilesetType.cs" />
+    <Compile Include="Assets\Scripts\TileType.cs" />
     <Compile Include="Assets\SpawnPlatforms.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\SyntaxTree\UnityVS\2015\UnityVS.CSharp.targets" />
