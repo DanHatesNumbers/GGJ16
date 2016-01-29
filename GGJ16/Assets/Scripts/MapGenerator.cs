@@ -12,14 +12,16 @@ public class MapGenerator : MonoBehaviour {
 
     public List<GameObject> TileTypes = new List<GameObject>();
 
-    public List<string> TileSets = new List<string>(); 
+    public List<string> TileSets = new List<string>();
+
+    public float Tilesize = 2.56f; 
 
 
 
 	// Use this for initialization
 	void Start () {
         //splits all the objects into something I can search with. 
-        Dictionary<TileDetails, GameObject> gameObjects = new Dictionary<TileDetails, GameObject>(); 
+        DualStore<TileDetails, GameObject> gameObjects = new DualStore<TileDetails, GameObject>(); 
 
         foreach(GameObject obj in TileTypes)
         {
@@ -35,14 +37,18 @@ public class MapGenerator : MonoBehaviour {
         foreach(TileSetType type in Enum.GetValues(typeof(TileSetType)))
         {
             TileLevel level = new TileLevel(UnityEngine.Random.seed);
-            Dictionary<TileDetails, GameObject> tileSetTiles = GetTileSetType(gameObjects, type); 
+            DualStore<TileDetails, GameObject> tileSetTiles = GetTileSetType(gameObjects, type); 
 
             foreach(TileType ttype in Enum.GetValues(typeof(TileType)))
             {
                 level.AssignTiles(ttype, GetTileTypes(tileSetTiles, ttype)); 
             }
+
+            tilesByTileSetType.Add(type, level); 
         }
 
+
+        SpawnTiles(tilesByTileSetType); 
 	}
 	
 	// Update is called once per frame
@@ -55,15 +61,15 @@ public class MapGenerator : MonoBehaviour {
     /// </summary>
     /// <param name="allTiles"></param>
     /// <returns></returns>
-    protected virtual Dictionary<TileDetails, GameObject> GetTileset(Dictionary<TileDetails, GameObject> allTiles)
+    protected virtual DualStore<TileDetails, GameObject> GetTileset(DualStore<TileDetails, GameObject> allTiles)
     {
         //choose a tileset to play on. 
         int tileSetNo = UnityEngine.Random.Range(0, TileSets.Count);
         string tileSet = TileSets[tileSetNo];
 
-        Dictionary<TileDetails, GameObject> thisTileset = new Dictionary<TileDetails, GameObject>();
+        DualStore<TileDetails, GameObject> thisTileset = new DualStore<TileDetails, GameObject>();
 
-        foreach (KeyValuePair<TileDetails, GameObject> kv in allTiles)
+        foreach (KeyValuePair<TileDetails, GameObject> kv in allTiles.KeyValuePairs)
         {
             if (kv.Key.TileSet == tileSet)
             {
@@ -80,11 +86,11 @@ public class MapGenerator : MonoBehaviour {
     /// <param name="allTiles"></param>
     /// <param name="type"></param>
     /// <returns></returns>
-    protected virtual Dictionary<TileDetails, GameObject> GetTileSetType (Dictionary<TileDetails, GameObject> allTiles, TileSetType type)
+    protected virtual DualStore<TileDetails, GameObject> GetTileSetType (DualStore<TileDetails, GameObject> allTiles, TileSetType type)
     {
-        Dictionary<TileDetails, GameObject> thisTileset = new Dictionary<TileDetails, GameObject>();
+        DualStore<TileDetails, GameObject> thisTileset = new DualStore<TileDetails, GameObject>();
 
-        foreach (KeyValuePair<TileDetails, GameObject> kv in allTiles)
+        foreach (KeyValuePair<TileDetails, GameObject> kv in allTiles.KeyValuePairs)
         {
             if (kv.Key.Type == type)
             {
@@ -95,10 +101,10 @@ public class MapGenerator : MonoBehaviour {
         return thisTileset;
     }
 
-    protected virtual List<GameObject> GetTileTypes (Dictionary<TileDetails, GameObject> tiles, TileType type)
+    protected virtual List<GameObject> GetTileTypes (DualStore<TileDetails, GameObject> tiles, TileType type)
     {
         List<GameObject> thetiles = new List<GameObject>(); 
-        foreach (KeyValuePair<TileDetails, GameObject> kv in tiles)
+        foreach (KeyValuePair<TileDetails, GameObject> kv in tiles.KeyValuePairs)
         {
             if (kv.Key.TileType == type)
             {
@@ -107,5 +113,27 @@ public class MapGenerator : MonoBehaviour {
         }
 
         return thetiles; 
+    }
+
+    protected virtual void SpawnTiles (Dictionary<TileSetType, TileLevel> availiableTile)
+    {
+        int dividerLevel = UnityEngine.Random.Range(0, HeightSize);
+
+        int platforms = (int)UnityEngine.Random.Range(1f, HeightSize / Tilesize);  
+
+        for (int idx = 0; idx < platforms; idx++)
+        {
+            float height = UnityEngine.Random.Range(0f, HeightSize / Tilesize);
+
+            float width = UnityEngine.Random.Range(1f, WidthSize / Tilesize);
+
+            TileSetType level = height > dividerLevel ? TileSetType.upperLevels : TileSetType.lowerLevels;
+
+            for (int xdx = 1; xdx < width; xdx++)
+            {
+                GameObject obj = availiableTile[level].GetTileType(TileType.Top);
+                Instantiate(obj, new Vector3(xdx * Tilesize, height * Tilesize), new Quaternion()); 
+            }
+        }
     }
 }

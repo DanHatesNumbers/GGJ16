@@ -10,6 +10,7 @@ GameObject:
   - 4: {fileID: 455864}
   - 212: {fileID: 21203866}
   - 60: {fileID: 6075646}
+  - 114: {fileID: 11425162}
   m_Layer: 0
   m_Name: Set2_LeftSlopeEnd
   m_TagString: Untagged
@@ -57,6 +58,21 @@ PolygonCollider2D:
       - {x: -0.44, y: -0.17}
       - {x: -0.29, y: -0.14}
       - {x: -0.14999999, y: 0.21}
+--- !u!114 &11425162
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 167274}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 672259c22303f2b42b33046a015746ec, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  TileTypeID: 16
+  TileSet: baseSet
+  Type: 1
+  TileType: 0
 --- !u!212 &21203866
 SpriteRenderer:
   m_ObjectHideFlags: 1
@@ -93,7 +109,19 @@ Prefab:
   serializedVersion: 2
   m_Modification:
     m_TransformParent: {fileID: 0}
-    m_Modifications: []
+    m_Modifications:
+    - target: {fileID: 0}
+      propertyPath: TileTypeID
+      value: 16
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: Type
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: TileSet
+      value: baseSet
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 0}
   m_RootGameObject: {fileID: 167274}
