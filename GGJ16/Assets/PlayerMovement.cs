@@ -20,6 +20,11 @@ public class PlayerMovement : MonoBehaviour {
 	public const float leftThreshold = -0.1f;
 	public const float rightThreshold = 0.1f;
 
+    public const string IdleLeftAnimation = "IdleLeft";
+    public const string IdleRightAnimation = "IdleRight";
+    public const string RunLeftAnimation = "RunLeft";
+    public const string RunRightAnimation = "RunRight";
+
 	// Use this for initialization
 	void Start () {
 		InputActions = new List<InputAction> ();
@@ -67,13 +72,23 @@ public class PlayerMovement : MonoBehaviour {
 		}
 
         var animator = GetComponent<Animator>();
-        if(FacingLeft)
+        var rigidBody = GetComponent<Rigidbody2D>();
+
+        if(FacingLeft && rigidBody.velocity == Vector2.zero)
         {
-            animator.Play("RunLeft");
+            animator.Play(IdleLeftAnimation);
         }
-        else
+        else if(FacingLeft && rigidBody.velocity != Vector2.zero)
         {
-            animator.Play("RunRight");
+            animator.Play(RunLeftAnimation);
+        }
+        else if(!FacingLeft && rigidBody.velocity == Vector2.zero)
+        {
+            animator.Play(IdleRightAnimation);
+        }
+        else if(!FacingLeft && rigidBody.velocity != Vector2.zero)
+        {
+            animator.Play(RunRightAnimation);
         }
 	}
 
