@@ -291,9 +291,24 @@ public class MapGenerator : NetworkBehaviour {
                 {
                     if (map[xdx, ydx] != TileType.None)
                     {
-                        SpawnPoints.Add(new Vector2(xdx, ydx + 1));
+                        bool notNear = true;
+                        Vector2 thisV = new Vector2(xdx, ydx + 1); 
+                        foreach (Vector2 other in SpawnPoints)
+                        {
+                            if (Vector2.Distance(other, thisV) < 3)
+                            {
+                                notNear = false; 
+                            }
+                        }
+
+                        if (notNear)
+                        {
+                            SpawnPoints.Add(thisV);
+                            
+                            notadded = false;
+                        }
+
                         foundPlatform = true;
-                        notadded = false;
                     }
 
                     ydx--;
@@ -304,7 +319,12 @@ public class MapGenerator : NetworkBehaviour {
         return SpawnPoints; 
     }
 
-
+    /// <summary>
+    /// Creates an instantites the tiles. 
+    /// </summary>
+    /// <param name="map"></param>
+    /// <param name="dividerLevel"></param>
+    /// <param name="availiableTile"></param>
     protected virtual void GenerateElevators(TileType[,] map, int dividerLevel, Dictionary<TileSetType, TileLevel> availiableTile)
     {
         List<Vector2> leftEnds = new List<Vector2>();
@@ -398,31 +418,6 @@ public class MapGenerator : NetworkBehaviour {
 
         DualStore<Vector2, Vector2> horizontal = new DualStore<Vector2, Vector2>();
 
-        //foreach (Vector2 vec in rightEnds)
-        //{
-        //    int ydx = (int)vec.y + 1;
-        //    //int ydx = (int)vec.y; 
-
-        //    for (int xdx = (int)vec.x + 1; xdx > 0; xdx--)
-        //    {
-        //        if (map[xdx, ydx] != TileType.None)
-        //        {
-        //            horizontal.Add(new Vector2(xdx, vec.y), new Vector2(xdx, ydx + 1));
-        //            ydx = -1;
-        //        }
-        //        else if (map[xdx - 1, ydx] == TileType.RightEnd)
-        //        {
-        //            veritcal.Add(new Vector2(xdx, vec.y), new Vector2(xdx, ydx));
-        //            ydx = -1;
-        //        }
-        //        else if (map[xdx + 1, ydx] == TileType.LeftEnd)
-        //        {
-        //            veritcal.Add(new Vector2(xdx, vec.y), new Vector2(xdx, ydx));
-        //            ydx = -1;
-        //        }
-        //    }
-        //}
-
         foreach (Vector2 vec in rightEnds)
         {
             int ydx = (int)vec.y; 
@@ -437,27 +432,7 @@ public class MapGenerator : NetworkBehaviour {
             }
 
 
-           // int xdx = (int)vec.x - 1;
-            //int ydx = (int)vec.y; 
-
-            //for (int ydx = (int)vec.y - 1; ydx > 0; ydx--)
-            //{
-            //    if (map[xdx, ydx] != TileType.None)
-            //    {
-            //        veritcal.Add(new Vector2(xdx, vec.y), new Vector2(xdx, ydx + 1));
-            //        ydx = -1;
-            //    }
-            //    else if (map[xdx - 1, ydx] == TileType.RightEnd)
-            //    {
-            //        veritcal.Add(new Vector2(xdx, vec.y), new Vector2(xdx, ydx));
-            //        ydx = -1;
-            //    }
-            //    else if (map[xdx + 1, ydx] == TileType.LeftEnd)
-            //    {
-            //        veritcal.Add(new Vector2(xdx, vec.y), new Vector2(xdx, ydx));
-            //        ydx = -1;
-            //    }
-            //}
+           
         }
 
         foreach (KeyValuePair<Vector2, Vector2> kv in horizontal.KeyValuePairs)
