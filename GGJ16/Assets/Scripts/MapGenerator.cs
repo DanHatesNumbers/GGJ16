@@ -136,18 +136,32 @@ public class MapGenerator : NetworkBehaviour {
     {
         int dividerLevel = UnityEngine.Random.Range(0, HeightSize);
 
+        TileType[,] map = GenerateMap(); 
+
+        List<Vector2> SpawnPoints = GenerateSpawnPoints(map); 
+        
+        InstantiateTiles(map, dividerLevel, availiableTile, SpawnPoints); 
+        
+    }
+
+    /// <summary>
+    /// Generates the map. 
+    /// </summary>
+    /// <returns></returns>
+    protected virtual TileType[,] GenerateMap()
+    {
         TileType[,] map = new TileType[WidthSize, HeightSize];
         for (int xdx = 0; xdx < map.GetLength(0); xdx++)
         {
             for (int ydx = 0; ydx < map.GetLength(1); ydx++)
             {
-                map[xdx, ydx] = TileType.None; 
+                map[xdx, ydx] = TileType.None;
             }
         }
 
-        List<Vector2> SpawnPoints = new List<Vector2>(); 
 
-        int platformNo = UnityEngine.Random.Range(1, HeightSize / 10); 
+
+        int platformNo = UnityEngine.Random.Range(1, HeightSize / 10);
 
         for (int idx = 0; idx < platformNo; idx++)
         {
@@ -169,59 +183,68 @@ public class MapGenerator : NetworkBehaviour {
                         map[platformStart, height] = TileType.RightSlope;
                         map[platformStart, height - 1] = TileType.RightSlopeCorner;
                         height--;
-                        lastDirection = 0; 
+                        lastDirection = 0;
                     }
                     else if (chance < 0.75f || height >= map.GetLength(1) - 1 || lastDirection == 0)
                     {
                         //stay same
                         map[platformStart, height] = TileType.Top;
-                        lastDirection = 1; 
+                        lastDirection = 1;
                     }
                     else
                     {
                         //go up. 
-                        height++; 
+                        height++;
                         map[platformStart, height] = TileType.LeftSlope;
                         map[platformStart, height - 1] = TileType.LeftSlopeCorner;
-                        lastDirection = 2; 
-                        
+                        lastDirection = 2;
+
                     }
 
-                   // map[platformStart, height] = TileType.Top;
+                    // map[platformStart, height] = TileType.Top;
                 }
                 platformStart++;
             }
         }
 
+        return map; 
+    }
 
+    /// <summary>
+    /// Generates the spawnpoints used for spawning. 
+    /// </summary>
+    /// <param name="map"></param>
+    /// <returns></returns>
+    protected virtual List<Vector2> GenerateSpawnPoints(TileType[,] map)
+    {
+        List<Vector2> SpawnPoints = new List<Vector2>();
         //generate spawn points. 
-        int noOfSpawns = UnityEngine.Random.Range(1, WidthSize / 10); 
+        int noOfSpawns = UnityEngine.Random.Range(1, WidthSize / 10);
 
         for (int idx = 0; idx < noOfSpawns; idx++)
         {
-            bool notadded = true; 
+            bool notadded = true;
 
             while (notadded)
             {
                 int xdx = UnityEngine.Random.Range(0, WidthSize);
                 bool foundPlatform = false;
-                int ydx = HeightSize - 1; 
+                int ydx = HeightSize - 1;
                 while (foundPlatform != true && ydx > 0)
                 {
                     if (map[xdx, ydx] != TileType.None)
                     {
                         SpawnPoints.Add(new Vector2(xdx, ydx + 1));
                         foundPlatform = true;
-                        notadded = false; 
+                        notadded = false;
                     }
 
-                    ydx--; 
+                    ydx--;
                 }
             }
         }
-        
-        InstantiateTiles(map, dividerLevel, availiableTile, SpawnPoints); 
-        
+
+        return SpawnPoints; 
     }
 
     /// <summary>
@@ -253,6 +276,7 @@ public class MapGenerator : NetworkBehaviour {
         foreach(Vector2 point in spawnPoints)
         {
             var spawn = (GameObject)Instantiate(SpawnPrefab, new Vector3(point.x * Tilesize, point.y * Tilesize), new Quaternion());
+            spawn.name = "spawnPoint"; 
             Debug.Log(spawn); 
             NetworkServer.Spawn(spawn); 
         }

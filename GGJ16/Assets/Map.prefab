@@ -72,8 +72,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0e172286633c18847ac9bba6739c14d8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  WidthSize: 100
-  HeightSize: 100
+  WidthSize: 50
+  HeightSize: 50
   TileTypes:
   - {fileID: 143882, guid: 33552d9a828dca94ca40c14085c0ff4e, type: 2}
   - {fileID: 177036, guid: 72b60ff20f363d74a8dd5ad7e727aff4, type: 2}
@@ -125,7 +125,15 @@ Prefab:
   serializedVersion: 2
   m_Modification:
     m_TransformParent: {fileID: 0}
-    m_Modifications: []
+    m_Modifications:
+    - target: {fileID: 0}
+      propertyPath: WidthSize
+      value: 50
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: HeightSize
+      value: 50
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 0}
   m_RootGameObject: {fileID: 149812}

@@ -63,7 +63,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   TileTypeID: 8
   TileSet: baseSet
-  Type: 1
+  Type: 4
   TileType: 4
 --- !u!114 &11457904
 MonoBehaviour:
@@ -76,7 +76,7 @@ MonoBehaviour:
   m_Script: {fileID: -1768714887, guid: 870353891bb340e2b2a9c8707e7419ba, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_TransformSyncMode: 0
+  m_TransformSyncMode: 1
   m_SendInterval: 1
   m_SyncRotationAxis: 7
   m_RotationSyncCompression: 0
@@ -164,7 +164,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 0}
       propertyPath: Type
-      value: 1
+      value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 0}
       propertyPath: TileType

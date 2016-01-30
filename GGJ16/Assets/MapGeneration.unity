@@ -298,42 +298,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 1023769612}
   m_RootOrder: 1
---- !u!1 &505816373 stripped
-GameObject:
-  m_PrefabParentObject: {fileID: 149812, guid: 51b2e9991b19b304fb66c0d8dd146b63, type: 2}
-  m_PrefabInternal: {fileID: 969997003}
---- !u!114 &505816374
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 505816373}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 372142912, guid: 870353891bb340e2b2a9c8707e7419ba, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_SceneId:
-    m_Value: 0
-  m_AssetId:
-    i0: 81
-    i1: 178
-    i2: 233
-    i3: 153
-    i4: 27
-    i5: 25
-    i6: 179
-    i7: 4
-    i8: 251
-    i9: 102
-    i10: 192
-    i11: 216
-    i12: 221
-    i13: 20
-    i14: 107
-    i15: 99
-  m_ServerOnly: 1
-  m_LocalPlayerAuthority: 0
 --- !u!1 &540027615
 GameObject:
   m_ObjectHideFlags: 0
@@ -482,7 +446,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 2
+  m_RootOrder: 1
 --- !u!1001 &926459721
 Prefab:
   m_ObjectHideFlags: 0
