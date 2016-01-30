@@ -12,6 +12,8 @@ GameObject:
   - 60: {fileID: 6045818}
   - 50: {fileID: 5001004}
   - 114: {fileID: 11408668}
+  - 114: {fileID: 11457868}
+  - 114: {fileID: 11408446}
   m_Layer: 0
   m_Name: PWUP_Stripy_Purple
   m_TagString: Untagged
@@ -100,6 +102,26 @@ PolygonCollider2D:
       - {x: 0.78999996, y: -1.27}
       - {x: 0.96999997, y: -1.1999999}
       - {x: 1.14, y: -1.05}
+--- !u!114 &11408446
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 134366}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: -1768714887, guid: 870353891bb340e2b2a9c8707e7419ba, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_TransformSyncMode: 2
+  m_SendInterval: 0
+  m_SyncRotationAxis: 3
+  m_RotationSyncCompression: 0
+  m_SyncSpin: 0
+  m_MovementTheshold: 0.001
+  m_SnapThreshold: 5
+  m_InterpolateRotation: 1
+  m_InterpolateMovement: 1
 --- !u!114 &11408668
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -111,6 +133,38 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 742f4fa1413aa0f4eaecf65d12590dc4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &11457868
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 134366}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 372142912, guid: 870353891bb340e2b2a9c8707e7419ba, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_SceneId:
+    m_Value: 0
+  m_AssetId:
+    i0: 188
+    i1: 251
+    i2: 8
+    i3: 18
+    i4: 35
+    i5: 116
+    i6: 188
+    i7: 68
+    i8: 186
+    i9: 152
+    i10: 172
+    i11: 211
+    i12: 253
+    i13: 101
+    i14: 33
+    i15: 152
+  m_ServerOnly: 0
+  m_LocalPlayerAuthority: 0
 --- !u!212 &21233284
 SpriteRenderer:
   m_ObjectHideFlags: 1
@@ -155,6 +209,10 @@ Prefab:
     - target: {fileID: 0}
       propertyPath: m_LocalScale.y
       value: 0.4
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: m_SendInterval
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 0}

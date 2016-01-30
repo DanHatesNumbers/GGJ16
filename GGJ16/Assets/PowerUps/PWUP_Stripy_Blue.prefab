@@ -12,6 +12,8 @@ GameObject:
   - 50: {fileID: 5075772}
   - 60: {fileID: 6067422}
   - 114: {fileID: 11403114}
+  - 114: {fileID: 11412016}
+  - 114: {fileID: 11400274}
   m_Layer: 0
   m_Name: PWUP_Stripy_Blue
   m_TagString: Untagged
@@ -99,6 +101,26 @@ PolygonCollider2D:
       - {x: 0.78999996, y: -1.27}
       - {x: 0.91999996, y: -1.22}
       - {x: 1.05, y: -1.13}
+--- !u!114 &11400274
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 123760}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: -1768714887, guid: 870353891bb340e2b2a9c8707e7419ba, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_TransformSyncMode: 0
+  m_SendInterval: 0
+  m_SyncRotationAxis: 7
+  m_RotationSyncCompression: 0
+  m_SyncSpin: 0
+  m_MovementTheshold: 0.001
+  m_SnapThreshold: 5
+  m_InterpolateRotation: 1
+  m_InterpolateMovement: 1
 --- !u!114 &11403114
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -110,6 +132,38 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 742f4fa1413aa0f4eaecf65d12590dc4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &11412016
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 123760}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 372142912, guid: 870353891bb340e2b2a9c8707e7419ba, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_SceneId:
+    m_Value: 0
+  m_AssetId:
+    i0: 135
+    i1: 237
+    i2: 36
+    i3: 85
+    i4: 161
+    i5: 57
+    i6: 224
+    i7: 196
+    i8: 59
+    i9: 94
+    i10: 126
+    i11: 151
+    i12: 226
+    i13: 142
+    i14: 94
+    i15: 156
+  m_ServerOnly: 0
+  m_LocalPlayerAuthority: 0
 --- !u!212 &21202950
 SpriteRenderer:
   m_ObjectHideFlags: 1
@@ -154,6 +208,10 @@ Prefab:
     - target: {fileID: 0}
       propertyPath: m_LocalScale.y
       value: 0.4
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: m_SendInterval
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 0}
