@@ -11,7 +11,7 @@ namespace AssemblyCSharp
 		public static Action<GameObject> JumpAction = c => 
 		{
 			var rb = c.GetComponent<Rigidbody2D>();
-			rb.AddForce(new Vector2(0f, 5f), ForceMode2D.Impulse);
+			rb.AddForce(new Vector2(0f, 15f), ForceMode2D.Impulse);
 		};
 
 		public static Action<GameObject> MoveLeftAction = c => 
