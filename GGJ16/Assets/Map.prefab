@@ -9,6 +9,7 @@ GameObject:
   m_Component:
   - 4: {fileID: 485718}
   - 114: {fileID: 11435230}
+  - 114: {fileID: 11425880}
   m_Layer: 0
   m_Name: Map
   m_TagString: Untagged
@@ -28,6 +29,38 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
+--- !u!114 &11425880
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 149812}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 372142912, guid: 870353891bb340e2b2a9c8707e7419ba, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_SceneId:
+    m_Value: 0
+  m_AssetId:
+    i0: 81
+    i1: 178
+    i2: 233
+    i3: 153
+    i4: 27
+    i5: 25
+    i6: 179
+    i7: 4
+    i8: 251
+    i9: 102
+    i10: 192
+    i11: 216
+    i12: 221
+    i13: 20
+    i14: 107
+    i15: 99
+  m_ServerOnly: 1
+  m_LocalPlayerAuthority: 0
 --- !u!114 &11435230
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -84,6 +117,8 @@ MonoBehaviour:
   - {fileID: 168898, guid: 8cd5dd2a32a868548b0739d496401320, type: 2}
   TileSets:
   - baseSet
+  Tilesize: 2.56
+  SpawnPrefab: {fileID: 136664, guid: 493085623ff28774fb17d8f7fbcd4e14, type: 2}
 --- !u!1001 &100100000
 Prefab:
   m_ObjectHideFlags: 1
