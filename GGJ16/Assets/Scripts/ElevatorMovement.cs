@@ -13,7 +13,7 @@ public class ElevatorMovement : MonoBehaviour {
     /// </summary>
     int direction = 2;
 
-    public float Speed = 0.5f; 
+    public float Speed = 0.125f; 
 
 	// Use this for initialization
 	void Start () {
