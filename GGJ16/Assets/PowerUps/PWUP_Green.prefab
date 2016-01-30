@@ -12,6 +12,8 @@ GameObject:
   - 50: {fileID: 5042306}
   - 60: {fileID: 6031366}
   - 114: {fileID: 11495504}
+  - 114: {fileID: 11426432}
+  - 114: {fileID: 11449190}
   m_Layer: 0
   m_Name: PWUP_Green
   m_TagString: Untagged
@@ -100,6 +102,58 @@ PolygonCollider2D:
       - {x: 0.78999996, y: -1.27}
       - {x: 0.91999996, y: -1.22}
       - {x: 1.05, y: -1.13}
+--- !u!114 &11426432
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 155544}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 372142912, guid: 870353891bb340e2b2a9c8707e7419ba, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_SceneId:
+    m_Value: 0
+  m_AssetId:
+    i0: 23
+    i1: 104
+    i2: 229
+    i3: 128
+    i4: 209
+    i5: 55
+    i6: 116
+    i7: 164
+    i8: 171
+    i9: 206
+    i10: 254
+    i11: 55
+    i12: 145
+    i13: 172
+    i14: 80
+    i15: 125
+  m_ServerOnly: 0
+  m_LocalPlayerAuthority: 0
+--- !u!114 &11449190
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 155544}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: -1768714887, guid: 870353891bb340e2b2a9c8707e7419ba, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_TransformSyncMode: 0
+  m_SendInterval: 0
+  m_SyncRotationAxis: 7
+  m_RotationSyncCompression: 0
+  m_SyncSpin: 0
+  m_MovementTheshold: 0.001
+  m_SnapThreshold: 5
+  m_InterpolateRotation: 1
+  m_InterpolateMovement: 1
 --- !u!114 &11495504
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -160,6 +214,10 @@ Prefab:
       propertyPath: m_Material
       value: 
       objectReference: {fileID: 6200000, guid: 2d4a5695c5425544ab12578a826a2195, type: 2}
+    - target: {fileID: 0}
+      propertyPath: m_SendInterval
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 0}
   m_RootGameObject: {fileID: 155544}

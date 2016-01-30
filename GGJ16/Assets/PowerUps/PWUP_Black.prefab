@@ -12,6 +12,8 @@ GameObject:
   - 50: {fileID: 5012262}
   - 60: {fileID: 6058656}
   - 114: {fileID: 11442584}
+  - 114: {fileID: 11417130}
+  - 114: {fileID: 11410734}
   m_Layer: 0
   m_Name: PWUP_Black
   m_TagString: Untagged
@@ -101,6 +103,58 @@ PolygonCollider2D:
       - {x: 0.78999996, y: -1.27}
       - {x: 0.91999996, y: -1.22}
       - {x: 1.05, y: -1.13}
+--- !u!114 &11410734
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 152288}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: -1768714887, guid: 870353891bb340e2b2a9c8707e7419ba, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_TransformSyncMode: 2
+  m_SendInterval: 0
+  m_SyncRotationAxis: 3
+  m_RotationSyncCompression: 0
+  m_SyncSpin: 0
+  m_MovementTheshold: 0.001
+  m_SnapThreshold: 5
+  m_InterpolateRotation: 1
+  m_InterpolateMovement: 1
+--- !u!114 &11417130
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 152288}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 372142912, guid: 870353891bb340e2b2a9c8707e7419ba, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_SceneId:
+    m_Value: 0
+  m_AssetId:
+    i0: 59
+    i1: 38
+    i2: 105
+    i3: 232
+    i4: 63
+    i5: 45
+    i6: 77
+    i7: 36
+    i8: 234
+    i9: 44
+    i10: 16
+    i11: 169
+    i12: 95
+    i13: 252
+    i14: 159
+    i15: 72
+  m_ServerOnly: 0
+  m_LocalPlayerAuthority: 0
 --- !u!114 &11442584
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -161,6 +215,10 @@ Prefab:
       propertyPath: m_Material
       value: 
       objectReference: {fileID: 6200000, guid: 2d4a5695c5425544ab12578a826a2195, type: 2}
+    - target: {fileID: 0}
+      propertyPath: m_SendInterval
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 0}
   m_RootGameObject: {fileID: 152288}
