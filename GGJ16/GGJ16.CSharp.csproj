@@ -66,6 +66,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Assets\Attack.cs" />
+    <Compile Include="Assets\FireballBehaviour.cs" />
     <Compile Include="Assets\InputAction.cs" />
     <Compile Include="Assets\PlayerMovement.cs" />
     <Compile Include="Assets\Scripts\DualStore.cs" />
@@ -75,6 +76,7 @@
     <Compile Include="Assets\Scripts\TileNotFoundException.cs" />
     <Compile Include="Assets\Scripts\TileType.cs" />
     <Compile Include="Assets\Scripts\TilesetType.cs" />
+    <Compile Include="Assets\SpawnOnNetwork.cs" />
     <Compile Include="Assets\SpawnPlatforms.cs" />
     <Compile Include="Assets\XboxCtrlrInput\Example\Test Level Scripts\MoveLaser.cs" />
     <Compile Include="Assets\XboxCtrlrInput\Example\Test Level Scripts\MovePlayer.cs" />
