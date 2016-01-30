@@ -146,7 +146,7 @@ public class MapGenerator : NetworkBehaviour {
 
         List<Vector2> SpawnPoints = GenerateSpawnPoints(map);
 
-        GenerateElevators(map); 
+        GenerateElevators(map, dividerLevel, availiableTile); 
 
         InstantiateTiles(map, dividerLevel, availiableTile, SpawnPoints); 
         
@@ -305,7 +305,7 @@ public class MapGenerator : NetworkBehaviour {
     }
 
 
-    protected virtual void GenerateElevators(TileType[,] map)
+    protected virtual void GenerateElevators(TileType[,] map, int dividerLevel, Dictionary<TileSetType, TileLevel> availiableTile)
     {
         List<Vector2> leftEnds = new List<Vector2>();
         List<Vector2> rightEnds = new List<Vector2>(); 
@@ -327,26 +327,51 @@ public class MapGenerator : NetworkBehaviour {
             }
         }
 
+        DualStore<Vector2, Vector2> startEnds = new DualStore<Vector2, Vector2>(); 
 
+        foreach (Vector2 vec in rightEnds)
+        {
+            int xdx = (int)vec.x + 1;
+            //int ydx = (int)vec.y; 
+
+            for (int ydx = (int)vec.y - 1; ydx > 0; ydx--)
+            {
+                if (map[xdx, ydx] != TileType.None)
+                {
+                    startEnds.Add(new Vector2(xdx, vec.y), new Vector2(xdx, ydx + 1));
+                    ydx = -1; 
+                }
+                else if (map[xdx - 1, ydx] == TileType.RightEnd)
+                {
+                    startEnds.Add(new Vector2(xdx, vec.y), new Vector2(xdx, ydx));
+                    ydx = - 1; 
+                }
+                else if (map[xdx + 1, ydx] == TileType.LeftEnd)
+                {
+                    startEnds.Add(new Vector2(xdx, vec.y), new Vector2(xdx, ydx));
+                    ydx = -1; 
+                }
+            }
+        }
 
        
-
-        foreach (Vector2 vec in leftEnds)
+        foreach (KeyValuePair<Vector2, Vector2> kv in startEnds.KeyValuePairs)
         {
+            TileSetType level = kv.Value.y > dividerLevel ? TileSetType.upperLevels : TileSetType.lowerLevels;
 
+            GameObject obj = availiableTile[level].GetTileType(TileType.Platform);
+            
 
-            ////get list of same x axis. 
-            //List<Vector2> same = leftEnds.Where(x => x.x == vec.x && x.y != vec.y).ToList(); 
-
-            //if (same.Count > 0)
-            //{
-            //    Vector2 top;
-            //    Vector2 bottom; 
-
-
-                
-            //}
+            var tile = (GameObject)Instantiate(obj, new Vector3(kv.Key.x * Tilesize, kv.Key.y * Tilesize), new Quaternion());
+            ElevatorMovement move = tile.AddComponent(typeof(ElevatorMovement)) as ElevatorMovement;
+            move.Bottom = new Vector2(kv.Value.x * Tilesize, kv.Value.y * Tilesize);
+            move.Top = new Vector2(kv.Key.x * Tilesize, kv.Key.y * Tilesize);  
+            //ElevatorMovement move = tile.GetComponent<ElevatorMovement>();
+            
+            Debug.Log(tile);
+            NetworkServer.Spawn(tile);
         }
+        
 
     }
     /// <summary>
