@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using UnityEngine.Networking;
 using System.Collections;
 using System.Collections.Generic;
 
@@ -8,7 +9,7 @@ public enum MovementDirection
     updown
 }
 
-public class ElevatorMovement : MonoBehaviour {
+public class ElevatorMovement : NetworkBehaviour {
 
     public Vector2 Top;
 
@@ -38,7 +39,7 @@ public class ElevatorMovement : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-        if (currentUpdate > updateSpeed)
+        if (isServer && currentUpdate > updateSpeed)
         {
             if (moveDir == MovementDirection.updown)
             {
