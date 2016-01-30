@@ -54,7 +54,7 @@ public class PlayerMovement : NetworkBehaviour {
         var inputFireball = new InputAction
         {
             IsTriggered = () => (Input.GetAxis("Fire1") != 0) && CanFire,
-            PlayerAction = p => StartCoroutine("SpawnFireball")
+            PlayerAction = (p, d) => StartCoroutine("SpawnFireball")
         };
 
 		InputActions.Add(inputJump);
@@ -83,7 +83,7 @@ public class PlayerMovement : NetworkBehaviour {
             {
                 if (action.IsTriggered())
                 {
-                    action.PlayerAction(Player);
+                    action.PlayerAction(Player, Time.deltaTime);
                 }
             }
         }
