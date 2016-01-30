@@ -13,6 +13,7 @@ public class PlayerMovement : NetworkBehaviour {
     private float TimeSinceLastFire;
     public const float FireballCooldown = 0.5f;
 
+    [SyncVar]
     public bool FacingLeft;
 
 	public List<InputAction> InputActions;
