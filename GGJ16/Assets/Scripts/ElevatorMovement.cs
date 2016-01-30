@@ -11,6 +11,14 @@ public enum MovementDirection
 
 public class ElevatorMovement : NetworkBehaviour {
 
+    public Vector3 StartPos;
+
+    public Vector3 EndPos;
+
+    float Timer = 0;
+
+    float TimeToTravel = 3; 
+
     public Vector2 Top;
 
     public Vector2 Bottom;
@@ -34,57 +42,78 @@ public class ElevatorMovement : NetworkBehaviour {
 
 	// Use this for initialization
 	void Start () {
-	
+	    
 	}
 	
 	// Update is called once per frame
 	void Update () {
-        if (isServer ) //&& currentUpdate > updateSpeed)
-        {
-            if (moveDir == MovementDirection.updown)
-            {
 
-                if (direction == 1)
-                {
-                    transform.position = new Vector3(transform.position.x, transform.position.y + Speed);
-                    if (transform.position.y > Top.y)
-                    {
-                        direction = 2;
-                    }
-                }
-                else
-                {
-                    transform.position = new Vector3(transform.position.x, transform.position.y - Speed);
-                    if (transform.position.y < Bottom.y)
-                    {
-                        direction = 1;
-                    }
-                }
-            }
-            else if (moveDir == MovementDirection.leftright)
-            {
-                if (direction == 1)
-                {
-                    transform.position = new Vector3(transform.position.x + Speed, transform.position.y);
-                    if (transform.position.x > Left.x)
-                    {
-                        direction = 2;
-                    }
-                }
-                else
-                {
-                    transform.position = new Vector3(transform.position.x - Speed, transform.position.y);
-                    if (transform.position.x < Right.x)
-                    {
-                        direction = 1;
-                    }
-                }
-            }
-            currentUpdate = 0; 
-        }
-        else
+        Timer += Time.deltaTime;
+
+        if (Timer > TimeToTravel)
         {
-            currentUpdate++; 
+            Timer -= TimeToTravel;
+            Vector3 temp = StartPos;
+            StartPos = EndPos;
+            EndPos = temp; 
         }
+
+        transform.position = Vector3.Lerp(StartPos, EndPos, Timer / TimeToTravel); 
+
+        if (isServer)
+        {
+            
+        }
+
+
+
+        //if (isServer ) //&& currentUpdate > updateSpeed)
+        //{
+        //    if (moveDir == MovementDirection.updown)
+        //    {
+
+        //        if (direction == 1)
+        //        {
+        //            transform.position = new Vector3(transform.position.x, transform.position.y + Speed);
+                    
+        //            if (transform.position.y > Top.y)
+        //            {
+        //                direction = 2;
+        //            }
+        //        }
+        //        else
+        //        {
+        //            transform.position = new Vector3(transform.position.x, transform.position.y - Speed);
+        //            if (transform.position.y < Bottom.y)
+        //            {
+        //                direction = 1;
+        //            }
+        //        }
+        //    }
+        //    else if (moveDir == MovementDirection.leftright)
+        //    {
+        //        if (direction == 1)
+        //        {
+        //            transform.position = new Vector3(transform.position.x + Speed, transform.position.y);
+        //            if (transform.position.x > Left.x)
+        //            {
+        //                direction = 2;
+        //            }
+        //        }
+        //        else
+        //        {
+        //            transform.position = new Vector3(transform.position.x - Speed, transform.position.y);
+        //            if (transform.position.x < Right.x)
+        //            {
+        //                direction = 1;
+        //            }
+        //        }
+        //    }
+        //    currentUpdate = 0; 
+        //}
+        //else
+        //{
+        //    currentUpdate++; 
+        //}
 	}
 }
