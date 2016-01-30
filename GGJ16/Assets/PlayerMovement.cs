@@ -24,6 +24,8 @@ public class PlayerMovement : MonoBehaviour {
     public const string IdleRightAnimation = "IdleRight";
     public const string RunLeftAnimation = "RunLeft";
     public const string RunRightAnimation = "RunRight";
+    public const string JumpLeftAnimation = "JumpLeft";
+    public const string JumpRightAnimation = "JumpRight";
 
 	// Use this for initialization
 	void Start () {
@@ -78,17 +80,25 @@ public class PlayerMovement : MonoBehaviour {
         {
             animator.Play(IdleLeftAnimation);
         }
-        else if(FacingLeft && rigidBody.velocity != Vector2.zero)
+        else if(FacingLeft && rigidBody.velocity.x != 0 && rigidBody.velocity.y <= 0)
         {
             animator.Play(RunLeftAnimation);
+        }
+        else if(FacingLeft && rigidBody.velocity.y >= 0)
+        {
+            animator.Play(JumpLeftAnimation);
         }
         else if(!FacingLeft && rigidBody.velocity == Vector2.zero)
         {
             animator.Play(IdleRightAnimation);
         }
-        else if(!FacingLeft && rigidBody.velocity != Vector2.zero)
+        else if(!FacingLeft && rigidBody.velocity.x != 0 && rigidBody.velocity.y <= 0)
         {
             animator.Play(RunRightAnimation);
+        }
+        else if(!FacingLeft && rigidBody.velocity.y >= 0)
+        {
+            animator.Play(JumpRightAnimation);
         }
 	}
 
