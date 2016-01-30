@@ -146,7 +146,7 @@ public class MapGenerator : NetworkBehaviour {
 
         List<Vector2> SpawnPoints = GenerateSpawnPoints(map);
 
-        GenerateElevators(map, dividerLevel, availiableTile); 
+        //GenerateElevators(map, dividerLevel, availiableTile); 
 
         InstantiateTiles(map, dividerLevel, availiableTile, SpawnPoints); 
         
