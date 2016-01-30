@@ -28,8 +28,6 @@ public class PlayerMovement : NetworkBehaviour {
     public const string JumpLeftAnimation = "JumpLeft";
     public const string JumpRightAnimation = "JumpRight";
 
-    public bool isLocalPlayer;
-
 	// Use this for initialization
 	void Start () {
 		InputActions = new List<InputAction> ();
@@ -65,17 +63,14 @@ public class PlayerMovement : NetworkBehaviour {
         FacingLeft = false;
 
         var networkId = GetComponent<NetworkIdentity>();
-        if(networkId.isLocalPlayer)
-        {
-            GetComponentInChildren<Camera>().enabled = true;
-            isLocalPlayer = networkId.isLocalPlayer;
-        }
+        GetComponentInChildren<Camera>().enabled = hasAuthority;
+        Debug.Log(String.Format("Is Local Player? {0}", hasAuthority));
 	}
 	
 	// Update is called once per frame
-	void Update () 
+	void Update ()
 	{
-        if (isLocalPlayer)
+        if (hasAuthority)
         {
             foreach (var action in InputActions)
             {
@@ -91,32 +86,32 @@ public class PlayerMovement : NetworkBehaviour {
 
         if (FacingLeft && rigidBody.velocity == Vector2.zero)
         {
-            Debug.Log("Triggering Idle Left");
+            //Debug.Log("Triggering Idle Left");
             animator.Play(IdleLeftAnimation);
         }
         else if (FacingLeft && rigidBody.velocity.x != 0 && rigidBody.velocity.y <= 0)
         {
-            Debug.Log("Triggering Run Left");
+            //Debug.Log("Triggering Run Left");
             animator.Play(RunLeftAnimation);
         }
         else if (FacingLeft && rigidBody.velocity.y >= 0)
         {
-            Debug.Log("Triggering Jump Left");
+            //Debug.Log("Triggering Jump Left");
             animator.Play(JumpLeftAnimation);
         }
         else if (!FacingLeft && rigidBody.velocity == Vector2.zero)
         {
-            Debug.Log("Triggering Idle Right");
+            //Debug.Log("Triggering Idle Right");
             animator.Play(IdleRightAnimation);
         }
         else if (!FacingLeft && rigidBody.velocity.x != 0 && rigidBody.velocity.y <= 0)
         {
-            Debug.Log("Triggering Run Right");
+            //Debug.Log("Triggering Run Right");
             animator.Play(RunRightAnimation);
         }
         else if (!FacingLeft && rigidBody.velocity.y >= 0)
         {
-            Debug.Log("Triggering Jump Right");
+            //Debug.Log("Triggering Jump Right");
             animator.Play(JumpRightAnimation);
         }
 	}
