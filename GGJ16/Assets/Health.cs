@@ -17,15 +17,16 @@ public class Health : NetworkBehaviour {
 
         if (health <= 0)
         {
-            NetworkServer.Destroy(this.gameObject);
-            Destroy(this.gameObject);
             Network.Disconnect();
+            Destroy(this.gameObject);
         }
     }
 
     void OnCollisionEnter2D(Collision2D collision)
     {
-        if (collision.gameObject.name == "Lava")
+        Debug.Log("Hit detected");
+        Debug.Log(collision.gameObject.name);
+        if (collision.gameObject.name == "LavaBottom")
         {
             TakeDamage(maxHealth);
         }
