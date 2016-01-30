@@ -69,7 +69,7 @@ MonoBehaviour:
   TileTypeID: 3
   TileSet: baseSet
   Type: 1
-  TileType: 7
+  TileType: 13
 --- !u!114 &11413422
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -173,7 +173,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 0}
       propertyPath: TileType
-      value: 7
+      value: 13
       objectReference: {fileID: 0}
     - target: {fileID: 0}
       propertyPath: m_AssetId.i0

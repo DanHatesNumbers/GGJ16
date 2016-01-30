@@ -21,7 +21,9 @@ public class MapGenerator : NetworkBehaviour {
 
     public int MinNumOfPlatforms = 2;
 
-    public int MaxNumOfPlatforms = 10; 
+    public int MaxNumOfPlatforms = 10;
+
+    public int MinPlatformTotalTiles = 10; 
 
     System.Random rand; 
 
@@ -181,6 +183,7 @@ public class MapGenerator : NetworkBehaviour {
 
 
         int platformNo = UnityEngine.Random.Range(MinNumOfPlatforms, MaxNumOfPlatforms);
+        int platformTileNo = 0; 
 
         for (int idx = 0; idx < platformNo; idx++)
         {
@@ -194,6 +197,7 @@ public class MapGenerator : NetworkBehaviour {
             if (map[platformStart, height] == TileType.None)
             {
                 map[platformStart, height] = TileType.LeftEnd;
+                platformTileNo++;
                 platformStart++; 
             }
             else
@@ -214,12 +218,14 @@ public class MapGenerator : NetworkBehaviour {
                         map[platformStart, height - 1] = TileType.RightSlopeCorner;
                         height--;
                         lastDirection = 0;
+                        platformTileNo++;
                     }
                     else if (chance < 0.75f || height >= map.GetLength(1) - 1 || lastDirection == 0)
                     {
                         //stay same
                         map[platformStart, height] = TileType.Top;
                         lastDirection = 1;
+                        platformTileNo++;
                     }
                     else
                     {
@@ -228,6 +234,7 @@ public class MapGenerator : NetworkBehaviour {
                         map[platformStart, height] = TileType.LeftSlope;
                         map[platformStart, height - 1] = TileType.LeftSlopeCorner;
                         lastDirection = 2;
+                        platformTileNo++;
 
                     }
 
@@ -245,6 +252,13 @@ public class MapGenerator : NetworkBehaviour {
             if (map[platformStart, height] == TileType.None)
             {
                 map[platformStart, height] = TileType.RightEnd;
+                platformTileNo++;
+            }
+
+
+            if (idx == platformNo - 1 && platformTileNo < MinPlatformTotalTiles)
+            {
+                idx--; 
             }
         }
 
