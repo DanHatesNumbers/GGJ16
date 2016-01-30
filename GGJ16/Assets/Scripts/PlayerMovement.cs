@@ -10,7 +10,7 @@ public class PlayerMovement : NetworkBehaviour {
 	public GameObject Player;
     public GameObject Fireball;
 
-    public float LastFireTime;
+    public float TimeSinceLastFire;
     public const float FireballCooldown = 0.5f;
 
     public bool FacingLeft;
@@ -58,7 +58,7 @@ public class PlayerMovement : NetworkBehaviour {
 		InputActions.Add(inputMoveLeft);
 		InputActions.Add(inputMoveRight);
         InputActions.Add(inputFireball);
-        LastFireTime = Time.time - FireballCooldown;
+        TimeSinceLastFire = 0f;
         FacingLeft = false;
 
         var networkId = GetComponent<NetworkIdentity>();
@@ -69,6 +69,7 @@ public class PlayerMovement : NetworkBehaviour {
 	// Update is called once per frame
 	void Update ()
 	{
+        TimeSinceLastFire += Time.deltaTime;
         if (hasAuthority)
         {
             foreach (var action in InputActions)
@@ -130,13 +131,13 @@ public class PlayerMovement : NetworkBehaviour {
         var fireball = (GameObject)Instantiate(Fireball, position, Quaternion.Euler(new Vector3(0, 0, 0)));
         var fireballVelocity = FacingLeft ? new Vector2(-5f, 0f) : new Vector2(5f, 0f);
         fireball.GetComponent<Rigidbody2D>().velocity = fireballVelocity;
-        LastFireTime = Time.time;
+        TimeSinceLastFire = 0f;
 
         NetworkServer.Spawn(fireball);
     }
 
     bool CanFireball()
     {
-        return LastFireTime < Time.time - FireballCooldown;
+        return TimeSinceLastFire > FireballCooldown;
     }
 }
