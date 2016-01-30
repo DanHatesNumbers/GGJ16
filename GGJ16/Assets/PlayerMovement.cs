@@ -119,7 +119,14 @@ public class PlayerMovement : NetworkBehaviour {
     void SpawnFireball()
     {
         var position = Player.transform.position;
-        position.x += Player.GetComponent<Collider2D>().bounds.size.x;
+        if (FacingLeft)
+        {
+            position.x -= Player.GetComponent<Collider2D>().bounds.size.x;
+        }
+        else
+        {
+            position.x += Player.GetComponent<Collider2D>().bounds.size.x;
+        }
         var fireball = (GameObject)Instantiate(Fireball, position, Quaternion.Euler(new Vector3(0, 0, 0)));
         var fireballVelocity = FacingLeft ? new Vector2(-5f, 0f) : new Vector2(5f, 0f);
         fireball.GetComponent<Rigidbody2D>().velocity = fireballVelocity;
