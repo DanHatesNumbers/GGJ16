@@ -45,30 +45,27 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-     <Compile Include="Assets\Attack.cs" />
-     <Compile Include="Assets\Health.cs" />
-     <Compile Include="Assets\InputAction.cs" />
-     <Compile Include="Assets\PlayerMovement.cs" />
+     <Compile Include="Assets\PowerUps\RandomRotationOnSpawn.cs" />
+     <Compile Include="Assets\Scripts\Attack.cs" />
      <Compile Include="Assets\Scripts\DualStore.cs" />
+     <Compile Include="Assets\Scripts\FireballBehaviour.cs" />
+     <Compile Include="Assets\Scripts\Health.cs" />
+     <Compile Include="Assets\Scripts\InputAction.cs" />
      <Compile Include="Assets\Scripts\MapGenerator.cs" />
+     <Compile Include="Assets\Scripts\PlayerMovement.cs" />
+     <Compile Include="Assets\Scripts\PowerUpSpawner.cs" />
+     <Compile Include="Assets\Scripts\SpawnOnNetwork.cs" />
+     <Compile Include="Assets\Scripts\SpawnPlatforms.cs" />
      <Compile Include="Assets\Scripts\TileDetails.cs" />
      <Compile Include="Assets\Scripts\TileLevel.cs" />
      <Compile Include="Assets\Scripts\TileNotFoundException.cs" />
      <Compile Include="Assets\Scripts\TileType.cs" />
      <Compile Include="Assets\Scripts\TilesetType.cs" />
-     <Compile Include="Assets\SpawnOnNetwork.cs" />
-     <Compile Include="Assets\SpawnPlatforms.cs" />
-     <Compile Include="Assets\XboxCtrlrInput\Example\Test Level Scripts\MoveLaser.cs" />
-     <Compile Include="Assets\XboxCtrlrInput\Example\Test Level Scripts\MovePlayer.cs" />
-     <Compile Include="Assets\XboxCtrlrInput\XboxCtrlrInput.cs" />
  <Reference Include="UnityEngine.UI">
  <HintPath>C:/Program Files/Unity/Editor/Data/UnityExtensions/Unity/GUISystem/UnityEngine.UI.dll</HintPath>
  </Reference>
  <Reference Include="UnityEngine.Networking">
  <HintPath>C:/Program Files/Unity/Editor/Data/UnityExtensions/Unity/Networking/UnityEngine.Networking.dll</HintPath>
- </Reference>
- <Reference Include="XInputDotNetPure">
- <HintPath>C:/Users/benba_000/Documents/GitHub/GGJ16/GGJ16/Assets/Plugins/x86_64/XInputDotNetPure.dll</HintPath>
  </Reference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

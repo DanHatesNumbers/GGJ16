@@ -71,7 +71,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   TileTypeID: 27
   TileSet: baseSet
-  Type: 4
+  Type: 2
   TileType: 7
 --- !u!114 &11463524
 MonoBehaviour:
@@ -172,7 +172,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 0}
       propertyPath: Type
-      value: 4
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 0}
       propertyPath: TileType
