@@ -17,5 +17,8 @@ public enum TileType
     LeftSlopeCorner, 
     LeftEnd, 
     RightEnd, 
-    Platform
+    Platform,
+    LeftWall,
+    RightWall,
+    Lava
 }

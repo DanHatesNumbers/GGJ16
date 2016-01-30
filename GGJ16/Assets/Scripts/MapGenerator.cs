@@ -155,13 +155,28 @@ public class MapGenerator : NetworkBehaviour {
         {
             for (int ydx = 0; ydx < map.GetLength(1); ydx++)
             {
-                map[xdx, ydx] = TileType.None;
+                if (xdx == 0)
+                {
+                    map[xdx, ydx] = TileType.LeftWall;
+                }
+                else if (xdx == map.GetLength(0) - 1)
+                {
+                    map[xdx, ydx] = TileType.RightWall;
+                }
+                else if (ydx == 0)
+                {
+                    map[xdx, ydx] = TileType.Lava;
+                }
+                else
+                {
+                    map[xdx, ydx] = TileType.None;
+                }
             }
         }
 
 
 
-        int platformNo = UnityEngine.Random.Range(2, HeightSize / 5);
+        int platformNo = UnityEngine.Random.Range(2, HeightSize / 2);
 
         for (int idx = 0; idx < platformNo; idx++)
         {
@@ -271,7 +286,7 @@ public class MapGenerator : NetworkBehaviour {
             for (int ydx = 0; ydx < map.GetLength(1); ydx++)
             {
                 TileType type = map[xdx, ydx]; 
-                if (type != TileType.None && ydx > 0)
+                if (type != TileType.None && type != TileType.Lava)
                 {
                     TileSetType level = ydx > dividerLevel ? TileSetType.upperLevels : TileSetType.lowerLevels;
 
@@ -281,7 +296,7 @@ public class MapGenerator : NetworkBehaviour {
                     Debug.Log(tile);
                     NetworkServer.Spawn(tile);
                 }
-                else if (ydx == 0)
+                else if (type == TileType.Lava)
                 {
                     GameObject obj = availiableTile[TileSetType.lava].GetTileType(TileType.Top);
                     var tile = (GameObject)Instantiate(obj, new Vector3(xdx * Tilesize, ydx * Tilesize), new Quaternion());
