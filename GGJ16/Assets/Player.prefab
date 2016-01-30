@@ -110,7 +110,7 @@ Camera:
     height: 1
   near clip plane: 0.3
   far clip plane: 1000
-  field of view: 60
+  field of view: 120
   orthographic: 0
   orthographic size: 5
   m_Depth: 0
@@ -311,6 +311,10 @@ Prefab:
       propertyPath: Fireball
       value: 
       objectReference: {fileID: 177850, guid: a02133d2678814437ba3451e62fa8f78, type: 2}
+    - target: {fileID: 0}
+      propertyPath: field of view
+      value: 120
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 0}
   m_RootGameObject: {fileID: 186400}
