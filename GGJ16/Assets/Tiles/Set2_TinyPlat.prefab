@@ -13,6 +13,7 @@ GameObject:
   - 114: {fileID: 11436102}
   - 114: {fileID: 11458464}
   - 114: {fileID: 11472030}
+  - 114: {fileID: 11493302}
   m_Layer: 0
   m_Name: Set2_TinyPlat
   m_TagString: Untagged
@@ -137,6 +138,17 @@ MonoBehaviour:
   m_SnapThreshold: 5
   m_InterpolateRotation: 1
   m_InterpolateMovement: 1
+--- !u!114 &11493302
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 150490}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d9e5cb1725ce25b48bac0eea0a61aa71, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!212 &21202954
 SpriteRenderer:
   m_ObjectHideFlags: 1

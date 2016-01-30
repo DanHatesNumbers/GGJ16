@@ -40,7 +40,6 @@ public class PowerUpSpawner : NetworkBehaviour {
     void CmdSpawnPowerUp()
     {
         int spawnIndex = Random.Range(0, PowerUpRepo.Count - 1);
-        Debug.Log(PowerUpRepo[spawnIndex].name);
         GameObject Spawned = GameObject.Instantiate(PowerUpRepo[spawnIndex]);
         Spawned.transform.position = new Vector3(Random.Range(3f, ((float)(MG.WidthSize - 3) * 2.56f)),
                                             Random.Range(3f, ((float)(MG.HeightSize) * 2.56f)));

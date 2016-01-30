@@ -13,6 +13,7 @@ GameObject:
   - 114: {fileID: 11483998}
   - 114: {fileID: 11448472}
   - 114: {fileID: 11448148}
+  - 114: {fileID: 11421922}
   m_Layer: 0
   m_Name: Set2_Top
   m_TagString: Untagged
@@ -71,6 +72,17 @@ PolygonCollider2D:
       - {x: -0.07, y: -0.22}
       - {x: 0.02, y: -0.22999999}
       - {x: 0.16, y: -0.25}
+--- !u!114 &11421922
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 150098}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d9e5cb1725ce25b48bac0eea0a61aa71, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &11448148
 MonoBehaviour:
   m_ObjectHideFlags: 1
