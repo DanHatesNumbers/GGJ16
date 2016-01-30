@@ -133,7 +133,7 @@ public class PlayerMovement : NetworkBehaviour {
         fireball.GetComponent<Rigidbody2D>().velocity = fireballVelocity;
         TimeSinceLastFire = 0f;
 
-        NetworkServer.SpawnWithClientAuthority(fireball, this);
+        NetworkServer.SpawnWithClientAuthority(fireball, Player);
     }
 
     bool CanFireball()
