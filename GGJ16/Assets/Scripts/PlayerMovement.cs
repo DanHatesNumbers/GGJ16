@@ -71,6 +71,9 @@ public class PlayerMovement : NetworkBehaviour {
 	// Update is called once per frame
 	void Update ()
 	{
+        var animator = GetComponentInChildren<Animator>();
+        var rigidBody = GetComponent<Rigidbody2D>();
+
         if (hasAuthority)
         {
             TimeSinceLastFire += Time.deltaTime;
@@ -81,107 +84,42 @@ public class PlayerMovement : NetworkBehaviour {
                     action.PlayerAction(Player);
                 }
             }
-
-            var animator = GetComponentInChildren<Animator>();
-            var rigidBody = GetComponent<Rigidbody2D>();
-
-            if (FacingLeft && rigidBody.velocity == Vector2.zero)
-            {
-                //Debug.Log("Triggering Idle Left");
-                animator.Play(IdleLeftAnimation);
-                playerAnimation = AnimationStateEnum.IdleLeft;
-            }
-            else if (FacingLeft && rigidBody.velocity.x != 0 && rigidBody.velocity.y <= 0)
-            {
-                //Debug.Log("Triggering Run Left");
-                animator.Play(RunLeftAnimation);
-                playerAnimation = AnimationStateEnum.RunLeft;
-            }
-            else if (FacingLeft && rigidBody.velocity.y >= 0)
-            {
-                //Debug.Log("Triggering Jump Left");
-                animator.Play(JumpLeftAnimation);
-                playerAnimation = AnimationStateEnum.JumpLeft;
-            }
-            else if (!FacingLeft && rigidBody.velocity == Vector2.zero)
-            {
-                //Debug.Log("Triggering Idle Right");
-                animator.Play(IdleRightAnimation);
-                playerAnimation = AnimationStateEnum.IdleRight;
-            }
-            else if (!FacingLeft && rigidBody.velocity.x != 0 && rigidBody.velocity.y <= 0)
-            {
-                //Debug.Log("Triggering Run Right");
-                animator.Play(RunRightAnimation);
-                playerAnimation = AnimationStateEnum.RunRight;
-            }
-            else if (!FacingLeft && rigidBody.velocity.y >= 0)
-            {
-                //Debug.Log("Triggering Jump Right");
-                animator.Play(JumpRightAnimation);
-                playerAnimation = AnimationStateEnum.JumpRight;
-            }
         }
-        else
+        var playerVelocity = this.GetComponent<Rigidbody2D>().velocity;
+        if (playerVelocity.x > 0.5f)
         {
-            var animator = GetComponentInChildren<Animator>();
-            if (this.GetComponent<Rigidbody2D>().velocity.x > 0.5f)
+            if (playerVelocity.y > 0.5f)
             {
-                if (this.GetComponent<Rigidbody2D>().velocity.y > 0.5f)
-                {
-                    animator.Play(JumpRightAnimation);
-                }
-                else
-                {
-                    animator.Play(RunRightAnimation);
-                }
+                animator.Play(JumpRightAnimation);
             }
-            else if (this.GetComponent<Rigidbody2D>().velocity.x > 0f)
+            else
             {
-                animator.Play(IdleRightAnimation);
+                animator.Play(RunRightAnimation);
             }
+            FacingLeft = false;
+        }
+        else if (playerVelocity.x > 0f)
+        {
+            animator.Play(IdleRightAnimation);
+            FacingLeft = false;
+        }
 
-            if (this.GetComponent<Rigidbody2D>().velocity.x < -0.5f)
+        if (playerVelocity.x < -0.5f)
+        {
+            if (playerVelocity.y > 0.5f)
             {
-                if (this.GetComponent<Rigidbody2D>().velocity.y > 0.5f)
-                {
-                    animator.Play(JumpLeftAnimation);
-                }
-                else
-                {
-                    animator.Play(RunLeftAnimation);
-                }
+                animator.Play(JumpLeftAnimation);
             }
-            else if (this.GetComponent<Rigidbody2D>().velocity.x < 0f)
+            else
             {
-                animator.Play(IdleLeftAnimation);
+                animator.Play(RunLeftAnimation);
             }
-
-
-
-
-            /*switch(playerAnimation)
-            {
-                case AnimationStateEnum.IdleLeft:
-                    animator.Play(IdleLeftAnimation);
-                    break;
-                case AnimationStateEnum.RunLeft:
-                    animator.Play(RunLeftAnimation);
-                    break;
-                case AnimationStateEnum.JumpLeft:
-                    animator.Play(JumpLeftAnimation);
-                    break;
-                case AnimationStateEnum.IdleRight:
-                    animator.Play(IdleRightAnimation);
-                    break;
-                case AnimationStateEnum.RunRight:
-                    animator.Play(RunRightAnimation);
-                    break;
-                case AnimationStateEnum.JumpRight:
-                    animator.Play(JumpRightAnimation);
-                    break;
-
-            }*/
+            FacingLeft = true;
+        }
+        else if (playerVelocity.x < 0f)
+        {
+            animator.Play(IdleLeftAnimation);
+            FacingLeft = true;
         }
 	}
 
