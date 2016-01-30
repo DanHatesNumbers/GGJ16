@@ -149,9 +149,9 @@ public class PlayerMovement : NetworkBehaviour {
             position.x += Player.GetComponent<Collider2D>().bounds.size.x;
         }
         var fireball = (GameObject)Instantiate(Fireball, position, Quaternion.Euler(new Vector3(0, 0, 0)));
-        var fireballVelocity = FacingLeft ? new Vector2(-5f, 0f) : new Vector2(5f, 0f);
-        fireball.GetComponent<Rigidbody2D>().velocity = fireballVelocity;
+        var fireballVelocity = FacingLeft ? new Vector2(-500f, 0f) : new Vector2(500f, 0f);
+        fireball.GetComponent<Rigidbody2D>().AddForce(fireballVelocity, ForceMode2D.Impulse);
 
-        NetworkServer.SpawnWithClientAuthority(fireball, Player);
+        NetworkServer.Spawn(fireball);
     }
 }
