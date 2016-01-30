@@ -12,6 +12,8 @@ GameObject:
   - 50: {fileID: 5095278}
   - 58: {fileID: 5845240}
   - 114: {fileID: 11461800}
+  - 114: {fileID: 11476260}
+  - 114: {fileID: 11402868}
   m_Layer: 0
   m_Name: PWUP_SpottyDotty_Green
   m_TagString: Untagged
@@ -62,6 +64,26 @@ CircleCollider2D:
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
   m_Radius: 1.28
+--- !u!114 &11402868
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 175976}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: -1768714887, guid: 870353891bb340e2b2a9c8707e7419ba, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_TransformSyncMode: 2
+  m_SendInterval: 0
+  m_SyncRotationAxis: 3
+  m_RotationSyncCompression: 0
+  m_SyncSpin: 0
+  m_MovementTheshold: 0.001
+  m_SnapThreshold: 5
+  m_InterpolateRotation: 1
+  m_InterpolateMovement: 1
 --- !u!114 &11461800
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -73,6 +95,38 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 742f4fa1413aa0f4eaecf65d12590dc4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &11476260
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 175976}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 372142912, guid: 870353891bb340e2b2a9c8707e7419ba, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_SceneId:
+    m_Value: 0
+  m_AssetId:
+    i0: 148
+    i1: 53
+    i2: 129
+    i3: 210
+    i4: 171
+    i5: 144
+    i6: 255
+    i7: 52
+    i8: 249
+    i9: 240
+    i10: 163
+    i11: 114
+    i12: 30
+    i13: 206
+    i14: 194
+    i15: 164
+  m_ServerOnly: 0
+  m_LocalPlayerAuthority: 0
 --- !u!212 &21245262
 SpriteRenderer:
   m_ObjectHideFlags: 1
@@ -122,6 +176,10 @@ Prefab:
       propertyPath: m_Material
       value: 
       objectReference: {fileID: 6200000, guid: 7671528c90a04ae4580f1488f84fec8c, type: 2}
+    - target: {fileID: 0}
+      propertyPath: m_SendInterval
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 0}
   m_RootGameObject: {fileID: 175976}

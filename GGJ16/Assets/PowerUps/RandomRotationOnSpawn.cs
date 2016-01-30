@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
+using UnityEngine.Networking;
 
 public class RandomRotationOnSpawn : MonoBehaviour
 {
@@ -20,6 +21,7 @@ public class RandomRotationOnSpawn : MonoBehaviour
     {
         if((Col.gameObject.name == "LavaBottom") || (Col.gameObject.name == "KillZ"))
         {
+            NetworkServer.Destroy(this.gameObject);
             Destroy(this.gameObject);
         }
 
