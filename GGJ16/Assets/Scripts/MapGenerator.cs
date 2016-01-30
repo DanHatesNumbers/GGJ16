@@ -17,9 +17,15 @@ public class MapGenerator : NetworkBehaviour {
 
     public float Tilesize = 2.56f;
 
+    public GameObject SpawnPrefab;
+
+    System.Random rand; 
+
     public override void OnStartServer()
     {
         if (!isServer) return;
+        int seed = UnityEngine.Random.seed; 
+        rand = new System.Random(seed); 
 
         //splits all the objects into something I can search with. 
         DualStore<TileDetails, GameObject> gameObjects = new DualStore<TileDetails, GameObject>(); 
@@ -37,7 +43,7 @@ public class MapGenerator : NetworkBehaviour {
 
         foreach(TileSetType type in Enum.GetValues(typeof(TileSetType)))
         {
-            TileLevel level = new TileLevel(UnityEngine.Random.seed);
+            TileLevel level = new TileLevel(seed);
             DualStore<TileDetails, GameObject> tileSetTiles = GetTileSetType(gameObjects, type); 
 
             foreach(TileType ttype in Enum.GetValues(typeof(TileType)))
@@ -130,59 +136,125 @@ public class MapGenerator : NetworkBehaviour {
     {
         int dividerLevel = UnityEngine.Random.Range(0, HeightSize);
 
+        TileType[,] map = GenerateMap(); 
+
+        List<Vector2> SpawnPoints = GenerateSpawnPoints(map); 
+        
+        InstantiateTiles(map, dividerLevel, availiableTile, SpawnPoints); 
+        
+    }
+
+    /// <summary>
+    /// Generates the map. 
+    /// </summary>
+    /// <returns></returns>
+    protected virtual TileType[,] GenerateMap()
+    {
         TileType[,] map = new TileType[WidthSize, HeightSize];
         for (int xdx = 0; xdx < map.GetLength(0); xdx++)
         {
             for (int ydx = 0; ydx < map.GetLength(1); ydx++)
             {
-                map[xdx, ydx] = TileType.None; 
+                map[xdx, ydx] = TileType.None;
             }
         }
 
-        int platformNo = UnityEngine.Random.Range(1, HeightSize / 10); 
+
+
+        int platformNo = UnityEngine.Random.Range(1, HeightSize / 10);
 
         for (int idx = 0; idx < platformNo; idx++)
         {
             int height = UnityEngine.Random.Range(0, HeightSize);
-            int platformLength = UnityEngine.Random.Range(1, WidthSize);
+            int platformLength = UnityEngine.Random.Range(2, WidthSize);
 
             int platformStart = UnityEngine.Random.Range(1, platformLength);
 
-            while (platformStart < platformLength)
+            int lastDirection = 1; //0 is down, 1 is straight, 2 is up. 
+
+            if (map[platformStart, height] == TileType.None)
+            {
+                map[platformStart, height] = TileType.LeftEnd;
+            }
+
+            while (platformStart < platformLength - 1)
             {
                 if (map[platformStart, height] == TileType.None)
                 {
                     float chance = UnityEngine.Random.value;
-                    if (chance < 0.25f && height > 1)
+                    if (chance < 0.25f && height > 1 && lastDirection != 2)
                     {
                         //go down
                         map[platformStart, height] = TileType.RightSlope;
                         map[platformStart, height - 1] = TileType.RightSlopeCorner;
-                        height--; 
+                        height--;
+                        lastDirection = 0;
                     }
-                    else if (chance < 0.75f || height >= map.GetLength(1) - 1)
+                    else if (chance < 0.75f || height >= map.GetLength(1) - 1 || lastDirection == 0)
                     {
                         //stay same
                         map[platformStart, height] = TileType.Top;
+                        lastDirection = 1;
                     }
                     else
                     {
                         //go up. 
-                        height++; 
+                        height++;
                         map[platformStart, height] = TileType.LeftSlope;
                         map[platformStart, height - 1] = TileType.LeftSlopeCorner;
-                        
+                        lastDirection = 2;
+
                     }
 
-                   // map[platformStart, height] = TileType.Top;
+                    // map[platformStart, height] = TileType.Top;
                 }
                 platformStart++;
             }
+
+            if (map[platformStart, height] == TileType.None)
+            {
+                map[platformStart, height] = TileType.RightEnd;
+            }
         }
 
-        
-        InstantiateTiles(map, dividerLevel, availiableTile); 
-        
+        return map; 
+    }
+
+    /// <summary>
+    /// Generates the spawnpoints used for spawning. 
+    /// </summary>
+    /// <param name="map"></param>
+    /// <returns></returns>
+    protected virtual List<Vector2> GenerateSpawnPoints(TileType[,] map)
+    {
+        List<Vector2> SpawnPoints = new List<Vector2>();
+        //generate spawn points. 
+        int noOfSpawns = UnityEngine.Random.Range(1, WidthSize / 10);
+
+        for (int idx = 0; idx < noOfSpawns; idx++)
+        {
+            bool notadded = true;
+
+            while (notadded)
+            {
+                int xdx = UnityEngine.Random.Range(0, WidthSize);
+                bool foundPlatform = false;
+                int ydx = HeightSize - 1;
+                while (foundPlatform != true && ydx > 0)
+                {
+                    if (map[xdx, ydx] != TileType.None)
+                    {
+                        SpawnPoints.Add(new Vector2(xdx, ydx + 1));
+                        foundPlatform = true;
+                        notadded = false;
+                    }
+
+                    ydx--;
+                }
+            }
+        }
+
+        return SpawnPoints; 
     }
 
     /// <summary>
@@ -191,14 +263,14 @@ public class MapGenerator : NetworkBehaviour {
     /// <param name="map"></param>
     /// <param name="dividerLevel"></param>
     /// <param name="availiableTile"></param>
-    protected virtual void InstantiateTiles(TileType[,] map, int dividerLevel, Dictionary<TileSetType, TileLevel> availiableTile)
+    protected virtual void InstantiateTiles(TileType[,] map, int dividerLevel, Dictionary<TileSetType, TileLevel> availiableTile, List<Vector2> spawnPoints)
     {
         for (int xdx = 0; xdx < map.GetLength(0); xdx++)
         {
             for (int ydx = 0; ydx < map.GetLength(1); ydx++)
             {
                 TileType type = map[xdx, ydx]; 
-                if (type != TileType.None)
+                if (type != TileType.None && ydx > 0)
                 {
                     TileSetType level = ydx > dividerLevel ? TileSetType.upperLevels : TileSetType.lowerLevels;
 
@@ -208,7 +280,23 @@ public class MapGenerator : NetworkBehaviour {
                     Debug.Log(tile);
                     NetworkServer.Spawn(tile);
                 }
+                else if (ydx == 0)
+                {
+                    GameObject obj = availiableTile[TileSetType.lava].GetTileType(TileType.Top);
+                    var tile = (GameObject)Instantiate(obj, new Vector3(xdx * Tilesize, ydx * Tilesize), new Quaternion());
+
+                    Debug.Log(tile);
+                    NetworkServer.Spawn(tile);
+                }
             }
+        }
+
+        foreach(Vector2 point in spawnPoints)
+        {
+            var spawn = (GameObject)Instantiate(SpawnPrefab, new Vector3(point.x * Tilesize, point.y * Tilesize), new Quaternion());
+            spawn.name = "spawnPoint"; 
+            Debug.Log(spawn); 
+            NetworkServer.Spawn(spawn); 
         }
     }
 }

@@ -1,11 +1,12 @@
 ﻿using UnityEngine;
+using UnityEngine.Networking;
 using System.Collections;
 using System.Collections.Generic;
 using AssemblyCSharp;
 using XboxCtrlrInput;
 using System;
 
-public class PlayerMovement : MonoBehaviour {
+public class PlayerMovement : NetworkBehaviour {
 
 	public GameObject Player;
     public GameObject Fireball;
@@ -60,50 +61,57 @@ public class PlayerMovement : MonoBehaviour {
         InputActions.Add(inputFireball);
         LastFireTime = Time.time - FireballCooldown;
         FacingLeft = false;
+
+        var networkId = GetComponent<NetworkIdentity>();
+        GetComponentInChildren<Camera>().enabled = hasAuthority;
+        Debug.Log(String.Format("Is Local Player? {0}", hasAuthority));
 	}
 	
 	// Update is called once per frame
-	void Update () 
+	void Update ()
 	{
-		foreach (var action in InputActions) 
-		{
-			if(action.IsTriggered())
-			{
-				action.PlayerAction(Player);
-			}
-		}
+        if (hasAuthority)
+        {
+            foreach (var action in InputActions)
+            {
+                if (action.IsTriggered())
+                {
+                    action.PlayerAction(Player);
+                }
+            }
+        }
 
         var animator = GetComponentInChildren<Animator>();
         var rigidBody = GetComponent<Rigidbody2D>();
 
-        if(FacingLeft && rigidBody.velocity == Vector2.zero)
+        if (FacingLeft && rigidBody.velocity == Vector2.zero)
         {
-            Debug.Log("Triggering Idle Left");
+            //Debug.Log("Triggering Idle Left");
             animator.Play(IdleLeftAnimation);
         }
-        else if(FacingLeft && rigidBody.velocity.x != 0 && rigidBody.velocity.y <= 0)
+        else if (FacingLeft && rigidBody.velocity.x != 0 && rigidBody.velocity.y <= 0)
         {
-            Debug.Log("Triggering Run Left");
+            //Debug.Log("Triggering Run Left");
             animator.Play(RunLeftAnimation);
         }
-        else if(FacingLeft && rigidBody.velocity.y >= 0)
+        else if (FacingLeft && rigidBody.velocity.y >= 0)
         {
-            Debug.Log("Triggering Jump Left");
+            //Debug.Log("Triggering Jump Left");
             animator.Play(JumpLeftAnimation);
         }
-        else if(!FacingLeft && rigidBody.velocity == Vector2.zero)
+        else if (!FacingLeft && rigidBody.velocity == Vector2.zero)
         {
-            Debug.Log("Triggering Idle Right");
+            //Debug.Log("Triggering Idle Right");
             animator.Play(IdleRightAnimation);
         }
-        else if(!FacingLeft && rigidBody.velocity.x != 0 && rigidBody.velocity.y <= 0)
+        else if (!FacingLeft && rigidBody.velocity.x != 0 && rigidBody.velocity.y <= 0)
         {
-            Debug.Log("Triggering Run Right");
+            //Debug.Log("Triggering Run Right");
             animator.Play(RunRightAnimation);
         }
-        else if(!FacingLeft && rigidBody.velocity.y >= 0)
+        else if (!FacingLeft && rigidBody.velocity.y >= 0)
         {
-            Debug.Log("Triggering Jump Right");
+            //Debug.Log("Triggering Jump Right");
             animator.Play(JumpRightAnimation);
         }
 	}
