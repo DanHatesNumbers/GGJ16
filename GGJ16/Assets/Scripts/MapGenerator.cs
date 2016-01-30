@@ -21,7 +21,9 @@ public class MapGenerator : NetworkBehaviour {
 
     public int MinNumOfPlatforms = 2;
 
-    public int MaxNumOfPlatforms = 10; 
+    public int MaxNumOfPlatforms = 10;
+
+    public int MinPlatformTotalTiles = 10; 
 
     System.Random rand; 
 
@@ -142,8 +144,10 @@ public class MapGenerator : NetworkBehaviour {
 
         TileType[,] map = GenerateMap(); 
 
-        List<Vector2> SpawnPoints = GenerateSpawnPoints(map); 
-        
+        List<Vector2> SpawnPoints = GenerateSpawnPoints(map);
+
+        GenerateElevators(map, dividerLevel, availiableTile); 
+
         InstantiateTiles(map, dividerLevel, availiableTile, SpawnPoints); 
         
     }
@@ -181,6 +185,7 @@ public class MapGenerator : NetworkBehaviour {
 
 
         int platformNo = UnityEngine.Random.Range(MinNumOfPlatforms, MaxNumOfPlatforms);
+        int platformTileNo = 0; 
 
         for (int idx = 0; idx < platformNo; idx++)
         {
@@ -194,6 +199,7 @@ public class MapGenerator : NetworkBehaviour {
             if (map[platformStart, height] == TileType.None)
             {
                 map[platformStart, height] = TileType.LeftEnd;
+                platformTileNo++;
                 platformStart++; 
             }
             else
@@ -214,12 +220,14 @@ public class MapGenerator : NetworkBehaviour {
                         map[platformStart, height - 1] = TileType.RightSlopeCorner;
                         height--;
                         lastDirection = 0;
+                        platformTileNo++;
                     }
                     else if (chance < 0.75f || height >= map.GetLength(1) - 1 || lastDirection == 0)
                     {
                         //stay same
                         map[platformStart, height] = TileType.Top;
                         lastDirection = 1;
+                        platformTileNo++;
                     }
                     else
                     {
@@ -228,6 +236,7 @@ public class MapGenerator : NetworkBehaviour {
                         map[platformStart, height] = TileType.LeftSlope;
                         map[platformStart, height - 1] = TileType.LeftSlopeCorner;
                         lastDirection = 2;
+                        platformTileNo++;
 
                     }
 
@@ -245,6 +254,13 @@ public class MapGenerator : NetworkBehaviour {
             if (map[platformStart, height] == TileType.None)
             {
                 map[platformStart, height] = TileType.RightEnd;
+                platformTileNo++;
+            }
+
+
+            if (idx == platformNo - 1 && platformTileNo < MinPlatformTotalTiles)
+            {
+                idx--; 
             }
         }
 
@@ -288,6 +304,100 @@ public class MapGenerator : NetworkBehaviour {
         return SpawnPoints; 
     }
 
+
+    protected virtual void GenerateElevators(TileType[,] map, int dividerLevel, Dictionary<TileSetType, TileLevel> availiableTile)
+    {
+        List<Vector2> leftEnds = new List<Vector2>();
+        List<Vector2> rightEnds = new List<Vector2>(); 
+
+        for (int xdx = 0; xdx < map.GetLength(0); xdx++)
+        {
+            for (int ydx = 0; ydx < map.GetLength(1); ydx++)
+            {
+                TileType type = map[xdx, ydx]; 
+
+                if (type == TileType.LeftEnd)
+                {
+                    leftEnds.Add(new Vector2(xdx, ydx)); 
+                }
+                else if (type == TileType.RightEnd)
+                {
+                    rightEnds.Add(new Vector2(xdx, ydx)); 
+                }
+            }
+        }
+
+        DualStore<Vector2, Vector2> startEnds = new DualStore<Vector2, Vector2>(); 
+
+        foreach (Vector2 vec in rightEnds)
+        {
+            int xdx = (int)vec.x + 1;
+            //int ydx = (int)vec.y; 
+
+            for (int ydx = (int)vec.y - 1; ydx > 0; ydx--)
+            {
+                if (map[xdx, ydx] != TileType.None)
+                {
+                    startEnds.Add(new Vector2(xdx, vec.y), new Vector2(xdx, ydx + 1));
+                    ydx = -1; 
+                }
+                else if (map[xdx - 1, ydx] == TileType.RightEnd)
+                {
+                    startEnds.Add(new Vector2(xdx, vec.y), new Vector2(xdx, ydx));
+                    ydx = - 1; 
+                }
+                else if (map[xdx + 1, ydx] == TileType.LeftEnd)
+                {
+                    startEnds.Add(new Vector2(xdx, vec.y), new Vector2(xdx, ydx));
+                    ydx = -1; 
+                }
+            }
+        }
+
+        foreach (Vector2 vec in leftEnds)
+        {
+            int xdx = (int)vec.x - 1;
+            //int ydx = (int)vec.y; 
+
+            for (int ydx = (int)vec.y - 1; ydx > 0; ydx--)
+            {
+                if (map[xdx, ydx] != TileType.None)
+                {
+                    startEnds.Add(new Vector2(xdx, vec.y), new Vector2(xdx, ydx + 1));
+                    ydx = -1;
+                }
+                else if (map[xdx - 1, ydx] == TileType.RightEnd)
+                {
+                    startEnds.Add(new Vector2(xdx, vec.y), new Vector2(xdx, ydx));
+                    ydx = -1;
+                }
+                else if (map[xdx + 1, ydx] == TileType.LeftEnd)
+                {
+                    startEnds.Add(new Vector2(xdx, vec.y), new Vector2(xdx, ydx));
+                    ydx = -1;
+                }
+            }
+        }
+
+        foreach (KeyValuePair<Vector2, Vector2> kv in startEnds.KeyValuePairs)
+        {
+            TileSetType level = kv.Value.y > dividerLevel ? TileSetType.upperLevels : TileSetType.lowerLevels;
+
+            GameObject obj = availiableTile[level].GetTileType(TileType.Platform);
+            
+
+            var tile = (GameObject)Instantiate(obj, new Vector3(kv.Key.x * Tilesize, kv.Key.y * Tilesize), new Quaternion());
+            ElevatorMovement move = tile.AddComponent(typeof(ElevatorMovement)) as ElevatorMovement;
+            move.Bottom = new Vector2(kv.Value.x * Tilesize, kv.Value.y * Tilesize);
+            move.Top = new Vector2(kv.Key.x * Tilesize, kv.Key.y * Tilesize);  
+            //ElevatorMovement move = tile.GetComponent<ElevatorMovement>();
+            
+            Debug.Log(tile);
+            NetworkServer.Spawn(tile);
+        }
+        
+
+    }
     /// <summary>
     /// Instantiates all the tiles. 
     /// </summary>
