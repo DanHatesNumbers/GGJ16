@@ -46,6 +46,13 @@
   </ItemGroup>
   <ItemGroup>
      <Compile Include="Assets\Attack.cs" />
+     <Compile Include="Assets\Scripts\DualStore.cs" />
+     <Compile Include="Assets\Scripts\MapGenerator.cs" />
+     <Compile Include="Assets\Scripts\TileDetails.cs" />
+     <Compile Include="Assets\Scripts\TileLevel.cs" />
+     <Compile Include="Assets\Scripts\TileNotFoundException.cs" />
+     <Compile Include="Assets\Scripts\TileType.cs" />
+     <Compile Include="Assets\Scripts\TilesetType.cs" />
      <Compile Include="Assets\SpawnPlatforms.cs" />
  <Reference Include="UnityEngine.UI">
  <HintPath>C:/Program Files/Unity/Editor/Data/UnityExtensions/Unity/GUISystem/UnityEngine.UI.dll</HintPath>
