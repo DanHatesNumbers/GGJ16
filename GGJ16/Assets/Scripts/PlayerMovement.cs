@@ -10,7 +10,7 @@ public class PlayerMovement : NetworkBehaviour {
 	public GameObject Player;
     public GameObject Fireball;
 
-    public float TimeSinceLastFire;
+    private float TimeSinceLastFire;
     public const float FireballCooldown = 0.5f;
 
     public bool FacingLeft;
@@ -69,9 +69,9 @@ public class PlayerMovement : NetworkBehaviour {
 	// Update is called once per frame
 	void Update ()
 	{
-        TimeSinceLastFire += Time.deltaTime;
         if (hasAuthority)
         {
+            TimeSinceLastFire += Time.deltaTime;
             foreach (var action in InputActions)
             {
                 if (action.IsTriggered())
@@ -119,7 +119,7 @@ public class PlayerMovement : NetworkBehaviour {
     [Command]
     void CmdSpawnFireball()
     {
-        var position = Player.transform.position;
+        Vector2 position = Player.transform.position;
         if (FacingLeft)
         {
             position.x -= Player.GetComponent<Collider2D>().bounds.size.x;
