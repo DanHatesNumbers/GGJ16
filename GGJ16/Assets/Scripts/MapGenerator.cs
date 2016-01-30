@@ -3,8 +3,9 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System;
+using UnityEngine.Networking;
 
-public class MapGenerator : MonoBehaviour {
+public class MapGenerator : NetworkBehaviour {
 
     public int WidthSize = 100;
 
@@ -14,12 +15,12 @@ public class MapGenerator : MonoBehaviour {
 
     public List<string> TileSets = new List<string>();
 
-    public float Tilesize = 2.56f; 
+    public float Tilesize = 2.56f;
 
+    public override void OnStartServer()
+    {
+        if (!isServer) return;
 
-
-	// Use this for initialization
-	void Start () {
         //splits all the objects into something I can search with. 
         DualStore<TileDetails, GameObject> gameObjects = new DualStore<TileDetails, GameObject>(); 
 
@@ -179,6 +180,7 @@ public class MapGenerator : MonoBehaviour {
             }
         }
 
+        
         InstantiateTiles(map, dividerLevel, availiableTile); 
         
     }
@@ -201,7 +203,10 @@ public class MapGenerator : MonoBehaviour {
                     TileSetType level = ydx > dividerLevel ? TileSetType.upperLevels : TileSetType.lowerLevels;
 
                     GameObject obj = availiableTile[level].GetTileType(type);
-                    Instantiate(obj, new Vector3(xdx * Tilesize, ydx * Tilesize), new Quaternion()); 
+                    var tile = (GameObject) Instantiate(obj, new Vector3(xdx * Tilesize, ydx * Tilesize), new Quaternion());
+
+                    Debug.Log(tile);
+                    NetworkServer.Spawn(tile);
                 }
             }
         }
