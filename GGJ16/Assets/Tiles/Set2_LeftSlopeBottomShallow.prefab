@@ -13,6 +13,7 @@ GameObject:
   - 114: {fileID: 11433902}
   - 114: {fileID: 11414944}
   - 114: {fileID: 11464654}
+  - 114: {fileID: 11492678}
   m_Layer: 0
   m_Name: Set2_LeftSlopeBottomShallow
   m_TagString: Untagged
@@ -118,6 +119,17 @@ MonoBehaviour:
   m_SnapThreshold: 5
   m_InterpolateRotation: 1
   m_InterpolateMovement: 1
+--- !u!114 &11492678
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 193904}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d9e5cb1725ce25b48bac0eea0a61aa71, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!212 &21275748
 SpriteRenderer:
   m_ObjectHideFlags: 1
