@@ -117,7 +117,7 @@ MonoBehaviour:
     i13: 80
     i14: 205
     i15: 119
-  m_ServerOnly: 0
+  m_ServerOnly: 1
   m_LocalPlayerAuthority: 0
 --- !u!114 &11472030
 MonoBehaviour:
@@ -167,6 +167,7 @@ MonoBehaviour:
   Right: {x: 0, y: 0}
   Speed: 0.125
   moveDir: 1
+  updateSpeed: 5
 --- !u!212 &21202954
 SpriteRenderer:
   m_ObjectHideFlags: 1
@@ -282,7 +283,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 0}
       propertyPath: m_ServerOnly
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 0}
       propertyPath: m_SendInterval
