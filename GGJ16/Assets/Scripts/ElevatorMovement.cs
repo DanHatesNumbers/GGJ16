@@ -39,7 +39,7 @@ public class ElevatorMovement : NetworkBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-        if (isServer && currentUpdate > updateSpeed)
+        if (isServer ) //&& currentUpdate > updateSpeed)
         {
             if (moveDir == MovementDirection.updown)
             {
