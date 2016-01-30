@@ -1,8 +1,9 @@
 ﻿using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
+using UnityEngine.Networking;
 
-public class PowerUpSpawner : MonoBehaviour {
+public class PowerUpSpawner : NetworkBehaviour {
 
     public List<GameObject> PowerUpRepo;
     public float SpawnRate = 5.0f;
@@ -31,11 +32,20 @@ public class PowerUpSpawner : MonoBehaviour {
         if (timeSinceLastSpawn > SpawnRate)
         {
             timeSinceLastSpawn -= SpawnRate;
-            int spawnIndex = Random.Range(0, PowerUpRepo.Count - 1);
-            GameObject Spawned = GameObject.Instantiate(PowerUpRepo[spawnIndex]);
-            Spawned.transform.position = new Vector3(Random.Range(3f,((float)(MG.WidthSize - 3)*2.56f)),
-                                                Random.Range(3f, ((float)(MG.HeightSize) * 2.56f)));
-            Spawned.name = PowerUpRepo[spawnIndex].name;
+            CmdSpawnPowerUp();
         }
 	}
+
+    [Command]
+    void CmdSpawnPowerUp()
+    {
+        int spawnIndex = Random.Range(0, PowerUpRepo.Count - 1);
+        Debug.Log(PowerUpRepo[spawnIndex].name);
+        GameObject Spawned = GameObject.Instantiate(PowerUpRepo[spawnIndex]);
+        Spawned.transform.position = new Vector3(Random.Range(3f, ((float)(MG.WidthSize - 3) * 2.56f)),
+                                            Random.Range(3f, ((float)(MG.HeightSize) * 2.56f)));
+        Spawned.name = PowerUpRepo[spawnIndex].name;
+
+        NetworkServer.Spawn(Spawned);
+    }
 }
