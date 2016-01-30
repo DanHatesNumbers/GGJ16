@@ -231,9 +231,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Player: {fileID: 186400}
-  Fireball: {fileID: 193898, guid: a02133d2678814437ba3451e62fa8f78, type: 2}
-  LastFireTime: 0
+  Fireball: {fileID: 177850, guid: a02133d2678814437ba3451e62fa8f78, type: 2}
   FacingLeft: 0
+  CanFire: 0
 --- !u!114 &11482058
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -307,6 +307,10 @@ Prefab:
       propertyPath: m_SendInterval
       value: 0.06666667
       objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: Fireball
+      value: 
+      objectReference: {fileID: 177850, guid: a02133d2678814437ba3451e62fa8f78, type: 2}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 0}
   m_RootGameObject: {fileID: 186400}
