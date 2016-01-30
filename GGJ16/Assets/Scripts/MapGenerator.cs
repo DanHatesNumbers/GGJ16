@@ -23,7 +23,9 @@ public class MapGenerator : NetworkBehaviour {
 
     public int MaxNumOfPlatforms = 25;
 
-    public int MinPlatformTotalTiles = 10; 
+    public int MinPlatformTotalTiles = 10;
+
+    public int numberOfSpawns = 20;
 
     System.Random rand; 
 
@@ -276,9 +278,9 @@ public class MapGenerator : NetworkBehaviour {
     {
         List<Vector2> SpawnPoints = new List<Vector2>();
         //generate spawn points. 
-        int noOfSpawns = UnityEngine.Random.Range(1, WidthSize / 10);
+        //int noOfSpawns = UnityEngine.Random.Range(1, WidthSize / 10);
 
-        for (int idx = 0; idx < noOfSpawns; idx++)
+        for (int idx = 0; idx < numberOfSpawns; idx++)
         {
             bool notadded = true;
 
