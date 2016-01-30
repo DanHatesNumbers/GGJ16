@@ -10,8 +10,8 @@ namespace AssemblyCSharp
 
         public static Action<GameObject, float> JumpAction = (c, delta) => 
 		{
-            var forceAmount = 3f * delta * 100;
-            Debug.Log(String.Format("Jump input action delta: {0}, total force: {1}", delta, forceAmount));
+            var forceAmount = 13f;
+            //Debug.Log(String.Format("Jump input action delta: {0}, total force: {1}", delta, forceAmount));
 			var rb = c.GetComponent<Rigidbody2D>();
             rb.AddForce(new Vector2(0f, forceAmount), ForceMode2D.Impulse);
 		};
