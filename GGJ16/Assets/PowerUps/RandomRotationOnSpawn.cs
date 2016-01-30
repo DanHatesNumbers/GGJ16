@@ -18,7 +18,7 @@ public class RandomRotationOnSpawn : MonoBehaviour
 
     void OnCollisionEnter2D(Collision2D Col)
     {
-        if((Col.gameObject.name == "Lava") || (Col.gameObject.name == "KillZ"))
+        if((Col.gameObject.name == "LavaBottom") || (Col.gameObject.name == "KillZ"))
         {
             Destroy(this.gameObject);
         }
