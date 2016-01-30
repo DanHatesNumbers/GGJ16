@@ -27,6 +27,8 @@ public class PlayerMovement : NetworkBehaviour {
     public const string JumpLeftAnimation = "JumpLeft";
     public const string JumpRightAnimation = "JumpRight";
 
+    private AnimationStateEnum playerAnimation;
+
 	// Use this for initialization
 	void Start () {
 		InputActions = new List<InputAction> ();
@@ -87,31 +89,62 @@ public class PlayerMovement : NetworkBehaviour {
             {
                 //Debug.Log("Triggering Idle Left");
                 animator.Play(IdleLeftAnimation);
+                playerAnimation = AnimationStateEnum.IdleLeft;
             }
             else if (FacingLeft && rigidBody.velocity.x != 0 && rigidBody.velocity.y <= 0)
             {
                 //Debug.Log("Triggering Run Left");
                 animator.Play(RunLeftAnimation);
+                playerAnimation = AnimationStateEnum.RunLeft;
             }
             else if (FacingLeft && rigidBody.velocity.y >= 0)
             {
                 //Debug.Log("Triggering Jump Left");
                 animator.Play(JumpLeftAnimation);
+                playerAnimation = AnimationStateEnum.JumpLeft;
             }
             else if (!FacingLeft && rigidBody.velocity == Vector2.zero)
             {
                 //Debug.Log("Triggering Idle Right");
                 animator.Play(IdleRightAnimation);
+                playerAnimation = AnimationStateEnum.IdleRight;
             }
             else if (!FacingLeft && rigidBody.velocity.x != 0 && rigidBody.velocity.y <= 0)
             {
                 //Debug.Log("Triggering Run Right");
                 animator.Play(RunRightAnimation);
+                playerAnimation = AnimationStateEnum.RunRight;
             }
             else if (!FacingLeft && rigidBody.velocity.y >= 0)
             {
                 //Debug.Log("Triggering Jump Right");
                 animator.Play(JumpRightAnimation);
+                playerAnimation = AnimationStateEnum.JumpRight;
+            }
+        }
+        else
+        {
+            var animator = GetComponentInChildren<Animator>();
+            switch(playerAnimation)
+            {
+                case AnimationStateEnum.IdleLeft:
+                    animator.Play(IdleLeftAnimation);
+                    break;
+                case AnimationStateEnum.RunLeft:
+                    animator.Play(RunLeftAnimation);
+                    break;
+                case AnimationStateEnum.JumpLeft:
+                    animator.Play(JumpLeftAnimation);
+                    break;
+                case AnimationStateEnum.IdleRight:
+                    animator.Play(IdleRightAnimation);
+                    break;
+                case AnimationStateEnum.RunRight:
+                    animator.Play(RunRightAnimation);
+                    break;
+                case AnimationStateEnum.JumpRight:
+                    animator.Play(JumpRightAnimation);
+                    break;
             }
         }
 	}
