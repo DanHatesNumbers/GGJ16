@@ -19,6 +19,10 @@ public class MapGenerator : NetworkBehaviour {
 
     public GameObject SpawnPrefab;
 
+    public int MinNumOfPlatforms = 2;
+
+    public int MaxNumOfPlatforms = 10; 
+
     System.Random rand; 
 
     public override void OnStartServer()
@@ -176,7 +180,7 @@ public class MapGenerator : NetworkBehaviour {
 
 
 
-        int platformNo = UnityEngine.Random.Range(2, HeightSize / 2);
+        int platformNo = UnityEngine.Random.Range(MinNumOfPlatforms, MaxNumOfPlatforms);
 
         for (int idx = 0; idx < platformNo; idx++)
         {
@@ -191,6 +195,11 @@ public class MapGenerator : NetworkBehaviour {
             {
                 map[platformStart, height] = TileType.LeftEnd;
                 platformStart++; 
+            }
+            else
+            {
+                platformNo--;
+                platformStart = platformLength; 
             }
 
             while (platformStart < platformLength - 1)
@@ -224,6 +233,12 @@ public class MapGenerator : NetworkBehaviour {
 
                     // map[platformStart, height] = TileType.Top;
                 }
+                else
+                {
+                    map[platformStart - 1, height] = TileType.RightEnd;
+                    platformStart = platformLength; 
+                }
+
                 platformStart++;
             }
 
@@ -253,7 +268,7 @@ public class MapGenerator : NetworkBehaviour {
 
             while (notadded)
             {
-                int xdx = UnityEngine.Random.Range(0, WidthSize);
+                int xdx = UnityEngine.Random.Range(1, WidthSize - 1);
                 bool foundPlatform = false;
                 int ydx = HeightSize - 1;
                 while (foundPlatform != true && ydx > 0)
@@ -300,7 +315,7 @@ public class MapGenerator : NetworkBehaviour {
                 {
                     GameObject obj = availiableTile[TileSetType.lava].GetTileType(TileType.Top);
                     var tile = (GameObject)Instantiate(obj, new Vector3(xdx * Tilesize, ydx * Tilesize), new Quaternion());
-
+                    tile.name = "Lava"; 
                     Debug.Log(tile);
                     NetworkServer.Spawn(tile);
                 }
