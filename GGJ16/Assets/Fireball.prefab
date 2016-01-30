@@ -95,7 +95,7 @@ MonoBehaviour:
     i14: 143
     i15: 120
   m_ServerOnly: 0
-  m_LocalPlayerAuthority: 0
+  m_LocalPlayerAuthority: 1
 --- !u!114 &11438804
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -207,6 +207,10 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 0}
       propertyPath: FireballTimeout
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: m_LocalPlayerAuthority
       value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
