@@ -50,7 +50,8 @@ public class ElevatorMovement : NetworkBehaviour {
 	// Update is called once per frame
 	void Update () {
 
-        
+        if (isServer)
+        {
             Timer += Time.deltaTime;
 
             if (Timer > TimeToTravel)
@@ -58,15 +59,15 @@ public class ElevatorMovement : NetworkBehaviour {
                 Timer -= TimeToTravel;
                 Vector3 temp = StartPos;
                 StartPos = EndPos;
-                EndPos = temp; 
+                EndPos = temp;
             }
 
-            transform.position = Vector3.Lerp(StartPos, EndPos, Timer / TimeToTravel);
-            
-            if (isClient)
-            {
-                trueValue = Vector3.Lerp(transform.position, trueValue, Timer / TimeToTravel);
-                transform.position = trueValue;
-            }
+            trueValue = Vector3.Lerp(StartPos, EndPos, Timer / TimeToTravel);
+        }
+        //if (isClient)
+        //{
+            transform.position = Vector3.Lerp(transform.position, trueValue, Time.deltaTime * 5);
+            //transform.position = trueValue;
+        //}
 	}
 }
