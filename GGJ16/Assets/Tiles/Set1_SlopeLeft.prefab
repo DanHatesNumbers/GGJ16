@@ -13,6 +13,7 @@ GameObject:
   - 114: {fileID: 11470896}
   - 114: {fileID: 11471102}
   - 114: {fileID: 11416552}
+  - 114: {fileID: 11490762}
   m_Layer: 0
   m_Name: Set1_SlopeLeft
   m_TagString: Untagged
@@ -118,6 +119,17 @@ MonoBehaviour:
     i15: 227
   m_ServerOnly: 0
   m_LocalPlayerAuthority: 0
+--- !u!114 &11490762
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 108100}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d9e5cb1725ce25b48bac0eea0a61aa71, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!212 &21262864
 SpriteRenderer:
   m_ObjectHideFlags: 1

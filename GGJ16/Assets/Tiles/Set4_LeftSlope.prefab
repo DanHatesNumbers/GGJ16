@@ -13,6 +13,7 @@ GameObject:
   - 114: {fileID: 11410940}
   - 114: {fileID: 11444636}
   - 114: {fileID: 11462204}
+  - 114: {fileID: 11419952}
   m_Layer: 0
   m_Name: Set4_LeftSlope
   m_TagString: Untagged
@@ -72,6 +73,17 @@ MonoBehaviour:
   TileSet: baseSet
   Type: 2
   TileType: 1
+--- !u!114 &11419952
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 154604}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d9e5cb1725ce25b48bac0eea0a61aa71, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &11444636
 MonoBehaviour:
   m_ObjectHideFlags: 1

@@ -21,12 +21,12 @@ public class DestroyableTerrain : MonoBehaviour {
         {
             Destroy(this.gameObject);
         }
-        if (Col.gameObject.name == "FireBall")
+        if (Col.gameObject.name == "Fireball(Clone)")
         {
             if (this.GetComponent<Rigidbody2D>() == null)
             {
                 this.gameObject.AddComponent<Rigidbody2D>();
-                
+                this.GetComponent<Rigidbody2D>().mass = 0.1f;
             }
             Destroy(Col.gameObject);
         }
