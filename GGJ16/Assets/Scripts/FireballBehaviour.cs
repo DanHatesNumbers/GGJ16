@@ -6,13 +6,18 @@ using System;
 public class FireballBehaviour : MonoBehaviour {
     // Use this for initialization
     public float FireballForceScale;
+    public float FireballTimeout;
+    private float SpawnTime;
 	void Start () {
-        
+        SpawnTime = Time.time;
 	}
 	
 	// Update is called once per frame
 	void Update () {
-        
+        if(Time.time > SpawnTime + FireballTimeout)
+        {
+            Destroy(this.gameObject);
+        }
 	}
 
     void OnCollisionEnter2D(Collision2D col)
