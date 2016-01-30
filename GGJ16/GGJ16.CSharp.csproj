@@ -67,7 +67,6 @@
     <Compile Include="Assets\PowerUps\RandomRotationOnSpawn.cs" />
     <Compile Include="Assets\Scripts\Attack.cs" />
     <Compile Include="Assets\Scripts\DualStore.cs" />
-    <Compile Include="Assets\Scripts\SideWaysPlatformMovement.cs" />
     <Compile Include="Assets\Scripts\ElevatorMovement.cs" />
     <Compile Include="Assets\Scripts\FireballBehaviour.cs" />
     <Compile Include="Assets\Scripts\Health.cs" />
@@ -82,6 +81,7 @@
     <Compile Include="Assets\Scripts\TileNotFoundException.cs" />
     <Compile Include="Assets\Scripts\TileType.cs" />
     <Compile Include="Assets\Scripts\TilesetType.cs" />
+    <Compile Include="Assets\Tiles\DestroyableTerrain.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\SyntaxTree\UnityVS\2015\UnityVS.CSharp.targets" />
 </Project>

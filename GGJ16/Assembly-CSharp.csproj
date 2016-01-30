@@ -1,11 +1,12 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <ProductVersion>10.0.20506</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
-    <RootNamespace></RootNamespace>
+    <RootNamespace>
+    </RootNamespace>
     <ProjectGuid>{4EC8343E-75C9-246A-E79F-06C1CB66EAA6}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
@@ -45,31 +46,30 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-     <Compile Include="Assets\PowerUps\RandomRotationOnSpawn.cs" />
-     <Compile Include="Assets\Scripts\Attack.cs" />
-     <Compile Include="Assets\Scripts\DualStore.cs" />
-     <Compile Include="Assets\Scripts\ElevatorMovement.cs" />
-     <Compile Include="Assets\Scripts\FireballBehaviour.cs" />
-     <Compile Include="Assets\Scripts\Health.cs" />
-     <Compile Include="Assets\Scripts\InputAction.cs" />
-     <Compile Include="Assets\Scripts\MapGenerator.cs" />
-     <Compile Include="Assets\Scripts\PlayerMovement.cs" />
-     <Compile Include="Assets\Scripts\PowerUpSpawner.cs" />
-     <Compile Include="Assets\Scripts\SideWaysPlatformMovement.cs" />
-     <Compile Include="Assets\Scripts\SpawnOnNetwork.cs" />
-     <Compile Include="Assets\Scripts\SpawnPlatforms.cs" />
-     <Compile Include="Assets\Scripts\TileDetails.cs" />
-     <Compile Include="Assets\Scripts\TileLevel.cs" />
-     <Compile Include="Assets\Scripts\TileNotFoundException.cs" />
-     <Compile Include="Assets\Scripts\TileType.cs" />
-     <Compile Include="Assets\Scripts\TilesetType.cs" />
-     <Compile Include="Assets\Tiles\DestroyableTerrain.cs" />
- <Reference Include="UnityEngine.UI">
- <HintPath>C:/Program Files/Unity/Editor/Data/UnityExtensions/Unity/GUISystem/UnityEngine.UI.dll</HintPath>
- </Reference>
- <Reference Include="UnityEngine.Networking">
- <HintPath>C:/Program Files/Unity/Editor/Data/UnityExtensions/Unity/Networking/UnityEngine.Networking.dll</HintPath>
- </Reference>
+    <Compile Include="Assets\PowerUps\RandomRotationOnSpawn.cs" />
+    <Compile Include="Assets\Scripts\Attack.cs" />
+    <Compile Include="Assets\Scripts\DualStore.cs" />
+    <Compile Include="Assets\Scripts\ElevatorMovement.cs" />
+    <Compile Include="Assets\Scripts\FireballBehaviour.cs" />
+    <Compile Include="Assets\Scripts\Health.cs" />
+    <Compile Include="Assets\Scripts\InputAction.cs" />
+    <Compile Include="Assets\Scripts\MapGenerator.cs" />
+    <Compile Include="Assets\Scripts\PlayerMovement.cs" />
+    <Compile Include="Assets\Scripts\PowerUpSpawner.cs" />
+    <Compile Include="Assets\Scripts\SpawnOnNetwork.cs" />
+    <Compile Include="Assets\Scripts\SpawnPlatforms.cs" />
+    <Compile Include="Assets\Scripts\TileDetails.cs" />
+    <Compile Include="Assets\Scripts\TileLevel.cs" />
+    <Compile Include="Assets\Scripts\TileNotFoundException.cs" />
+    <Compile Include="Assets\Scripts\TileType.cs" />
+    <Compile Include="Assets\Scripts\TilesetType.cs" />
+    <Compile Include="Assets\Tiles\DestroyableTerrain.cs" />
+    <Reference Include="UnityEngine.UI">
+      <HintPath>C:/Program Files/Unity/Editor/Data/UnityExtensions/Unity/GUISystem/UnityEngine.UI.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEngine.Networking">
+      <HintPath>C:/Program Files/Unity/Editor/Data/UnityExtensions/Unity/Networking/UnityEngine.Networking.dll</HintPath>
+    </Reference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
@@ -79,5 +79,4 @@
   <Target Name="AfterBuild">
   </Target>
   -->
-  
 </Project>

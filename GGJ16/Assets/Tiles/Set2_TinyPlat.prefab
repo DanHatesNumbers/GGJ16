@@ -14,6 +14,7 @@ GameObject:
   - 114: {fileID: 11458464}
   - 114: {fileID: 11472030}
   - 114: {fileID: 11493302}
+  - 114: {fileID: 11498832}
   m_Layer: 0
   m_Name: Set2_TinyPlat
   m_TagString: Untagged
@@ -149,6 +150,23 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d9e5cb1725ce25b48bac0eea0a61aa71, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &11498832
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 150490}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2d01acb4bef96b240b4cb99be8b5cb82, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Top: {x: 0, y: 0}
+  Bottom: {x: 0, y: 0}
+  Left: {x: 0, y: 0}
+  Right: {x: 0, y: 0}
+  Speed: 0.125
+  moveDir: 1
 --- !u!212 &21202954
 SpriteRenderer:
   m_ObjectHideFlags: 1
@@ -273,6 +291,10 @@ Prefab:
     - target: {fileID: 0}
       propertyPath: TileType
       value: 12
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: moveDir
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 0}
