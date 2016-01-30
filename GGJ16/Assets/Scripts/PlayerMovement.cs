@@ -14,6 +14,7 @@ public class PlayerMovement : NetworkBehaviour {
     public const float FireballCooldown = 0.5f;
 
     public bool FacingLeft;
+    public bool CanFire;
 
 	public List<InputAction> InputActions;
 
@@ -52,8 +53,8 @@ public class PlayerMovement : NetworkBehaviour {
 
         var inputFireball = new InputAction
         {
-            IsTriggered = () => (Input.GetAxis("Fire1") != 0) && CanFireball(),
-            PlayerAction = p => CmdSpawnFireball()
+            IsTriggered = () => (Input.GetAxis("Fire1") != 0) && CanFire,
+            PlayerAction = p => StartCoroutine("SpawnFireball")
         };
 
 		InputActions.Add(inputJump);
@@ -62,6 +63,7 @@ public class PlayerMovement : NetworkBehaviour {
         InputActions.Add(inputFireball);
         TimeSinceLastFire = 0f;
         FacingLeft = false;
+        CanFire = true;
 
         var networkId = GetComponent<NetworkIdentity>();
         GetComponentInChildren<Camera>().enabled = hasAuthority;
@@ -123,6 +125,17 @@ public class PlayerMovement : NetworkBehaviour {
         }
 	}
 
+    IEnumerator SpawnFireball()
+    {
+        CanFire = false;
+
+        CmdSpawnFireball();
+
+        yield return new WaitForSeconds(FireballCooldown);
+
+        CanFire = true;
+    }
+
     [Command]
     void CmdSpawnFireball()
     {
@@ -138,13 +151,7 @@ public class PlayerMovement : NetworkBehaviour {
         var fireball = (GameObject)Instantiate(Fireball, position, Quaternion.Euler(new Vector3(0, 0, 0)));
         var fireballVelocity = FacingLeft ? new Vector2(-5f, 0f) : new Vector2(5f, 0f);
         fireball.GetComponent<Rigidbody2D>().velocity = fireballVelocity;
-        TimeSinceLastFire = 0f;
 
         NetworkServer.SpawnWithClientAuthority(fireball, Player);
-    }
-
-    bool CanFireball()
-    {
-        return TimeSinceLastFire > FireballCooldown;
     }
 }
