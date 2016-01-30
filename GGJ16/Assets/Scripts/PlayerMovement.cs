@@ -51,7 +51,7 @@ public class PlayerMovement : NetworkBehaviour {
         var inputFireball = new InputAction
         {
             IsTriggered = () => (Input.GetAxis("Fire1") != 0) && CanFireball(),
-            PlayerAction = p => SpawnFireball()
+            PlayerAction = p => CmdSpawnFireball()
         };
 
 		InputActions.Add(inputJump);
@@ -115,7 +115,8 @@ public class PlayerMovement : NetworkBehaviour {
         }
 	}
 
-    void SpawnFireball()
+    [Command]
+    void CmdSpawnFireball()
     {
         var position = Player.transform.position;
         if (FacingLeft)
@@ -130,6 +131,8 @@ public class PlayerMovement : NetworkBehaviour {
         var fireballVelocity = FacingLeft ? new Vector2(-5f, 0f) : new Vector2(5f, 0f);
         fireball.GetComponent<Rigidbody2D>().velocity = fireballVelocity;
         LastFireTime = Time.time;
+
+        NetworkServer.Spawn(fireball);
     }
 
     bool CanFireball()
