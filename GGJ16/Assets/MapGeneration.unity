@@ -307,15 +307,19 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 11435230, guid: 51b2e9991b19b304fb66c0d8dd146b63, type: 2}
       propertyPath: MinNumOfPlatforms
-      value: 20
+      value: 100
       objectReference: {fileID: 0}
     - target: {fileID: 11435230, guid: 51b2e9991b19b304fb66c0d8dd146b63, type: 2}
       propertyPath: MaxNumOfPlatforms
-      value: 50
+      value: 200
       objectReference: {fileID: 0}
     - target: {fileID: 11435230, guid: 51b2e9991b19b304fb66c0d8dd146b63, type: 2}
       propertyPath: MinPlatformTotalTiles
       value: 20
+      objectReference: {fileID: 0}
+    - target: {fileID: 11435230, guid: 51b2e9991b19b304fb66c0d8dd146b63, type: 2}
+      propertyPath: numberOfSpawns
+      value: 10
       objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 11412586, guid: 51b2e9991b19b304fb66c0d8dd146b63, type: 2}
