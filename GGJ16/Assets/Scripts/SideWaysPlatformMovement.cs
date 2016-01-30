@@ -2,14 +2,14 @@
 using System.Collections;
 using System.Collections.Generic;
 
-public class ElevatorMovement : MonoBehaviour {
+public class SidewaysPlatformMovement : MonoBehaviour {
 
-    public Vector2 Top;
+    public Vector2 Left;
 
-    public Vector2 Bottom;
+    public Vector2 Right;
 
     /// <summary>
-    /// 1 is up, 2 is down. 
+    /// 1 is left, 2 is right. 
     /// </summary>
     int direction = 2;
 
@@ -26,16 +26,16 @@ public class ElevatorMovement : MonoBehaviour {
         
         if (direction == 1)
         {
-            transform.position = new Vector3(transform.position.x, transform.position.y + Speed);
-            if (transform.position.y > Top.y)
+            transform.position = new Vector3(transform.position.x + Speed, transform.position.y);
+            if (transform.position.x > Left.x)
             {
                 direction = 2; 
             } 
         }
         else
         {
-            transform.position = new Vector3(transform.position.x, transform.position.y - Speed);
-            if (transform.position.y < Bottom.y)
+            transform.position = new Vector3(transform.position.x - Speed, transform.position.y);
+            if (transform.position.x < Right.x)
             {
                 direction = 1;
             }
