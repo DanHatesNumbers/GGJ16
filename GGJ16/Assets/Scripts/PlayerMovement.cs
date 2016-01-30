@@ -125,7 +125,42 @@ public class PlayerMovement : NetworkBehaviour {
         else
         {
             var animator = GetComponentInChildren<Animator>();
-            switch(playerAnimation)
+            if (this.GetComponent<Rigidbody2D>().velocity.x > 0.5f)
+            {
+                if (this.GetComponent<Rigidbody2D>().velocity.y > 0.5f)
+                {
+                    animator.Play(JumpRightAnimation);
+                }
+                else
+                {
+                    animator.Play(RunRightAnimation);
+                }
+            }
+            else if (this.GetComponent<Rigidbody2D>().velocity.x > 0f)
+            {
+                animator.Play(IdleRightAnimation);
+            }
+
+            if (this.GetComponent<Rigidbody2D>().velocity.x < -0.5f)
+            {
+                if (this.GetComponent<Rigidbody2D>().velocity.y > 0.5f)
+                {
+                    animator.Play(JumpLeftAnimation);
+                }
+                else
+                {
+                    animator.Play(RunLeftAnimation);
+                }
+            }
+            else if (this.GetComponent<Rigidbody2D>().velocity.x < 0f)
+            {
+                animator.Play(IdleLeftAnimation);
+            }
+
+
+
+
+            /*switch(playerAnimation)
             {
                 case AnimationStateEnum.IdleLeft:
                     animator.Play(IdleLeftAnimation);
@@ -145,7 +180,8 @@ public class PlayerMovement : NetworkBehaviour {
                 case AnimationStateEnum.JumpRight:
                     animator.Play(JumpRightAnimation);
                     break;
-            }
+
+            }*/
         }
 	}
 
