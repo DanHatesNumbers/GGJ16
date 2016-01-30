@@ -12,6 +12,7 @@ GameObject:
   - 60: {fileID: 6052908}
   - 114: {fileID: 11407020}
   - 114: {fileID: 11465620}
+  - 114: {fileID: 11427606}
   m_Layer: 0
   m_Name: Set4_SlopeRightShallowBottom
   m_TagString: Untagged
@@ -66,6 +67,26 @@ MonoBehaviour:
   TileSet: baseSet
   Type: 2
   TileType: 4
+--- !u!114 &11427606
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 137948}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: -1768714887, guid: 870353891bb340e2b2a9c8707e7419ba, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_TransformSyncMode: 1
+  m_SendInterval: 1
+  m_SyncRotationAxis: 7
+  m_RotationSyncCompression: 0
+  m_SyncSpin: 0
+  m_MovementTheshold: 0.001
+  m_SnapThreshold: 5
+  m_InterpolateRotation: 1
+  m_InterpolateMovement: 1
 --- !u!114 &11465620
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -96,7 +117,7 @@ MonoBehaviour:
     i13: 190
     i14: 6
     i15: 251
-  m_ServerOnly: 1
+  m_ServerOnly: 0
   m_LocalPlayerAuthority: 0
 --- !u!212 &21247652
 SpriteRenderer:
@@ -217,6 +238,10 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 0}
       propertyPath: m_ServerOnly
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: m_SendInterval
       value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []

@@ -12,6 +12,7 @@ GameObject:
   - 60: {fileID: 6038084}
   - 114: {fileID: 11460628}
   - 114: {fileID: 11427968}
+  - 114: {fileID: 11412406}
   m_Layer: 0
   m_Name: Set4_SlopeLeftShallowBottom
   m_TagString: Untagged
@@ -52,6 +53,26 @@ PolygonCollider2D:
       - {x: 1.03, y: -1.23}
       - {x: 1.1, y: -1.15}
       - {x: 1.28, y: -1.0799999}
+--- !u!114 &11412406
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 136894}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: -1768714887, guid: 870353891bb340e2b2a9c8707e7419ba, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_TransformSyncMode: 0
+  m_SendInterval: 1
+  m_SyncRotationAxis: 7
+  m_RotationSyncCompression: 0
+  m_SyncSpin: 0
+  m_MovementTheshold: 0.001
+  m_SnapThreshold: 5
+  m_InterpolateRotation: 1
+  m_InterpolateMovement: 1
 --- !u!114 &11427968
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -82,7 +103,7 @@ MonoBehaviour:
     i13: 53
     i14: 63
     i15: 29
-  m_ServerOnly: 1
+  m_ServerOnly: 0
   m_LocalPlayerAuthority: 0
 --- !u!114 &11460628
 MonoBehaviour:
@@ -218,6 +239,10 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 0}
       propertyPath: m_ServerOnly
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: m_SendInterval
       value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
