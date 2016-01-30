@@ -161,20 +161,21 @@ public class MapGenerator : NetworkBehaviour {
 
 
 
-        int platformNo = UnityEngine.Random.Range(1, HeightSize / 10);
+        int platformNo = UnityEngine.Random.Range(2, HeightSize / 5);
 
         for (int idx = 0; idx < platformNo; idx++)
         {
             int height = UnityEngine.Random.Range(0, HeightSize);
-            int platformLength = UnityEngine.Random.Range(2, WidthSize);
+            int platformLength = UnityEngine.Random.Range(2, WidthSize / 2);
 
-            int platformStart = UnityEngine.Random.Range(1, platformLength);
+            int platformStart = UnityEngine.Random.Range(1, WidthSize - platformLength);
 
             int lastDirection = 1; //0 is down, 1 is straight, 2 is up. 
 
             if (map[platformStart, height] == TileType.None)
             {
                 map[platformStart, height] = TileType.LeftEnd;
+                platformStart++; 
             }
 
             while (platformStart < platformLength - 1)
