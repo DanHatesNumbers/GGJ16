@@ -28,6 +28,7 @@ GameObject:
   - 212: {fileID: 21231456}
   - 114: {fileID: 11461816}
   - 114: {fileID: 11430148}
+  - 114: {fileID: 11455902}
   m_Layer: 0
   m_Name: Lava
   m_TagString: Untagged
@@ -92,24 +93,35 @@ MonoBehaviour:
   m_SceneId:
     m_Value: 0
   m_AssetId:
-    i0: 0
-    i1: 0
-    i2: 0
-    i3: 0
-    i4: 0
-    i5: 0
-    i6: 0
-    i7: 0
-    i8: 0
-    i9: 0
-    i10: 0
-    i11: 0
-    i12: 0
-    i13: 0
-    i14: 0
-    i15: 0
+    i0: 132
+    i1: 47
+    i2: 57
+    i3: 161
+    i4: 158
+    i5: 42
+    i6: 104
+    i7: 228
+    i8: 40
+    i9: 247
+    i10: 182
+    i11: 23
+    i12: 158
+    i13: 45
+    i14: 36
+    i15: 158
   m_ServerOnly: 0
   m_LocalPlayerAuthority: 0
+--- !u!114 &11455902
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 168742}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8f481cafcbdddc44a9596fa5e370b174, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &11461816
 MonoBehaviour:
   m_ObjectHideFlags: 1
