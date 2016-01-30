@@ -49,7 +49,6 @@
      <Compile Include="Assets\FireballBehaviour.cs" />
      <Compile Include="Assets\Health.cs" />
      <Compile Include="Assets\InputAction.cs" />
-     <Compile Include="Assets\Lava.cs" />
      <Compile Include="Assets\PlayerMovement.cs" />
      <Compile Include="Assets\Scripts\DualStore.cs" />
      <Compile Include="Assets\Scripts\MapGenerator.cs" />

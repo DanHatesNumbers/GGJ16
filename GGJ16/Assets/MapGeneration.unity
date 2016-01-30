@@ -159,7 +159,7 @@ Transform:
   m_LocalScale: {x: 22.199709, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 2
+  m_RootOrder: 1
 --- !u!114 &110541944
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -212,42 +212,6 @@ MonoBehaviour:
     i15: 0
   m_ServerOnly: 0
   m_LocalPlayerAuthority: 0
---- !u!1 &505816373 stripped
-GameObject:
-  m_PrefabParentObject: {fileID: 149812, guid: 51b2e9991b19b304fb66c0d8dd146b63, type: 2}
-  m_PrefabInternal: {fileID: 969997003}
---- !u!114 &505816374
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 505816373}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 372142912, guid: 870353891bb340e2b2a9c8707e7419ba, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_SceneId:
-    m_Value: 0
-  m_AssetId:
-    i0: 81
-    i1: 178
-    i2: 233
-    i3: 153
-    i4: 27
-    i5: 25
-    i6: 179
-    i7: 4
-    i8: 251
-    i9: 102
-    i10: 192
-    i11: 216
-    i12: 221
-    i13: 20
-    i14: 107
-    i15: 99
-  m_ServerOnly: 1
-  m_LocalPlayerAuthority: 0
 --- !u!1 &540027615
 GameObject:
   m_ObjectHideFlags: 0
@@ -258,6 +222,7 @@ GameObject:
   - 4: {fileID: 540027618}
   - 114: {fileID: 540027617}
   - 114: {fileID: 540027616}
+  - 114: {fileID: 540027619}
   m_Layer: 0
   m_Name: NetworkManager
   m_TagString: Untagged
@@ -346,6 +311,7 @@ MonoBehaviour:
   - {fileID: 170778, guid: fed75b10cf9bebf498113c47c378f0a1, type: 2}
   - {fileID: 174068, guid: 147f9a100b7d7974599ae7ba8a161595, type: 2}
   - {fileID: 168898, guid: 8cd5dd2a32a868548b0739d496401320, type: 2}
+  - {fileID: 168742, guid: 842f39a19e2a68e428f7b6179e2d249e, type: 2}
   m_CustomConfig: 0
   m_MaxConnections: 4
   m_ConnectionConfig:
@@ -397,6 +363,20 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
+--- !u!114 &540027619
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 540027615}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 00b68e5b0140792469b5e87406635894, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_LastSendTime: 0
+  m_SyncVarGuard: 0
+  m_MyView: {fileID: 0}
 --- !u!1001 &969997003
 Prefab:
   m_ObjectHideFlags: 0
@@ -436,6 +416,7 @@ Prefab:
       propertyPath: m_RootOrder
       value: 2
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 11412586, guid: 51b2e9991b19b304fb66c0d8dd146b63, type: 2}
   m_ParentPrefab: {fileID: 100100000, guid: 51b2e9991b19b304fb66c0d8dd146b63, type: 2}
   m_IsPrefabParent: 0
