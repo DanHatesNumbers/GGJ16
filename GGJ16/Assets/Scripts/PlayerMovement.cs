@@ -83,11 +83,11 @@ public class PlayerMovement : NetworkBehaviour {
 
         if(FacingLeft)
         {
-            Player.transform.localScale.x = -1;
+            Player.transform.localScale = new Vector3(-1, Player.transform.localScale.y, Player.transform.localScale.z);
         }
         else
         {
-            Player.transform.localScale.x = 1;
+            Player.transform.localScale = new Vector3(1, Player.transform.localScale.y, Player.transform.localScale.z);
         }
 
         var animator = GetComponentInChildren<Animator>();
