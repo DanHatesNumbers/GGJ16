@@ -21,7 +21,7 @@ public class MapGenerator : NetworkBehaviour {
 
     public int MinNumOfPlatforms = 2;
 
-    public int MaxNumOfPlatforms = 10;
+    public int MaxNumOfPlatforms = 25;
 
     public int MinPlatformTotalTiles = 10; 
 
@@ -327,7 +327,7 @@ public class MapGenerator : NetworkBehaviour {
             }
         }
 
-        DualStore<Vector2, Vector2> startEnds = new DualStore<Vector2, Vector2>(); 
+        DualStore<Vector2, Vector2> veritcal = new DualStore<Vector2, Vector2>(); 
 
         foreach (Vector2 vec in rightEnds)
         {
@@ -338,17 +338,17 @@ public class MapGenerator : NetworkBehaviour {
             {
                 if (map[xdx, ydx] != TileType.None)
                 {
-                    startEnds.Add(new Vector2(xdx, vec.y), new Vector2(xdx, ydx + 1));
+                    veritcal.Add(new Vector2(xdx, vec.y), new Vector2(xdx, ydx + 1));
                     ydx = -1; 
                 }
                 else if (map[xdx - 1, ydx] == TileType.RightEnd)
                 {
-                    startEnds.Add(new Vector2(xdx, vec.y), new Vector2(xdx, ydx));
+                    veritcal.Add(new Vector2(xdx, vec.y), new Vector2(xdx, ydx));
                     ydx = - 1; 
                 }
                 else if (map[xdx + 1, ydx] == TileType.LeftEnd)
                 {
-                    startEnds.Add(new Vector2(xdx, vec.y), new Vector2(xdx, ydx));
+                    veritcal.Add(new Vector2(xdx, vec.y), new Vector2(xdx, ydx));
                     ydx = -1; 
                 }
             }
@@ -363,23 +363,23 @@ public class MapGenerator : NetworkBehaviour {
             {
                 if (map[xdx, ydx] != TileType.None)
                 {
-                    startEnds.Add(new Vector2(xdx, vec.y), new Vector2(xdx, ydx + 1));
+                    veritcal.Add(new Vector2(xdx, vec.y), new Vector2(xdx, ydx + 1));
                     ydx = -1;
                 }
                 else if (map[xdx - 1, ydx] == TileType.RightEnd)
                 {
-                    startEnds.Add(new Vector2(xdx, vec.y), new Vector2(xdx, ydx));
+                    veritcal.Add(new Vector2(xdx, vec.y), new Vector2(xdx, ydx));
                     ydx = -1;
                 }
                 else if (map[xdx + 1, ydx] == TileType.LeftEnd)
                 {
-                    startEnds.Add(new Vector2(xdx, vec.y), new Vector2(xdx, ydx));
+                    veritcal.Add(new Vector2(xdx, vec.y), new Vector2(xdx, ydx));
                     ydx = -1;
                 }
             }
         }
 
-        foreach (KeyValuePair<Vector2, Vector2> kv in startEnds.KeyValuePairs)
+        foreach (KeyValuePair<Vector2, Vector2> kv in veritcal.KeyValuePairs)
         {
             TileSetType level = kv.Value.y > dividerLevel ? TileSetType.upperLevels : TileSetType.lowerLevels;
 
@@ -395,7 +395,87 @@ public class MapGenerator : NetworkBehaviour {
             Debug.Log(tile);
             NetworkServer.Spawn(tile);
         }
-        
+
+        DualStore<Vector2, Vector2> horizontal = new DualStore<Vector2, Vector2>();
+
+        //foreach (Vector2 vec in rightEnds)
+        //{
+        //    int ydx = (int)vec.y + 1;
+        //    //int ydx = (int)vec.y; 
+
+        //    for (int xdx = (int)vec.x + 1; xdx > 0; xdx--)
+        //    {
+        //        if (map[xdx, ydx] != TileType.None)
+        //        {
+        //            horizontal.Add(new Vector2(xdx, vec.y), new Vector2(xdx, ydx + 1));
+        //            ydx = -1;
+        //        }
+        //        else if (map[xdx - 1, ydx] == TileType.RightEnd)
+        //        {
+        //            veritcal.Add(new Vector2(xdx, vec.y), new Vector2(xdx, ydx));
+        //            ydx = -1;
+        //        }
+        //        else if (map[xdx + 1, ydx] == TileType.LeftEnd)
+        //        {
+        //            veritcal.Add(new Vector2(xdx, vec.y), new Vector2(xdx, ydx));
+        //            ydx = -1;
+        //        }
+        //    }
+        //}
+
+        foreach (Vector2 vec in rightEnds)
+        {
+            int ydx = (int)vec.y; 
+
+            for (int xdx = (int)vec.x + 1; xdx < map.GetLength(0) - 1; xdx++)
+            {
+                if (map[xdx, ydx] != TileType.None)
+                {
+                    horizontal.Add(new Vector2(vec.x, vec.y), new Vector2(xdx - 1, ydx));
+                    xdx = map.GetLength(0); 
+                }
+            }
+
+
+           // int xdx = (int)vec.x - 1;
+            //int ydx = (int)vec.y; 
+
+            //for (int ydx = (int)vec.y - 1; ydx > 0; ydx--)
+            //{
+            //    if (map[xdx, ydx] != TileType.None)
+            //    {
+            //        veritcal.Add(new Vector2(xdx, vec.y), new Vector2(xdx, ydx + 1));
+            //        ydx = -1;
+            //    }
+            //    else if (map[xdx - 1, ydx] == TileType.RightEnd)
+            //    {
+            //        veritcal.Add(new Vector2(xdx, vec.y), new Vector2(xdx, ydx));
+            //        ydx = -1;
+            //    }
+            //    else if (map[xdx + 1, ydx] == TileType.LeftEnd)
+            //    {
+            //        veritcal.Add(new Vector2(xdx, vec.y), new Vector2(xdx, ydx));
+            //        ydx = -1;
+            //    }
+            //}
+        }
+
+        foreach (KeyValuePair<Vector2, Vector2> kv in horizontal.KeyValuePairs)
+        {
+            TileSetType level = kv.Value.y > dividerLevel ? TileSetType.upperLevels : TileSetType.lowerLevels;
+
+            GameObject obj = availiableTile[level].GetTileType(TileType.Platform);
+
+
+            var tile = (GameObject)Instantiate(obj, new Vector3(kv.Key.x * Tilesize, kv.Key.y * Tilesize), new Quaternion());
+            SidewaysPlatformMovement move = tile.AddComponent(typeof(SidewaysPlatformMovement)) as SidewaysPlatformMovement;
+            move.Left = new Vector2(kv.Value.x * Tilesize, kv.Value.y * Tilesize);
+            move.Right = new Vector2(kv.Key.x * Tilesize, kv.Key.y * Tilesize);
+            //ElevatorMovement move = tile.GetComponent<ElevatorMovement>();
+
+            Debug.Log(tile);
+            NetworkServer.Spawn(tile);
+        }
 
     }
     /// <summary>
