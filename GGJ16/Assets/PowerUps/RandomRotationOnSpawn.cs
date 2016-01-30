@@ -24,6 +24,5 @@ public class RandomRotationOnSpawn : MonoBehaviour
             NetworkServer.Destroy(this.gameObject);
             Destroy(this.gameObject);
         }
-
     }
 }

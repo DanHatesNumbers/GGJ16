@@ -407,9 +407,10 @@ public class MapGenerator : NetworkBehaviour {
             
 
             var tile = (GameObject)Instantiate(obj, new Vector3(kv.Key.x * Tilesize, kv.Key.y * Tilesize), new Quaternion());
-            ElevatorMovement move = tile.AddComponent(typeof(ElevatorMovement)) as ElevatorMovement;
+            ElevatorMovement move = tile.GetComponent(typeof(ElevatorMovement)) as ElevatorMovement;
             move.Bottom = new Vector2(kv.Value.x * Tilesize, kv.Value.y * Tilesize);
-            move.Top = new Vector2(kv.Key.x * Tilesize, kv.Key.y * Tilesize);  
+            move.Top = new Vector2(kv.Key.x * Tilesize, kv.Key.y * Tilesize);
+            move.moveDir = MovementDirection.updown; 
             //ElevatorMovement move = tile.GetComponent<ElevatorMovement>();
             
             Debug.Log(tile);
@@ -443,9 +444,10 @@ public class MapGenerator : NetworkBehaviour {
 
 
             var tile = (GameObject)Instantiate(obj, new Vector3(kv.Key.x * Tilesize, kv.Key.y * Tilesize), new Quaternion());
-            SidewaysPlatformMovement move = tile.AddComponent(typeof(SidewaysPlatformMovement)) as SidewaysPlatformMovement;
+            ElevatorMovement move = tile.GetComponent(typeof(ElevatorMovement)) as ElevatorMovement;
             move.Left = new Vector2(kv.Value.x * Tilesize, kv.Value.y * Tilesize);
             move.Right = new Vector2(kv.Key.x * Tilesize, kv.Key.y * Tilesize);
+            move.moveDir = MovementDirection.leftright; 
             //ElevatorMovement move = tile.GetComponent<ElevatorMovement>();
 
             Debug.Log(tile);

@@ -13,6 +13,8 @@ GameObject:
   - 114: {fileID: 11478756}
   - 114: {fileID: 11415146}
   - 114: {fileID: 11403396}
+  - 114: {fileID: 11428614}
+  - 114: {fileID: 11420760}
   m_Layer: 0
   m_Name: Set4_Tiny
   m_TagString: Untagged
@@ -82,7 +84,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_TransformSyncMode: 1
-  m_SendInterval: 1
+  m_SendInterval: 0.06666667
   m_SyncRotationAxis: 7
   m_RotationSyncCompression: 0
   m_SyncSpin: 0
@@ -122,6 +124,34 @@ MonoBehaviour:
     i15: 149
   m_ServerOnly: 0
   m_LocalPlayerAuthority: 0
+--- !u!114 &11420760
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 174068}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2d01acb4bef96b240b4cb99be8b5cb82, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Top: {x: 0, y: 0}
+  Bottom: {x: 0, y: 0}
+  Left: {x: 0, y: 0}
+  Right: {x: 0, y: 0}
+  Speed: 0.125
+  moveDir: 0
+--- !u!114 &11428614
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 174068}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d9e5cb1725ce25b48bac0eea0a61aa71, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &11478756
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -256,7 +286,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 0}
       propertyPath: m_SendInterval
-      value: 1
+      value: 0.06666667
       objectReference: {fileID: 0}
     - target: {fileID: 0}
       propertyPath: TileType
