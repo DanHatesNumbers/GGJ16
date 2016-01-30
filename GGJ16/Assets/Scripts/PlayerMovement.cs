@@ -81,15 +81,6 @@ public class PlayerMovement : NetworkBehaviour {
             }
         }
 
-        if(FacingLeft)
-        {
-            Player.transform.localScale.x = -1;
-        }
-        else
-        {
-            Player.transform.localScale.x = 1;
-        }
-
         var animator = GetComponentInChildren<Animator>();
         var rigidBody = GetComponent<Rigidbody2D>();
 
