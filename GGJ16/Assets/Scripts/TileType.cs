@@ -14,5 +14,8 @@ public enum TileType
     LeftSlopeLower,
     None, 
     RightSlopeCorner, 
-    LeftSlopeCorner
+    LeftSlopeCorner, 
+    LeftEnd, 
+    RightEnd, 
+    Platform
 }

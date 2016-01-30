@@ -9,6 +9,7 @@ using System.Text;
         background, 
         upperLevels, 
         lowerLevels, 
-        lava
+        lava, 
+        solids
     }
 
