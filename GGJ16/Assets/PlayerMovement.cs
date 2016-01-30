@@ -84,40 +84,40 @@ public class PlayerMovement : NetworkBehaviour {
                     action.PlayerAction(Player);
                 }
             }
+        }
 
-            var animator = GetComponentInChildren<Animator>();
-            var rigidBody = GetComponent<Rigidbody2D>();
+        var animator = GetComponentInChildren<Animator>();
+        var rigidBody = GetComponent<Rigidbody2D>();
 
-            if (FacingLeft && rigidBody.velocity == Vector2.zero)
-            {
-                Debug.Log("Triggering Idle Left");
-                animator.Play(IdleLeftAnimation);
-            }
-            else if (FacingLeft && rigidBody.velocity.x != 0 && rigidBody.velocity.y <= 0)
-            {
-                Debug.Log("Triggering Run Left");
-                animator.Play(RunLeftAnimation);
-            }
-            else if (FacingLeft && rigidBody.velocity.y >= 0)
-            {
-                Debug.Log("Triggering Jump Left");
-                animator.Play(JumpLeftAnimation);
-            }
-            else if (!FacingLeft && rigidBody.velocity == Vector2.zero)
-            {
-                Debug.Log("Triggering Idle Right");
-                animator.Play(IdleRightAnimation);
-            }
-            else if (!FacingLeft && rigidBody.velocity.x != 0 && rigidBody.velocity.y <= 0)
-            {
-                Debug.Log("Triggering Run Right");
-                animator.Play(RunRightAnimation);
-            }
-            else if (!FacingLeft && rigidBody.velocity.y >= 0)
-            {
-                Debug.Log("Triggering Jump Right");
-                animator.Play(JumpRightAnimation);
-            }
+        if (FacingLeft && rigidBody.velocity == Vector2.zero)
+        {
+            Debug.Log("Triggering Idle Left");
+            animator.Play(IdleLeftAnimation);
+        }
+        else if (FacingLeft && rigidBody.velocity.x != 0 && rigidBody.velocity.y <= 0)
+        {
+            Debug.Log("Triggering Run Left");
+            animator.Play(RunLeftAnimation);
+        }
+        else if (FacingLeft && rigidBody.velocity.y >= 0)
+        {
+            Debug.Log("Triggering Jump Left");
+            animator.Play(JumpLeftAnimation);
+        }
+        else if (!FacingLeft && rigidBody.velocity == Vector2.zero)
+        {
+            Debug.Log("Triggering Idle Right");
+            animator.Play(IdleRightAnimation);
+        }
+        else if (!FacingLeft && rigidBody.velocity.x != 0 && rigidBody.velocity.y <= 0)
+        {
+            Debug.Log("Triggering Run Right");
+            animator.Play(RunRightAnimation);
+        }
+        else if (!FacingLeft && rigidBody.velocity.y >= 0)
+        {
+            Debug.Log("Triggering Jump Right");
+            animator.Play(JumpRightAnimation);
         }
 	}
 
