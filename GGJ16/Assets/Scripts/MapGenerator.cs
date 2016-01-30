@@ -354,7 +354,31 @@ public class MapGenerator : NetworkBehaviour {
             }
         }
 
-       
+        foreach (Vector2 vec in leftEnds)
+        {
+            int xdx = (int)vec.x - 1;
+            //int ydx = (int)vec.y; 
+
+            for (int ydx = (int)vec.y - 1; ydx > 0; ydx--)
+            {
+                if (map[xdx, ydx] != TileType.None)
+                {
+                    startEnds.Add(new Vector2(xdx, vec.y), new Vector2(xdx, ydx + 1));
+                    ydx = -1;
+                }
+                else if (map[xdx - 1, ydx] == TileType.RightEnd)
+                {
+                    startEnds.Add(new Vector2(xdx, vec.y), new Vector2(xdx, ydx));
+                    ydx = -1;
+                }
+                else if (map[xdx + 1, ydx] == TileType.LeftEnd)
+                {
+                    startEnds.Add(new Vector2(xdx, vec.y), new Vector2(xdx, ydx));
+                    ydx = -1;
+                }
+            }
+        }
+
         foreach (KeyValuePair<Vector2, Vector2> kv in startEnds.KeyValuePairs)
         {
             TileSetType level = kv.Value.y > dividerLevel ? TileSetType.upperLevels : TileSetType.lowerLevels;
