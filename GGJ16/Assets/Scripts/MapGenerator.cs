@@ -144,8 +144,10 @@ public class MapGenerator : NetworkBehaviour {
 
         TileType[,] map = GenerateMap(); 
 
-        List<Vector2> SpawnPoints = GenerateSpawnPoints(map); 
-        
+        List<Vector2> SpawnPoints = GenerateSpawnPoints(map);
+
+        GenerateElevators(map); 
+
         InstantiateTiles(map, dividerLevel, availiableTile, SpawnPoints); 
         
     }
@@ -302,6 +304,51 @@ public class MapGenerator : NetworkBehaviour {
         return SpawnPoints; 
     }
 
+
+    protected virtual void GenerateElevators(TileType[,] map)
+    {
+        List<Vector2> leftEnds = new List<Vector2>();
+        List<Vector2> rightEnds = new List<Vector2>(); 
+
+        for (int xdx = 0; xdx < map.GetLength(0); xdx++)
+        {
+            for (int ydx = 0; ydx < map.GetLength(1); ydx++)
+            {
+                TileType type = map[xdx, ydx]; 
+
+                if (type == TileType.LeftEnd)
+                {
+                    leftEnds.Add(new Vector2(xdx, ydx)); 
+                }
+                else if (type == TileType.RightEnd)
+                {
+                    rightEnds.Add(new Vector2(xdx, ydx)); 
+                }
+            }
+        }
+
+
+
+       
+
+        foreach (Vector2 vec in leftEnds)
+        {
+
+
+            ////get list of same x axis. 
+            //List<Vector2> same = leftEnds.Where(x => x.x == vec.x && x.y != vec.y).ToList(); 
+
+            //if (same.Count > 0)
+            //{
+            //    Vector2 top;
+            //    Vector2 bottom; 
+
+
+                
+            //}
+        }
+
+    }
     /// <summary>
     /// Instantiates all the tiles. 
     /// </summary>
