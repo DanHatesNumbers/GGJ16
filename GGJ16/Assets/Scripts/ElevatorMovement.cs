@@ -48,72 +48,20 @@ public class ElevatorMovement : NetworkBehaviour {
 	// Update is called once per frame
 	void Update () {
 
-        Timer += Time.deltaTime;
-
-        if (Timer > TimeToTravel)
-        {
-            Timer -= TimeToTravel;
-            Vector3 temp = StartPos;
-            StartPos = EndPos;
-            EndPos = temp; 
-        }
-
-        transform.position = Vector3.Lerp(StartPos, EndPos, Timer / TimeToTravel); 
-
         if (isServer)
         {
+            Timer += Time.deltaTime;
+
+            if (Timer > TimeToTravel)
+            {
+                Timer -= TimeToTravel;
+                Vector3 temp = StartPos;
+                StartPos = EndPos;
+                EndPos = temp; 
+            }
+
+            transform.position = Vector3.Lerp(StartPos, EndPos, Timer / TimeToTravel); 
             
         }
-
-
-
-        //if (isServer ) //&& currentUpdate > updateSpeed)
-        //{
-        //    if (moveDir == MovementDirection.updown)
-        //    {
-
-        //        if (direction == 1)
-        //        {
-        //            transform.position = new Vector3(transform.position.x, transform.position.y + Speed);
-                    
-        //            if (transform.position.y > Top.y)
-        //            {
-        //                direction = 2;
-        //            }
-        //        }
-        //        else
-        //        {
-        //            transform.position = new Vector3(transform.position.x, transform.position.y - Speed);
-        //            if (transform.position.y < Bottom.y)
-        //            {
-        //                direction = 1;
-        //            }
-        //        }
-        //    }
-        //    else if (moveDir == MovementDirection.leftright)
-        //    {
-        //        if (direction == 1)
-        //        {
-        //            transform.position = new Vector3(transform.position.x + Speed, transform.position.y);
-        //            if (transform.position.x > Left.x)
-        //            {
-        //                direction = 2;
-        //            }
-        //        }
-        //        else
-        //        {
-        //            transform.position = new Vector3(transform.position.x - Speed, transform.position.y);
-        //            if (transform.position.x < Right.x)
-        //            {
-        //                direction = 1;
-        //            }
-        //        }
-        //    }
-        //    currentUpdate = 0; 
-        //}
-        //else
-        //{
-        //    currentUpdate++; 
-        //}
 	}
 }
