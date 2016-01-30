@@ -81,7 +81,7 @@ public class MapGenerator : MonoBehaviour {
     }
 
     /// <summary>
-    /// Gets all tiles of a specific type. 
+    /// Gets all tiles of a specific set type. 
     /// </summary>
     /// <param name="allTiles"></param>
     /// <param name="type"></param>
@@ -101,6 +101,12 @@ public class MapGenerator : MonoBehaviour {
         return thisTileset;
     }
 
+    /// <summary>
+    /// gets all the tiles of a specific tiletype. 
+    /// </summary>
+    /// <param name="tiles"></param>
+    /// <param name="type"></param>
+    /// <returns></returns>
     protected virtual List<GameObject> GetTileTypes (DualStore<TileDetails, GameObject> tiles, TileType type)
     {
         List<GameObject> thetiles = new List<GameObject>(); 
@@ -115,6 +121,10 @@ public class MapGenerator : MonoBehaviour {
         return thetiles; 
     }
 
+    /// <summary>
+    /// Spawns in the tiles. 
+    /// </summary>
+    /// <param name="availiableTile"></param>
     protected virtual void SpawnTiles (Dictionary<TileSetType, TileLevel> availiableTile)
     {
         int dividerLevel = UnityEngine.Random.Range(0, HeightSize);
@@ -128,7 +138,7 @@ public class MapGenerator : MonoBehaviour {
             }
         }
 
-        int platformNo = UnityEngine.Random.Range(0, HeightSize / 10); 
+        int platformNo = UnityEngine.Random.Range(1, HeightSize / 10); 
 
         for (int idx = 0; idx < platformNo; idx++)
         {
@@ -139,12 +149,48 @@ public class MapGenerator : MonoBehaviour {
 
             while (platformStart < platformLength)
             {
-                map[platformStart, height] = TileType.Top;
-                platformStart++; 
+                if (map[platformStart, height] == TileType.None)
+                {
+                    float chance = UnityEngine.Random.value;
+                    if (chance < 0.25f && height > 1)
+                    {
+                        //go down
+                        map[platformStart, height] = TileType.RightSlope;
+                        map[platformStart, height - 1] = TileType.RightSlopeCorner;
+                        height--; 
+                    }
+                    else if (chance < 0.75f || height >= map.GetLength(1) - 1)
+                    {
+                        //stay same
+                        map[platformStart, height] = TileType.Top;
+                    }
+                    else
+                    {
+                        //go up. 
+                        height++; 
+                        map[platformStart, height] = TileType.LeftSlope;
+                        map[platformStart, height - 1] = TileType.LeftSlopeCorner;
+                        
+                    }
+
+                   // map[platformStart, height] = TileType.Top;
+                }
+                platformStart++;
             }
         }
 
+        InstantiateTiles(map, dividerLevel, availiableTile); 
+        
+    }
 
+    /// <summary>
+    /// Instantiates all the tiles. 
+    /// </summary>
+    /// <param name="map"></param>
+    /// <param name="dividerLevel"></param>
+    /// <param name="availiableTile"></param>
+    protected virtual void InstantiateTiles(TileType[,] map, int dividerLevel, Dictionary<TileSetType, TileLevel> availiableTile)
+    {
         for (int xdx = 0; xdx < map.GetLength(0); xdx++)
         {
             for (int ydx = 0; ydx < map.GetLength(1); ydx++)
