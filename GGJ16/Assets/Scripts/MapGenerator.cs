@@ -166,13 +166,18 @@ public class MapGenerator : NetworkBehaviour {
         for (int idx = 0; idx < platformNo; idx++)
         {
             int height = UnityEngine.Random.Range(0, HeightSize);
-            int platformLength = UnityEngine.Random.Range(1, WidthSize);
+            int platformLength = UnityEngine.Random.Range(2, WidthSize);
 
             int platformStart = UnityEngine.Random.Range(1, platformLength);
 
             int lastDirection = 1; //0 is down, 1 is straight, 2 is up. 
 
-            while (platformStart < platformLength)
+            if (map[platformStart, height] == TileType.None)
+            {
+                map[platformStart, height] = TileType.LeftEnd;
+            }
+
+            while (platformStart < platformLength - 1)
             {
                 if (map[platformStart, height] == TileType.None)
                 {
@@ -204,6 +209,11 @@ public class MapGenerator : NetworkBehaviour {
                     // map[platformStart, height] = TileType.Top;
                 }
                 platformStart++;
+            }
+
+            if (map[platformStart, height] == TileType.None)
+            {
+                map[platformStart, height] = TileType.RightEnd;
             }
         }
 
@@ -260,12 +270,20 @@ public class MapGenerator : NetworkBehaviour {
             for (int ydx = 0; ydx < map.GetLength(1); ydx++)
             {
                 TileType type = map[xdx, ydx]; 
-                if (type != TileType.None)
+                if (type != TileType.None && ydx > 0)
                 {
                     TileSetType level = ydx > dividerLevel ? TileSetType.upperLevels : TileSetType.lowerLevels;
 
                     GameObject obj = availiableTile[level].GetTileType(type);
                     var tile = (GameObject) Instantiate(obj, new Vector3(xdx * Tilesize, ydx * Tilesize), new Quaternion());
+
+                    Debug.Log(tile);
+                    NetworkServer.Spawn(tile);
+                }
+                else if (ydx == 0)
+                {
+                    GameObject obj = availiableTile[TileSetType.lava].GetTileType(TileType.Top);
+                    var tile = (GameObject)Instantiate(obj, new Vector3(xdx * Tilesize, ydx * Tilesize), new Quaternion());
 
                     Debug.Log(tile);
                     NetworkServer.Spawn(tile);

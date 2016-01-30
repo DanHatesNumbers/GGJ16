@@ -83,8 +83,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 672259c22303f2b42b33046a015746ec, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  TileTypeID: 0
-  TileSet: 
+  TileTypeID: 41
+  TileSet: baseSet
   Type: 1
   TileType: 11
 --- !u!114 &11483828
@@ -255,6 +255,14 @@ Prefab:
     - target: {fileID: 0}
       propertyPath: TileType
       value: 11
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: TileSet
+      value: baseSet
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: TileTypeID
+      value: 41
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 0}
