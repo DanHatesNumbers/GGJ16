@@ -22,4 +22,12 @@ public class Health : NetworkBehaviour {
             Network.Disconnect();
         }
     }
+
+    void OnCollisionEnter2D(Collision2D collision)
+    {
+        if (collision.gameObject.name == "Lava")
+        {
+            TakeDamage(maxHealth);
+        }
+    }
 }
