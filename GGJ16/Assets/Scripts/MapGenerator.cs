@@ -148,22 +148,26 @@ public class MapGenerator : NetworkBehaviour {
 
             int platformStart = UnityEngine.Random.Range(1, platformLength);
 
+            int lastDirection = 1; //0 is down, 1 is straight, 2 is up. 
+
             while (platformStart < platformLength)
             {
                 if (map[platformStart, height] == TileType.None)
                 {
                     float chance = UnityEngine.Random.value;
-                    if (chance < 0.25f && height > 1)
+                    if (chance < 0.25f && height > 1 && lastDirection != 2)
                     {
                         //go down
                         map[platformStart, height] = TileType.RightSlope;
                         map[platformStart, height - 1] = TileType.RightSlopeCorner;
-                        height--; 
+                        height--;
+                        lastDirection = 0; 
                     }
-                    else if (chance < 0.75f || height >= map.GetLength(1) - 1)
+                    else if (chance < 0.75f || height >= map.GetLength(1) - 1 || lastDirection == 0)
                     {
                         //stay same
                         map[platformStart, height] = TileType.Top;
+                        lastDirection = 1; 
                     }
                     else
                     {
@@ -171,6 +175,7 @@ public class MapGenerator : NetworkBehaviour {
                         height++; 
                         map[platformStart, height] = TileType.LeftSlope;
                         map[platformStart, height - 1] = TileType.LeftSlopeCorner;
+                        lastDirection = 2; 
                         
                     }
 
