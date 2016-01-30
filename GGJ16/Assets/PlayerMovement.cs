@@ -1,11 +1,12 @@
 ﻿using UnityEngine;
+using UnityEngine.Networking;
 using System.Collections;
 using System.Collections.Generic;
 using AssemblyCSharp;
 using XboxCtrlrInput;
 using System;
 
-public class PlayerMovement : MonoBehaviour {
+public class PlayerMovement : NetworkBehaviour {
 
 	public GameObject Player;
     public GameObject Fireball;
@@ -65,6 +66,10 @@ public class PlayerMovement : MonoBehaviour {
 	// Update is called once per frame
 	void Update () 
 	{
+        if(!isLocalPlayer)
+        {
+            return;
+        }
 		foreach (var action in InputActions) 
 		{
 			if(action.IsTriggered())
