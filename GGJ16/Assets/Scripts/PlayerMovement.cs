@@ -11,7 +11,6 @@ public class PlayerMovement : NetworkBehaviour {
 	public GameObject Player;
     public GameObject Fireball;
     public AudioClip JumpSoundClip;
-    public AudioClip PickupSoundClip;
     public AudioClip JoinSound;
     public AudioClip ShootSound;
 
