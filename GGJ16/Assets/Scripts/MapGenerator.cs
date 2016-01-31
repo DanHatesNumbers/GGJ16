@@ -19,13 +19,13 @@ public class MapGenerator : NetworkBehaviour {
 
     public GameObject SpawnPrefab;
 
-    public int MinNumOfPlatforms = 2;
+    public int MinNumOfPlatforms = 100;
 
-    public int MaxNumOfPlatforms = 25;
+    public int MaxNumOfPlatforms = 400;
 
     public int MinPlatformTotalTiles = 10;
 
-    public int numberOfSpawns = 20;
+    public int numberOfSpawns = 10;
 
     System.Random rand; 
 
@@ -142,7 +142,7 @@ public class MapGenerator : NetworkBehaviour {
     /// <param name="availiableTile"></param>
     protected virtual void SpawnTiles (Dictionary<TileSetType, TileLevel> availiableTile)
     {
-        int dividerLevel = UnityEngine.Random.Range(0, HeightSize);
+        int dividerLevel = UnityEngine.Random.Range(3, HeightSize);
 
         TileType[,] map = GenerateMap(); 
 
@@ -192,11 +192,19 @@ public class MapGenerator : NetworkBehaviour {
         for (int idx = 0; idx < platformNo; idx++)
         {
             int height = UnityEngine.Random.Range(0, HeightSize);
-            int platformLength = UnityEngine.Random.Range(2, WidthSize / 2);
+            
 
-            int platformStart = UnityEngine.Random.Range(1, WidthSize - platformLength);
+            int platformStart = UnityEngine.Random.Range(1, WidthSize - 1);
+            //platformStart -= platformLength; 
+            //if (platformStart <= 0)
+            //{
+            //    platformStart = 1; 
+            //}
+            int platformLength = UnityEngine.Random.Range(2, WidthSize - 2);
 
             int lastDirection = 1; //0 is down, 1 is straight, 2 is up. 
+
+            bool skipGeneration = false; 
 
             if (map[platformStart, height] == TileType.None)
             {
@@ -207,10 +215,11 @@ public class MapGenerator : NetworkBehaviour {
             else
             {
                 platformNo--;
-                platformStart = platformLength; 
+                platformStart = platformLength;
+                skipGeneration = true; 
             }
 
-            while (platformStart < platformLength - 1)
+            while (platformStart < platformLength - 1 && platformStart < map.GetLength(0))
             {
                 if (map[platformStart, height] == TileType.None)
                 {
@@ -253,7 +262,7 @@ public class MapGenerator : NetworkBehaviour {
                 platformStart++;
             }
 
-            if (map[platformStart, height] == TileType.None)
+            if (map[platformStart, height] == TileType.None && !skipGeneration)
             {
                 map[platformStart, height] = TileType.RightEnd;
                 platformTileNo++;
