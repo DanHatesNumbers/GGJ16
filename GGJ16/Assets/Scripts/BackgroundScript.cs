@@ -3,7 +3,7 @@ using System.Collections;
 
 public class BackgroundScript : MonoBehaviour {
 
-    public Vector2 MapSize = new Vector2(1, 1);
+    public Vector2 MapSize = new Vector2(100 * 2.56f, 100 * 2.56f);
 
     public int DividerLevel = 1;
 
