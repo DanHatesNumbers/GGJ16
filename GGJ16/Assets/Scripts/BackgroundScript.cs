@@ -21,7 +21,7 @@ public class BackgroundScript : MonoBehaviour {
         }
 
         texture.Apply();
-        GetComponent<SpriteRenderer>().sprite = Sprite.Create(texture, new Rect(0, 0, MapSize.x, MapSize.y), new Vector2());
+        GetComponent<SpriteRenderer>().sprite = Sprite.Create(texture, new Rect(0, 0, MapSize.x, MapSize.y), new Vector2(), 1);
 
        // GetComponent<S>()material.mainTexture = texture; 
 	}
