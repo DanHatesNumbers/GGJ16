@@ -40,7 +40,12 @@ public class PlayerMovement : NetworkBehaviour {
     private float SolidBlackTimer;
     [SyncVar]
     private float SolidYellowTimer;
-
+    [SyncVar]
+    private float SolidPurpleTimer;
+    [SyncVar]
+    private float StripyPurpleTimer;
+    [SyncVar]
+    private float SolidGreenTimer;
 
     private AnimationStateEnum playerAnimation;
 
@@ -107,6 +112,9 @@ public class PlayerMovement : NetworkBehaviour {
         PowerupTimers = new Dictionary<string, float>();
         SolidBlackTimer = 0f;
         SolidYellowTimer = 0f;
+        SolidPurpleTimer = 0f;
+        StripyPurpleTimer = 0f;
+        SolidGreenTimer = 0f;
 
         var networkId = GetComponent<NetworkIdentity>();
         GetComponentInChildren<Camera>().enabled = hasAuthority;
@@ -150,6 +158,9 @@ public class PlayerMovement : NetworkBehaviour {
             }*/
             SolidBlackTimer -= Time.deltaTime;
             SolidYellowTimer -= Time.deltaTime;
+            SolidPurpleTimer -= Time.deltaTime;
+            StripyPurpleTimer -= Time.deltaTime;
+            SolidGreenTimer -= Time.deltaTime;
 
             if(SolidBlackTimer <= 0f)
             {
@@ -159,13 +170,26 @@ public class PlayerMovement : NetworkBehaviour {
             {
                 SolidYellowTimer = 0f;
             }
-            if (SolidBlackTimer != 0f)
+            if(SolidPurpleTimer <= 0f)
             {
-                Debug.Log(String.Format("Power up black remaining duraction {0}", SolidBlackTimer));
+                SolidPurpleTimer = 0f;
             }
-            if (SolidYellowTimer != 0f)
+            if(StripyPurpleTimer <= 0f)
             {
-                Debug.Log(String.Format("Power up yellow remaining duraction {0}", SolidYellowTimer));
+                StripyPurpleTimer = 0f;
+            }
+            if(SolidGreenTimer <= 0f)
+            {
+                SolidGreenTimer = 0f;
+            }
+            var particles = this.gameObject.GetComponentInChildren<ParticleSystem>();
+            if((SolidPurpleTimer == 0f && StripyPurpleTimer == 0f) && particles.isPlaying)
+            {
+                particles.Stop();
+            }
+            else if ((SolidPurpleTimer != 0f || StripyPurpleTimer != 0f) && particles.isStopped)
+            {
+                particles.Play();
             }
         }
         var playerVelocity = this.GetComponent<Rigidbody2D>().velocity;
@@ -222,6 +246,21 @@ public class PlayerMovement : NetworkBehaviour {
                 SolidYellowTimer = PowerupDuration;
                 RemovePowerup(col.gameObject);
                 break;
+            case PowerupNames.SolidPurple:
+                //ActivatePowerup(PowerupNames.SolidYellow);
+                SolidPurpleTimer = PowerupDuration;
+                RemovePowerup(col.gameObject);
+                break;
+            case PowerupNames.StripyPurple:
+                //ActivatePowerup(PowerupNames.SolidYellow);
+                StripyPurpleTimer = PowerupDuration * 2;
+                RemovePowerup(col.gameObject);
+                break;
+            case PowerupNames.SolidGreen:
+                //ActivatePowerup(PowerupNames.SolidYellow);
+                SolidGreenTimer = PowerupDuration;
+                RemovePowerup(col.gameObject);
+                break;
         }
     }
 
@@ -234,6 +273,9 @@ public class PlayerMovement : NetworkBehaviour {
                 break;
             case PowerupNames.SolidYellow:
                 return SolidYellowTimer > 0f;
+                break;
+            case PowerupNames.SolidGreen:
+                return SolidGreenTimer > 0f;
                 break;
             default:
                 return false;
@@ -266,8 +308,14 @@ public class PlayerMovement : NetworkBehaviour {
         CanFire = false;
 
         CmdSpawnFireball();
-
-        yield return new WaitForSeconds(FireballCooldown);
+        if (IsPowerupActive(PowerupNames.SolidGreen))
+        {
+            yield return new WaitForSeconds(FireballCooldown/4);
+        }
+        else
+        {
+            yield return new WaitForSeconds(FireballCooldown);
+        }
 
         CanFire = true;
     }
