@@ -85,52 +85,6 @@ NavMeshSettings:
     cellSize: 0.16666667
     manualCellSize: 0
   m_NavMeshData: {fileID: 0}
---- !u!1 &529616206 stripped
-GameObject:
-  m_PrefabParentObject: {fileID: 149812, guid: 51b2e9991b19b304fb66c0d8dd146b63, type: 2}
-  m_PrefabInternal: {fileID: 969997003}
---- !u!114 &529616207
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 529616206}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 840dab7b7e91c09479c4c0e65f90b3fc, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  PowerUpRepo:
-  - {fileID: 152288, guid: 3b2669e83f2d4d24ea2c10a95ffc9f48, type: 2}
-  - {fileID: 175906, guid: 38c516043ecd3d0488cccf64ffabadfb, type: 2}
-  - {fileID: 112416, guid: ed249e7cd7f61a646b753aebfb389727, type: 2}
-  - {fileID: 155544, guid: 1768e580d13774a4abcefe3791ac507d, type: 2}
-  - {fileID: 152582, guid: efab5d26117375f4394d81c55d21e5b9, type: 2}
-  - {fileID: 183460, guid: 1165bf0d08a21db4abfcd09160b483ad, type: 2}
-  - {fileID: 115800, guid: 61039746a662d7840b228cd4458ce721, type: 2}
-  - {fileID: 173230, guid: 555f0345c5d34cb4fb3dc52aeaabb820, type: 2}
-  - {fileID: 151480, guid: 0df95c2579ce0ab498bd74faea0f6a03, type: 2}
-  - {fileID: 141670, guid: d4a1df8a04ed1c741be117b67040bb06, type: 2}
-  - {fileID: 109772, guid: 31b43d1822d2517438cbc1c522be0b25, type: 2}
-  - {fileID: 170644, guid: 0353b9fa87431314598be5cd1116db68, type: 2}
-  - {fileID: 175976, guid: 943581d2ab90ff34f9f0a3721ecec2a4, type: 2}
-  - {fileID: 118044, guid: dd5be63cf3af1fd4da5ce35c50d7b896, type: 2}
-  - {fileID: 156730, guid: 957d48f27b044de4e98b3fb734722d4f, type: 2}
-  - {fileID: 157420, guid: a10c4f6f12a92f949977b46b1cce8789, type: 2}
-  - {fileID: 134746, guid: 7943e0a0b0f32ca45bdbce42fb25b000, type: 2}
-  - {fileID: 142574, guid: 384c3e3a5dbd58748b730cd10d278028, type: 2}
-  - {fileID: 167742, guid: 0c2137aab58601643a1091eeb68c822c, type: 2}
-  - {fileID: 123760, guid: 87ed2455a139e0c43b5e7e97e28e5e9c, type: 2}
-  - {fileID: 186172, guid: 1e33c82a89addb145bb8ec40ac461843, type: 2}
-  - {fileID: 139870, guid: 23d02cf194e086b459d915a53a2d554b, type: 2}
-  - {fileID: 194560, guid: 85b148c6edccb1c46b8e2b067b456d02, type: 2}
-  - {fileID: 184134, guid: 511ad18b0129c0842b222c1f98f920e4, type: 2}
-  - {fileID: 169140, guid: dd0a103220320094b91c92e1d7528564, type: 2}
-  - {fileID: 134366, guid: bcfb08122374bc44ba98acd3fd652198, type: 2}
-  - {fileID: 107272, guid: 18b84a598cd2889489ebf6cc9bf59706, type: 2}
-  - {fileID: 105430, guid: 1b9e29051273d8e4fb52fde64d85332d, type: 2}
-  - {fileID: 123076, guid: 8c88cb338881bb3438489c7af4220f2d, type: 2}
-  SpawnRate: 0.5
 --- !u!1 &540027615
 GameObject:
   m_ObjectHideFlags: 0
@@ -230,6 +184,7 @@ MonoBehaviour:
   - {fileID: 174068, guid: 147f9a100b7d7974599ae7ba8a161595, type: 2}
   - {fileID: 168898, guid: 8cd5dd2a32a868548b0739d496401320, type: 2}
   - {fileID: 168742, guid: 842f39a19e2a68e428f7b6179e2d249e, type: 2}
+  - {fileID: 177850, guid: a02133d2678814437ba3451e62fa8f78, type: 2}
   - {fileID: 152288, guid: 3b2669e83f2d4d24ea2c10a95ffc9f48, type: 2}
   - {fileID: 175906, guid: 38c516043ecd3d0488cccf64ffabadfb, type: 2}
   - {fileID: 112416, guid: ed249e7cd7f61a646b753aebfb389727, type: 2}
@@ -238,7 +193,6 @@ MonoBehaviour:
   - {fileID: 183460, guid: 1165bf0d08a21db4abfcd09160b483ad, type: 2}
   - {fileID: 115800, guid: 61039746a662d7840b228cd4458ce721, type: 2}
   - {fileID: 173230, guid: 555f0345c5d34cb4fb3dc52aeaabb820, type: 2}
-  - {fileID: 193898, guid: a02133d2678814437ba3451e62fa8f78, type: 2}
   - {fileID: 151480, guid: 0df95c2579ce0ab498bd74faea0f6a03, type: 2}
   - {fileID: 141670, guid: d4a1df8a04ed1c741be117b67040bb06, type: 2}
   - {fileID: 109772, guid: 31b43d1822d2517438cbc1c522be0b25, type: 2}
@@ -350,6 +304,22 @@ Prefab:
     - target: {fileID: 485718, guid: 51b2e9991b19b304fb66c0d8dd146b63, type: 2}
       propertyPath: m_RootOrder
       value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 11435230, guid: 51b2e9991b19b304fb66c0d8dd146b63, type: 2}
+      propertyPath: MinNumOfPlatforms
+      value: 100
+      objectReference: {fileID: 0}
+    - target: {fileID: 11435230, guid: 51b2e9991b19b304fb66c0d8dd146b63, type: 2}
+      propertyPath: MaxNumOfPlatforms
+      value: 200
+      objectReference: {fileID: 0}
+    - target: {fileID: 11435230, guid: 51b2e9991b19b304fb66c0d8dd146b63, type: 2}
+      propertyPath: MinPlatformTotalTiles
+      value: 20
+      objectReference: {fileID: 0}
+    - target: {fileID: 11435230, guid: 51b2e9991b19b304fb66c0d8dd146b63, type: 2}
+      propertyPath: numberOfSpawns
+      value: 10
       objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 11412586, guid: 51b2e9991b19b304fb66c0d8dd146b63, type: 2}

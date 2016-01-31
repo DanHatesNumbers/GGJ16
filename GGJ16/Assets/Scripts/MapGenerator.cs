@@ -23,7 +23,9 @@ public class MapGenerator : NetworkBehaviour {
 
     public int MaxNumOfPlatforms = 25;
 
-    public int MinPlatformTotalTiles = 10; 
+    public int MinPlatformTotalTiles = 10;
+
+    public int numberOfSpawns = 20;
 
     System.Random rand; 
 
@@ -146,7 +148,7 @@ public class MapGenerator : NetworkBehaviour {
 
         List<Vector2> SpawnPoints = GenerateSpawnPoints(map);
 
-        GenerateElevators(map, dividerLevel, availiableTile); 
+        //GenerateElevators(map, dividerLevel, availiableTile); 
 
         InstantiateTiles(map, dividerLevel, availiableTile, SpawnPoints); 
         
@@ -276,9 +278,9 @@ public class MapGenerator : NetworkBehaviour {
     {
         List<Vector2> SpawnPoints = new List<Vector2>();
         //generate spawn points. 
-        int noOfSpawns = UnityEngine.Random.Range(1, WidthSize / 10);
+        //int noOfSpawns = UnityEngine.Random.Range(1, WidthSize / 10);
 
-        for (int idx = 0; idx < noOfSpawns; idx++)
+        for (int idx = 0; idx < numberOfSpawns; idx++)
         {
             bool notadded = true;
 
@@ -408,8 +410,8 @@ public class MapGenerator : NetworkBehaviour {
 
             var tile = (GameObject)Instantiate(obj, new Vector3(kv.Key.x * Tilesize, kv.Key.y * Tilesize), new Quaternion());
             ElevatorMovement move = tile.GetComponent(typeof(ElevatorMovement)) as ElevatorMovement;
-            move.Bottom = new Vector2(kv.Value.x * Tilesize, kv.Value.y * Tilesize);
-            move.Top = new Vector2(kv.Key.x * Tilesize, kv.Key.y * Tilesize);
+            move.EndPos = new Vector2(kv.Value.x * Tilesize, kv.Value.y * Tilesize);
+            move.StartPos = new Vector2(kv.Key.x * Tilesize, kv.Key.y * Tilesize);
             move.moveDir = MovementDirection.updown; 
             //ElevatorMovement move = tile.GetComponent<ElevatorMovement>();
             
@@ -445,8 +447,8 @@ public class MapGenerator : NetworkBehaviour {
 
             var tile = (GameObject)Instantiate(obj, new Vector3(kv.Key.x * Tilesize, kv.Key.y * Tilesize), new Quaternion());
             ElevatorMovement move = tile.GetComponent(typeof(ElevatorMovement)) as ElevatorMovement;
-            move.Left = new Vector2(kv.Value.x * Tilesize, kv.Value.y * Tilesize);
-            move.Right = new Vector2(kv.Key.x * Tilesize, kv.Key.y * Tilesize);
+            move.EndPos = new Vector2(kv.Value.x * Tilesize, kv.Value.y * Tilesize);
+            move.StartPos = new Vector2(kv.Key.x * Tilesize, kv.Key.y * Tilesize);
             move.moveDir = MovementDirection.leftright; 
             //ElevatorMovement move = tile.GetComponent<ElevatorMovement>();
 

@@ -141,6 +141,7 @@ MonoBehaviour:
   Right: {x: 0, y: 0}
   Speed: 0.125
   moveDir: 0
+  updateSpeed: 5
 --- !u!114 &11428614
 MonoBehaviour:
   m_ObjectHideFlags: 1

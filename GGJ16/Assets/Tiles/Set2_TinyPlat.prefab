@@ -167,6 +167,7 @@ MonoBehaviour:
   Right: {x: 0, y: 0}
   Speed: 0.125
   moveDir: 1
+  updateSpeed: 5
 --- !u!212 &21202954
 SpriteRenderer:
   m_ObjectHideFlags: 1

@@ -10,10 +10,11 @@ public class PlayerMovement : NetworkBehaviour {
 	public GameObject Player;
     public GameObject Fireball;
 
-    public float LastFireTime;
+    private float TimeSinceLastFire;
     public const float FireballCooldown = 0.5f;
 
     public bool FacingLeft;
+    public bool CanFire;
 
 	public List<InputAction> InputActions;
 
@@ -26,6 +27,8 @@ public class PlayerMovement : NetworkBehaviour {
     public const string RunRightAnimation = "RunRight";
     public const string JumpLeftAnimation = "JumpLeft";
     public const string JumpRightAnimation = "JumpRight";
+
+    private AnimationStateEnum playerAnimation;
 
 	// Use this for initialization
 	void Start () {
@@ -50,16 +53,17 @@ public class PlayerMovement : NetworkBehaviour {
 
         var inputFireball = new InputAction
         {
-            IsTriggered = () => (Input.GetAxis("Fire1") != 0) && CanFireball(),
-            PlayerAction = p => CmdSpawnFireball()
+            IsTriggered = () => (Input.GetAxis("Fire1") != 0) && CanFire,
+            PlayerAction = (p, d) => StartCoroutine("SpawnFireball")
         };
 
 		InputActions.Add(inputJump);
 		InputActions.Add(inputMoveLeft);
 		InputActions.Add(inputMoveRight);
         InputActions.Add(inputFireball);
-        LastFireTime = Time.time - FireballCooldown;
+        TimeSinceLastFire = 0f;
         FacingLeft = false;
+        CanFire = true;
 
         var networkId = GetComponent<NetworkIdentity>();
         GetComponentInChildren<Camera>().enabled = hasAuthority;
@@ -69,56 +73,73 @@ public class PlayerMovement : NetworkBehaviour {
 	// Update is called once per frame
 	void Update ()
 	{
+        var animator = GetComponentInChildren<Animator>();
+        var rigidBody = GetComponent<Rigidbody2D>();
+
         if (hasAuthority)
         {
+            TimeSinceLastFire += Time.deltaTime;
             foreach (var action in InputActions)
             {
                 if (action.IsTriggered())
                 {
-                    action.PlayerAction(Player);
+                    action.PlayerAction(Player, Time.deltaTime);
                 }
             }
         }
-
-        var animator = GetComponentInChildren<Animator>();
-        var rigidBody = GetComponent<Rigidbody2D>();
-
-        if (FacingLeft && rigidBody.velocity == Vector2.zero)
+        var playerVelocity = this.GetComponent<Rigidbody2D>().velocity;
+        if (playerVelocity.x > 0.5f)
         {
-            //Debug.Log("Triggering Idle Left");
-            animator.Play(IdleLeftAnimation);
+            if (playerVelocity.y > 0.5f)
+            {
+                animator.Play(JumpRightAnimation);
+            }
+            else
+            {
+                animator.Play(RunRightAnimation);
+            }
+            FacingLeft = false;
         }
-        else if (FacingLeft && rigidBody.velocity.x != 0 && rigidBody.velocity.y <= 0)
+        else if (playerVelocity.x > 0f)
         {
-            //Debug.Log("Triggering Run Left");
-            animator.Play(RunLeftAnimation);
-        }
-        else if (FacingLeft && rigidBody.velocity.y >= 0)
-        {
-            //Debug.Log("Triggering Jump Left");
-            animator.Play(JumpLeftAnimation);
-        }
-        else if (!FacingLeft && rigidBody.velocity == Vector2.zero)
-        {
-            //Debug.Log("Triggering Idle Right");
             animator.Play(IdleRightAnimation);
+            FacingLeft = false;
         }
-        else if (!FacingLeft && rigidBody.velocity.x != 0 && rigidBody.velocity.y <= 0)
+
+        if (playerVelocity.x < -0.5f)
         {
-            //Debug.Log("Triggering Run Right");
-            animator.Play(RunRightAnimation);
+            if (playerVelocity.y > 0.5f)
+            {
+                animator.Play(JumpLeftAnimation);
+            }
+            else
+            {
+                animator.Play(RunLeftAnimation);
+            }
+            FacingLeft = true;
         }
-        else if (!FacingLeft && rigidBody.velocity.y >= 0)
+        else if (playerVelocity.x < 0f)
         {
-            //Debug.Log("Triggering Jump Right");
-            animator.Play(JumpRightAnimation);
+            animator.Play(IdleLeftAnimation);
+            FacingLeft = true;
         }
 	}
+
+    IEnumerator SpawnFireball()
+    {
+        CanFire = false;
+
+        CmdSpawnFireball();
+
+        yield return new WaitForSeconds(FireballCooldown);
+
+        CanFire = true;
+    }
 
     [Command]
     void CmdSpawnFireball()
     {
-        var position = Player.transform.position;
+        Vector2 position = Player.transform.position;
         if (FacingLeft)
         {
             position.x -= Player.GetComponent<Collider2D>().bounds.size.x;
@@ -128,15 +149,9 @@ public class PlayerMovement : NetworkBehaviour {
             position.x += Player.GetComponent<Collider2D>().bounds.size.x;
         }
         var fireball = (GameObject)Instantiate(Fireball, position, Quaternion.Euler(new Vector3(0, 0, 0)));
-        var fireballVelocity = FacingLeft ? new Vector2(-5f, 0f) : new Vector2(5f, 0f);
-        fireball.GetComponent<Rigidbody2D>().velocity = fireballVelocity;
-        LastFireTime = Time.time;
+        var fireballVelocity = FacingLeft ? new Vector2(-750f, 0f) : new Vector2(750f, 0f);
+        fireball.GetComponent<Rigidbody2D>().AddForce(fireballVelocity, ForceMode2D.Impulse);
 
         NetworkServer.Spawn(fireball);
-    }
-
-    bool CanFireball()
-    {
-        return LastFireTime < Time.time - FireballCooldown;
     }
 }
