@@ -15,7 +15,7 @@ GameObject:
   - 114: {fileID: 11416714}
   - 114: {fileID: 11498612}
   m_Layer: 0
-  m_Name: PWUP_Stripy_Pink 1
+  m_Name: PWUP_Stripy_Red
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

@@ -28,6 +28,9 @@ public class PlayerMovement : NetworkBehaviour {
     public const string JumpLeftAnimation = "JumpLeft";
     public const string JumpRightAnimation = "JumpRight";
 
+    private const float PowerupDuration = 10f;
+    private Dictionary<string, float> PowerupTimers;
+
     private AnimationStateEnum playerAnimation;
 
 	// Use this for initialization
@@ -35,20 +38,43 @@ public class PlayerMovement : NetworkBehaviour {
 		InputActions = new List<InputAction> ();
 		var inputJump = new InputAction 
 		{
-			IsTriggered = () => Input.GetButtonDown("Jump") && Player.GetComponent<Collider2D>().IsTouchingLayers(),
-			PlayerAction = InputAction.JumpAction
+			IsTriggered = () => 
+                    Input.GetButtonDown("Jump") 
+                    && Player.GetComponent<Collider2D>().IsTouchingLayers()
+                    && !IsPowerupActive(PowerupNames.SolidBlack),
+            PlayerAction = (c, delta) => 
+            {
+                var forceAmount = 13f;
+                //Debug.Log(String.Format("Jump input action delta: {0}, total force: {1}", delta, forceAmount));
+                var rb = c.GetComponent<Rigidbody2D>();
+                rb.AddForce(new Vector2(0f, forceAmount), ForceMode2D.Impulse);
+            }
 		};
 
 		var inputMoveLeft = new InputAction 
 		{
 			IsTriggered = () => Input.GetAxis("Horizontal") < leftThreshold,
-			PlayerAction = InputAction.MoveLeftAction
+            PlayerAction = (c, delta) => 
+            {
+                var forceAmount = -0.2f * delta * 100;
+                Debug.Log(String.Format("Move left input action delta: {0}, total force: {1}", delta, forceAmount));
+                var rb = c.GetComponent<Rigidbody2D>();
+                rb.AddForce(new Vector2(forceAmount, 0f), ForceMode2D.Impulse);
+                c.GetComponent<PlayerMovement>().FacingLeft = true;
+            }
 		};
 
 		var inputMoveRight = new InputAction 
 		{
 			IsTriggered = () => Input.GetAxis("Horizontal") > rightThreshold,
-			PlayerAction = InputAction.MoveRightAction
+            PlayerAction = (c, delta) => 
+            {
+                var forceAmount = 0.2f * delta * 100;
+                Debug.Log(String.Format("Move right input action delta: {0}, total force: {1}", delta, forceAmount));
+                var rb = c.GetComponent<Rigidbody2D>();
+                rb.AddForce(new Vector2(forceAmount, 0f), ForceMode2D.Impulse);
+                c.GetComponent<PlayerMovement>().FacingLeft = false;
+            }
 		};
 
         var inputFireball = new InputAction
@@ -64,6 +90,8 @@ public class PlayerMovement : NetworkBehaviour {
         TimeSinceLastFire = 0f;
         FacingLeft = false;
         CanFire = true;
+
+        PowerupTimers = new Dictionary<string, float>();
 
         var networkId = GetComponent<NetworkIdentity>();
         GetComponentInChildren<Camera>().enabled = hasAuthority;
@@ -84,6 +112,16 @@ public class PlayerMovement : NetworkBehaviour {
                 if (action.IsTriggered())
                 {
                     action.PlayerAction(Player, Time.deltaTime);
+                }
+            }
+
+            var keys = new List<string>(PowerupTimers.Keys);
+            foreach(var key in keys)
+            {
+                PowerupTimers[key] -= Time.deltaTime;
+                if(PowerupTimers[key] <= 0f)
+                {
+                    PowerupTimers[key] = 0f;
                 }
             }
         }
@@ -124,6 +162,38 @@ public class PlayerMovement : NetworkBehaviour {
             FacingLeft = true;
         }
 	}
+
+    void OnCollisionEnter2D(Collision2D col)
+    {
+        var collidedObjectName = col.gameObject.name;
+        switch(collidedObjectName)
+        {
+            case PowerupNames.SolidBlack:
+                ActivatePowerup(PowerupNames.SolidBlack);
+                RemovePowerup(col.gameObject);
+                break;
+        }
+    }
+
+    bool IsPowerupActive(string powerupName)
+    {
+        if(PowerupTimers.ContainsKey(powerupName))
+        {
+            return PowerupTimers[powerupName] > 0f;
+        }
+        return false;
+    }
+
+    void ActivatePowerup(string powerupName)
+    {
+        PowerupTimers[powerupName] = PowerupDuration;
+    }
+
+    void RemovePowerup(GameObject obj)
+    {
+        NetworkServer.Destroy(obj);
+        Destroy(obj);
+    }
 
     IEnumerator SpawnFireball()
     {
