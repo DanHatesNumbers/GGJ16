@@ -31,6 +31,11 @@ public class PlayerMovement : NetworkBehaviour {
     private const float PowerupDuration = 10f;
 
     private Dictionary<string, float> PowerupTimers;
+    [SyncVar]
+    private float SolidBlackTimer;
+    [SyncVar]
+    private float SolidYellowTimer;
+
 
     private AnimationStateEnum playerAnimation;
 
@@ -93,6 +98,8 @@ public class PlayerMovement : NetworkBehaviour {
         CanFire = true;
 
         PowerupTimers = new Dictionary<string, float>();
+        SolidBlackTimer = 0f;
+        SolidYellowTimer = 0f;
 
         var networkId = GetComponent<NetworkIdentity>();
         GetComponentInChildren<Camera>().enabled = hasAuthority;
@@ -116,7 +123,7 @@ public class PlayerMovement : NetworkBehaviour {
                 }
             }
 
-            var keys = new List<string>(PowerupTimers.Keys);
+            /*var keys = new List<string>(PowerupTimers.Keys);
             foreach(var key in keys)
             {
                 PowerupTimers[key] -= Time.deltaTime;
@@ -125,6 +132,25 @@ public class PlayerMovement : NetworkBehaviour {
                 {
                     PowerupTimers[key] = 0f;
                 }
+            }*/
+            SolidBlackTimer -= Time.deltaTime;
+            SolidYellowTimer -= Time.deltaTime;
+
+            if(SolidBlackTimer <= 0f)
+            {
+                SolidBlackTimer = 0f;
+            }
+            if(SolidYellowTimer <= 0f)
+            {
+                SolidYellowTimer = 0f;
+            }
+            if (SolidBlackTimer != 0f)
+            {
+                Debug.Log(String.Format("Power up black remaining duraction {0}", SolidBlackTimer));
+            }
+            if (SolidYellowTimer != 0f)
+            {
+                Debug.Log(String.Format("Power up yellow remaining duraction {0}", SolidYellowTimer));
             }
         }
         var playerVelocity = this.GetComponent<Rigidbody2D>().velocity;
@@ -172,11 +198,13 @@ public class PlayerMovement : NetworkBehaviour {
         switch (collidedObjectName)
         {
             case PowerupNames.SolidBlack:
-                ActivatePowerup(PowerupNames.SolidBlack);
+                //ActivatePowerup(PowerupNames.SolidBlack);
+                SolidBlackTimer = PowerupDuration;
                 RemovePowerup(col.gameObject);
                 break;
             case PowerupNames.SolidYellow:
-                ActivatePowerup(PowerupNames.SolidYellow);
+                //ActivatePowerup(PowerupNames.SolidYellow);
+                SolidYellowTimer = PowerupDuration;
                 RemovePowerup(col.gameObject);
                 break;
         }
@@ -184,11 +212,23 @@ public class PlayerMovement : NetworkBehaviour {
 
     bool IsPowerupActive(string powerupName)
     {
-        if(PowerupTimers.ContainsKey(powerupName))
+        switch (powerupName)
+        {
+            case PowerupNames.SolidBlack:
+                return SolidBlackTimer > 0f;
+                break;
+            case PowerupNames.SolidYellow:
+                return SolidYellowTimer > 0f;
+                break;
+            default:
+                return false;
+                break;
+        }
+        /*if(PowerupTimers.ContainsKey(powerupName))
         {
             return PowerupTimers[powerupName] > 0f;
         }
-        return false;
+        return false;*/
     }
 
     [Client]
