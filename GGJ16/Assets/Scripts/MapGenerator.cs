@@ -19,13 +19,13 @@ public class MapGenerator : NetworkBehaviour {
 
     public GameObject SpawnPrefab;
 
-    public int MinNumOfPlatforms = 2;
+    public int MinNumOfPlatforms = 100;
 
-    public int MaxNumOfPlatforms = 25;
+    public int MaxNumOfPlatforms = 400;
 
     public int MinPlatformTotalTiles = 10;
 
-    public int numberOfSpawns = 20;
+    public int numberOfSpawns = 10;
 
     System.Random rand; 
 
@@ -142,7 +142,7 @@ public class MapGenerator : NetworkBehaviour {
     /// <param name="availiableTile"></param>
     protected virtual void SpawnTiles (Dictionary<TileSetType, TileLevel> availiableTile)
     {
-        int dividerLevel = UnityEngine.Random.Range(0, HeightSize);
+        int dividerLevel = UnityEngine.Random.Range(3, HeightSize);
 
         TileType[,] map = GenerateMap(); 
 

@@ -121,9 +121,10 @@ MonoBehaviour:
   - baseSet
   Tilesize: 2.56
   SpawnPrefab: {fileID: 136664, guid: 493085623ff28774fb17d8f7fbcd4e14, type: 2}
-  MinNumOfPlatforms: 2
-  MaxNumOfPlatforms: 25
+  MinNumOfPlatforms: 100
+  MaxNumOfPlatforms: 400
   MinPlatformTotalTiles: 10
+  numberOfSpawns: 10
 --- !u!114 &11446790
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -180,6 +181,18 @@ Prefab:
     - target: {fileID: 0}
       propertyPath: HeightSize
       value: 50
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: MinNumOfPlatforms
+      value: 100
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: MaxNumOfPlatforms
+      value: 400
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: numberOfSpawns
+      value: 10
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 0}
