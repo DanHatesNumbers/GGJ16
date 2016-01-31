@@ -65,6 +65,7 @@
     <Compile Include="Assets\PowerUps\RandomRotationOnSpawn.cs" />
     <Compile Include="Assets\Scripts\AnimationState.cs" />
     <Compile Include="Assets\Scripts\Attack.cs" />
+    <Compile Include="Assets\Scripts\BackgroundScript.cs" />
     <Compile Include="Assets\Scripts\DualStore.cs" />
     <Compile Include="Assets\Scripts\ElevatorMovement.cs" />
     <Compile Include="Assets\Scripts\FireballBehaviour.cs" />
