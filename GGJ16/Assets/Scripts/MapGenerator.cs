@@ -516,11 +516,12 @@ public class MapGenerator : NetworkBehaviour {
             NetworkServer.Spawn(spawn); 
         }
 
-        GameObject back = backgroundPrefab;
-        BackgroundScript move = back.GetComponent(typeof(BackgroundScript)) as BackgroundScript;
+        //GameObject back = backgroundPrefab;
+        
+        var backobj = (GameObject)Instantiate(backgroundPrefab, new Vector3(0, 0), new Quaternion());
+        BackgroundScript move = backobj.GetComponent(typeof(BackgroundScript)) as BackgroundScript;
         move.MapSize = new Vector2(WidthSize * Tilesize, HeightSize * Tilesize);
         move.DividerLevel = dividerLevel;
-        var backobj = (GameObject)Instantiate(back, new Vector3(0, 0), new Quaternion());
         Debug.Log(backobj);
         NetworkServer.Spawn(backobj); 
 
