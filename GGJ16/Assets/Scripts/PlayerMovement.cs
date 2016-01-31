@@ -119,7 +119,7 @@ public class PlayerMovement : NetworkBehaviour {
             foreach(var key in keys)
             {
                 PowerupTimers[key] -= Time.deltaTime;
-                Debug.Log(String.Format("Powerup {0} remaining duration {1}", key, PowerupTimers[key])2);
+                Debug.Log(String.Format("Powerup {0} remaining duration {1}", key, PowerupTimers[key]));
                 if(PowerupTimers[key] <= 0f)
                 {
                     PowerupTimers[key] = 0f;
