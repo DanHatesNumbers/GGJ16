@@ -27,6 +27,8 @@ public class MapGenerator : NetworkBehaviour {
 
     public int numberOfSpawns = 10;
 
+    public GameObject backgroundPrefab; 
+
     System.Random rand; 
 
     public override void OnStartServer()
@@ -497,6 +499,12 @@ public class MapGenerator : NetworkBehaviour {
                     Debug.Log(tile);
                     NetworkServer.Spawn(tile);
                 }
+
+                //GameObject bck = availiableTile[TileSetType.background].GetTileType(TileType.Filler);
+                //var backt = (GameObject)Instantiate(bck, new Vector3(xdx * Tilesize, ydx * Tilesize), new Quaternion());
+                //backt.name = "background";
+                //Debug.Log(backt);
+                //NetworkServer.Spawn(backt); 
             }
         }
 
@@ -507,5 +515,16 @@ public class MapGenerator : NetworkBehaviour {
             Debug.Log(spawn); 
             NetworkServer.Spawn(spawn); 
         }
+
+        //GameObject back = backgroundPrefab;
+        
+        var backobj = (GameObject)Instantiate(backgroundPrefab, new Vector3(0, 0), new Quaternion());
+        BackgroundScript move = backobj.GetComponent(typeof(BackgroundScript)) as BackgroundScript;
+        move.MapSize = new Vector2(WidthSize * Tilesize, HeightSize * Tilesize);
+        move.DividerLevel = dividerLevel;
+        Debug.Log(backobj);
+        NetworkServer.Spawn(backobj); 
+
+
     }
 }
