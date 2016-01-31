@@ -29,6 +29,7 @@ public class PlayerMovement : NetworkBehaviour {
     public const string JumpRightAnimation = "JumpRight";
 
     private const float PowerupDuration = 10f;
+
     private Dictionary<string, float> PowerupTimers;
 
     private AnimationStateEnum playerAnimation;
@@ -166,20 +167,17 @@ public class PlayerMovement : NetworkBehaviour {
 
     void OnCollisionEnter2D(Collision2D col)
     {
-        if (hasAuthority)
+        var collidedObjectName = col.gameObject.name;
+        switch (collidedObjectName)
         {
-            var collidedObjectName = col.gameObject.name;
-            switch (collidedObjectName)
-            {
-                case PowerupNames.SolidBlack:
-                    ActivatePowerup(PowerupNames.SolidBlack);
-                    RemovePowerup(col.gameObject);
-                    break;
-                case PowerupNames.SolidYellow:
-                    ActivatePowerup(PowerupNames.SolidYellow);
-                    RemovePowerup(col.gameObject);
-                    break;
-            }
+            case PowerupNames.SolidBlack:
+                CmdActivatePowerup(PowerupNames.SolidBlack);
+                RemovePowerup(col.gameObject);
+                break;
+            case PowerupNames.SolidYellow:
+                CmdActivatePowerup(PowerupNames.SolidYellow);
+                RemovePowerup(col.gameObject);
+                break;
         }
     }
 
@@ -192,7 +190,8 @@ public class PlayerMovement : NetworkBehaviour {
         return false;
     }
 
-    void ActivatePowerup(string powerupName)
+    [Command]
+    void CmdActivatePowerup(string powerupName)
     {
         Debug.Log(String.Format("Activating powerup {0}", powerupName));
         PowerupTimers[powerupName] = PowerupDuration;
