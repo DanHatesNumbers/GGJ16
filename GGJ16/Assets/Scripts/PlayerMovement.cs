@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using UnityEngine.Networking;
+using UnityEngine.Audio;
 using System.Collections;
 using System.Collections.Generic;
 using AssemblyCSharp;
@@ -9,6 +10,10 @@ public class PlayerMovement : NetworkBehaviour {
 
 	public GameObject Player;
     public GameObject Fireball;
+    public AudioClip JumpSoundClip;
+    public AudioClip JoinSound;
+    public AudioClip ShootSound;
+    public AudioClip PickupSound;
 
     private float TimeSinceLastFire;
     public const float FireballCooldown = 0.5f;
@@ -36,7 +41,8 @@ public class PlayerMovement : NetworkBehaviour {
 		var inputJump = new InputAction 
 		{
 			IsTriggered = () => Input.GetButtonDown("Jump") && Player.GetComponent<Collider2D>().IsTouchingLayers(),
-			PlayerAction = InputAction.JumpAction
+			PlayerAction = InputAction.JumpAction,
+            AudioClip = JumpSoundClip
 		};
 
 		var inputMoveLeft = new InputAction 
@@ -54,7 +60,8 @@ public class PlayerMovement : NetworkBehaviour {
         var inputFireball = new InputAction
         {
             IsTriggered = () => (Input.GetAxis("Fire1") != 0) && CanFire,
-            PlayerAction = (p, d) => StartCoroutine("SpawnFireball")
+            PlayerAction = (p, d) => StartCoroutine("SpawnFireball"),
+            AudioClip = ShootSound
         };
 
 		InputActions.Add(inputJump);
@@ -67,7 +74,10 @@ public class PlayerMovement : NetworkBehaviour {
 
         var networkId = GetComponent<NetworkIdentity>();
         GetComponentInChildren<Camera>().enabled = hasAuthority;
+        GetComponentInChildren<AudioListener>().enabled = hasAuthority;
         Debug.Log(String.Format("Is Local Player? {0}", hasAuthority));
+
+        GetComponent<AudioSource>().PlayOneShot(JoinSound);
 	}
 	
 	// Update is called once per frame
@@ -84,6 +94,11 @@ public class PlayerMovement : NetworkBehaviour {
                 if (action.IsTriggered())
                 {
                     action.PlayerAction(Player, Time.deltaTime);
+                    if (action.AudioClip != null)
+                    {
+                        AudioSource source = GetComponent<AudioSource>();
+                        source.PlayOneShot(action.AudioClip);
+                    }
                 }
             }
         }

@@ -1,5 +1,6 @@
 ﻿using System;
 using UnityEngine;
+using UnityEngine.Audio;
 
 namespace AssemblyCSharp
 {
@@ -7,6 +8,7 @@ namespace AssemblyCSharp
 	{
 		public Func<bool> IsTriggered;
 		public Action<GameObject, float> PlayerAction;
+        public AudioClip AudioClip;
 
         public static Action<GameObject, float> JumpAction = (c, delta) => 
 		{
