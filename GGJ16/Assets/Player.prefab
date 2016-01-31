@@ -359,10 +359,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Player: {fileID: 124892}
   Fireball: {fileID: 177850, guid: a02133d2678814437ba3451e62fa8f78, type: 2}
-  JumpSoundClip: {fileID: 0}
-  JoinSound: {fileID: 0}
-  ShootSound: {fileID: 0}
-  PickupSound: {fileID: 0}
+  JumpSoundClip: {fileID: 8300000, guid: c36fa08ef01a24023aed81ce8c980720, type: 3}
+  JoinSound: {fileID: 8300000, guid: bf7c660e4b34144d1a60a5063a3b1f4a, type: 3}
+  ShootSound: {fileID: 8300000, guid: 9ab7ac9f6e729457d8a8dfa89151ee30, type: 3}
+  PickupSound: {fileID: 8300000, guid: 257ad41856c414a4fa83c51d7778725c, type: 3}
   FacingLeft: 0
   CanFire: 0
 --- !u!114 &11452250
@@ -2030,6 +2030,22 @@ Prefab:
       propertyPath: reverbZoneMixCustomCurve.m_RotationOrder
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: JumpSoundClip
+      value: 
+      objectReference: {fileID: 8300000, guid: c36fa08ef01a24023aed81ce8c980720, type: 3}
+    - target: {fileID: 0}
+      propertyPath: JoinSound
+      value: 
+      objectReference: {fileID: 8300000, guid: bf7c660e4b34144d1a60a5063a3b1f4a, type: 3}
+    - target: {fileID: 0}
+      propertyPath: ShootSound
+      value: 
+      objectReference: {fileID: 8300000, guid: 9ab7ac9f6e729457d8a8dfa89151ee30, type: 3}
+    - target: {fileID: 0}
+      propertyPath: PickupSound
+      value: 
+      objectReference: {fileID: 8300000, guid: 257ad41856c414a4fa83c51d7778725c, type: 3}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 0}
   m_RootGameObject: {fileID: 124892}
