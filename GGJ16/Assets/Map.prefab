@@ -125,6 +125,7 @@ MonoBehaviour:
   MaxNumOfPlatforms: 400
   MinPlatformTotalTiles: 10
   numberOfSpawns: 10
+  backgroundPrefab: {fileID: 100344, guid: 3596fab114faa634eac96554fde9eb88, type: 2}
 --- !u!114 &11446790
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -194,6 +195,10 @@ Prefab:
       propertyPath: numberOfSpawns
       value: 10
       objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: backgroundPrefab
+      value: 
+      objectReference: {fileID: 100344, guid: 3596fab114faa634eac96554fde9eb88, type: 2}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 0}
   m_RootGameObject: {fileID: 149812}

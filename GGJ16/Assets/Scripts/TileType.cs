@@ -20,5 +20,6 @@ public enum TileType
     Platform,
     LeftWall,
     RightWall,
-    Lava
+    Lava, 
+    Filler
 }
