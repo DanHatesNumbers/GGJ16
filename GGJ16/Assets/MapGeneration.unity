@@ -303,7 +303,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 485718, guid: 51b2e9991b19b304fb66c0d8dd146b63, type: 2}
       propertyPath: m_RootOrder
-      value: 2
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 11435230, guid: 51b2e9991b19b304fb66c0d8dd146b63, type: 2}
       propertyPath: MinNumOfPlatforms
@@ -311,7 +311,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 11435230, guid: 51b2e9991b19b304fb66c0d8dd146b63, type: 2}
       propertyPath: MaxNumOfPlatforms
-      value: 200
+      value: 400
       objectReference: {fileID: 0}
     - target: {fileID: 11435230, guid: 51b2e9991b19b304fb66c0d8dd146b63, type: 2}
       propertyPath: MinPlatformTotalTiles
