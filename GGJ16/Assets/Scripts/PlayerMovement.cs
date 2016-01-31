@@ -172,11 +172,11 @@ public class PlayerMovement : NetworkBehaviour {
         switch (collidedObjectName)
         {
             case PowerupNames.SolidBlack:
-                CmdActivatePowerup(PowerupNames.SolidBlack);
+                ActivatePowerup(PowerupNames.SolidBlack);
                 RemovePowerup(col.gameObject);
                 break;
             case PowerupNames.SolidYellow:
-                CmdActivatePowerup(PowerupNames.SolidYellow);
+                ActivatePowerup(PowerupNames.SolidYellow);
                 RemovePowerup(col.gameObject);
                 break;
         }
@@ -191,13 +191,14 @@ public class PlayerMovement : NetworkBehaviour {
         return false;
     }
 
-    [Command]
-    void CmdActivatePowerup(string powerupName)
+    [Client]
+    void ActivatePowerup(string powerupName)
     {
         Debug.Log(String.Format("Activating powerup {0}", powerupName));
         PowerupTimers[powerupName] = PowerupDuration;
     }
 
+    [Client]
     void RemovePowerup(GameObject obj)
     {
         Debug.Log(String.Format("Removing powerup object {0}", obj.name));
