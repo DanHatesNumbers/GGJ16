@@ -192,11 +192,13 @@ public class MapGenerator : NetworkBehaviour {
         for (int idx = 0; idx < platformNo; idx++)
         {
             int height = UnityEngine.Random.Range(0, HeightSize);
-            int platformLength = UnityEngine.Random.Range(2, WidthSize / 2);
+            int platformLength = UnityEngine.Random.Range(2, WidthSize - 2);
 
             int platformStart = UnityEngine.Random.Range(1, WidthSize - platformLength);
 
             int lastDirection = 1; //0 is down, 1 is straight, 2 is up. 
+
+            bool skipGeneration = false; 
 
             if (map[platformStart, height] == TileType.None)
             {
@@ -207,10 +209,11 @@ public class MapGenerator : NetworkBehaviour {
             else
             {
                 platformNo--;
-                platformStart = platformLength; 
+                platformStart = platformLength;
+                skipGeneration = true; 
             }
 
-            while (platformStart < platformLength - 1)
+            while (platformStart < platformLength - 1 && platformStart < map.GetLength(0))
             {
                 if (map[platformStart, height] == TileType.None)
                 {
@@ -253,7 +256,7 @@ public class MapGenerator : NetworkBehaviour {
                 platformStart++;
             }
 
-            if (map[platformStart, height] == TileType.None)
+            if (map[platformStart, height] == TileType.None && !skipGeneration)
             {
                 map[platformStart, height] = TileType.RightEnd;
                 platformTileNo++;
