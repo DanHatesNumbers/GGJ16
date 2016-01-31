@@ -13,6 +13,7 @@ public class PlayerMovement : NetworkBehaviour {
     public AudioClip JumpSoundClip;
     public AudioClip JoinSound;
     public AudioClip ShootSound;
+    public AudioClip PickupSound;
 
     private float TimeSinceLastFire;
     public const float FireballCooldown = 0.5f;
