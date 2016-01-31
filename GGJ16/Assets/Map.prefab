@@ -122,10 +122,9 @@ MonoBehaviour:
   Tilesize: 2.56
   SpawnPrefab: {fileID: 136664, guid: 493085623ff28774fb17d8f7fbcd4e14, type: 2}
   MinNumOfPlatforms: 100
-  MaxNumOfPlatforms: 200
-  MinPlatformTotalTiles: 20
+  MaxNumOfPlatforms: 400
+  MinPlatformTotalTiles: 10
   numberOfSpawns: 10
-  backgroundPrefab: {fileID: 100344, guid: 3596fab114faa634eac96554fde9eb88, type: 2}
 --- !u!114 &11446790
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -184,9 +183,17 @@ Prefab:
       value: 50
       objectReference: {fileID: 0}
     - target: {fileID: 0}
-      propertyPath: backgroundPrefab
-      value: 
-      objectReference: {fileID: 100344, guid: 3596fab114faa634eac96554fde9eb88, type: 2}
+      propertyPath: MinNumOfPlatforms
+      value: 100
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: MaxNumOfPlatforms
+      value: 400
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: numberOfSpawns
+      value: 10
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 0}
   m_RootGameObject: {fileID: 149812}
