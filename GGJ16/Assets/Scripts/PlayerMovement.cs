@@ -73,6 +73,7 @@ public class PlayerMovement : NetworkBehaviour {
 
         var networkId = GetComponent<NetworkIdentity>();
         GetComponentInChildren<Camera>().enabled = hasAuthority;
+        GetComponentInChildren<AudioListener>().enabled = hasAuthority;
         Debug.Log(String.Format("Is Local Player? {0}", hasAuthority));
 
         GetComponent<AudioSource>().PlayOneShot(JoinSound);
