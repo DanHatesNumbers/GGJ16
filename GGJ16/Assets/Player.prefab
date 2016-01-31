@@ -343,8 +343,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 594342f240107aa49abb6e8729944bba, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  hitSound: {fileID: 0}
-  deathSound: {fileID: 0}
+  hitSound: {fileID: 8300000, guid: 2876e7fa4419a4a7096b8bb38641daa3, type: 3}
+  deathSound: {fileID: 8300000, guid: 4668d9fcf8d264f3693f23878a14042b, type: 3}
   health: 100
 --- !u!114 &11445798
 MonoBehaviour:
@@ -2046,6 +2046,14 @@ Prefab:
       propertyPath: PickupSound
       value: 
       objectReference: {fileID: 8300000, guid: 257ad41856c414a4fa83c51d7778725c, type: 3}
+    - target: {fileID: 0}
+      propertyPath: hitSound
+      value: 
+      objectReference: {fileID: 8300000, guid: 2876e7fa4419a4a7096b8bb38641daa3, type: 3}
+    - target: {fileID: 0}
+      propertyPath: deathSound
+      value: 
+      objectReference: {fileID: 8300000, guid: 4668d9fcf8d264f3693f23878a14042b, type: 3}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 0}
   m_RootGameObject: {fileID: 124892}
