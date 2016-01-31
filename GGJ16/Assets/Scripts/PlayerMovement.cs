@@ -28,6 +28,15 @@ public class PlayerMovement : NetworkBehaviour {
     public const string JumpLeftAnimation = "JumpLeft";
     public const string JumpRightAnimation = "JumpRight";
 
+    private const float PowerupDuration = 10f;
+
+    private Dictionary<string, float> PowerupTimers;
+    [SyncVar]
+    private float SolidBlackTimer;
+    [SyncVar]
+    private float SolidYellowTimer;
+
+
     private AnimationStateEnum playerAnimation;
 
 	// Use this for initialization
@@ -35,20 +44,43 @@ public class PlayerMovement : NetworkBehaviour {
 		InputActions = new List<InputAction> ();
 		var inputJump = new InputAction 
 		{
-			IsTriggered = () => Input.GetButtonDown("Jump") && Player.GetComponent<Collider2D>().IsTouchingLayers(),
-			PlayerAction = InputAction.JumpAction
+			IsTriggered = () => 
+                    Input.GetButtonDown("Jump") 
+                    && (IsPowerupActive(PowerupNames.SolidYellow) || Player.GetComponent<Collider2D>().IsTouchingLayers())
+                    && !IsPowerupActive(PowerupNames.SolidBlack),
+            PlayerAction = (c, delta) => 
+            {
+                var forceAmount = 13f;
+                //Debug.Log(String.Format("Jump input action delta: {0}, total force: {1}", delta, forceAmount));
+                var rb = c.GetComponent<Rigidbody2D>();
+                rb.AddForce(new Vector2(0f, forceAmount), ForceMode2D.Impulse);
+            }
 		};
 
 		var inputMoveLeft = new InputAction 
 		{
 			IsTriggered = () => Input.GetAxis("Horizontal") < leftThreshold,
-			PlayerAction = InputAction.MoveLeftAction
+            PlayerAction = (c, delta) => 
+            {
+                var forceAmount = -0.2f * delta * 100;
+                Debug.Log(String.Format("Move left input action delta: {0}, total force: {1}", delta, forceAmount));
+                var rb = c.GetComponent<Rigidbody2D>();
+                rb.AddForce(new Vector2(forceAmount, 0f), ForceMode2D.Impulse);
+                c.GetComponent<PlayerMovement>().FacingLeft = true;
+            }
 		};
 
 		var inputMoveRight = new InputAction 
 		{
 			IsTriggered = () => Input.GetAxis("Horizontal") > rightThreshold,
-			PlayerAction = InputAction.MoveRightAction
+            PlayerAction = (c, delta) => 
+            {
+                var forceAmount = 0.2f * delta * 100;
+                Debug.Log(String.Format("Move right input action delta: {0}, total force: {1}", delta, forceAmount));
+                var rb = c.GetComponent<Rigidbody2D>();
+                rb.AddForce(new Vector2(forceAmount, 0f), ForceMode2D.Impulse);
+                c.GetComponent<PlayerMovement>().FacingLeft = false;
+            }
 		};
 
         var inputFireball = new InputAction
@@ -64,6 +96,10 @@ public class PlayerMovement : NetworkBehaviour {
         TimeSinceLastFire = 0f;
         FacingLeft = false;
         CanFire = true;
+
+        PowerupTimers = new Dictionary<string, float>();
+        SolidBlackTimer = 0f;
+        SolidYellowTimer = 0f;
 
         var networkId = GetComponent<NetworkIdentity>();
         GetComponentInChildren<Camera>().enabled = hasAuthority;
@@ -85,6 +121,36 @@ public class PlayerMovement : NetworkBehaviour {
                 {
                     action.PlayerAction(Player, Time.deltaTime);
                 }
+            }
+
+            /*var keys = new List<string>(PowerupTimers.Keys);
+            foreach(var key in keys)
+            {
+                PowerupTimers[key] -= Time.deltaTime;
+                Debug.Log(String.Format("Powerup {0} remaining duration {1}", key, PowerupTimers[key]));
+                if(PowerupTimers[key] <= 0f)
+                {
+                    PowerupTimers[key] = 0f;
+                }
+            }*/
+            SolidBlackTimer -= Time.deltaTime;
+            SolidYellowTimer -= Time.deltaTime;
+
+            if(SolidBlackTimer <= 0f)
+            {
+                SolidBlackTimer = 0f;
+            }
+            if(SolidYellowTimer <= 0f)
+            {
+                SolidYellowTimer = 0f;
+            }
+            if (SolidBlackTimer != 0f)
+            {
+                Debug.Log(String.Format("Power up black remaining duraction {0}", SolidBlackTimer));
+            }
+            if (SolidYellowTimer != 0f)
+            {
+                Debug.Log(String.Format("Power up yellow remaining duraction {0}", SolidYellowTimer));
             }
         }
         var playerVelocity = this.GetComponent<Rigidbody2D>().velocity;
@@ -124,6 +190,61 @@ public class PlayerMovement : NetworkBehaviour {
             FacingLeft = true;
         }
 	}
+
+    [Client]
+    void OnCollisionEnter2D(Collision2D col)
+    {
+        var collidedObjectName = col.gameObject.name;
+        switch (collidedObjectName)
+        {
+            case PowerupNames.SolidBlack:
+                //ActivatePowerup(PowerupNames.SolidBlack);
+                SolidBlackTimer = PowerupDuration;
+                RemovePowerup(col.gameObject);
+                break;
+            case PowerupNames.SolidYellow:
+                //ActivatePowerup(PowerupNames.SolidYellow);
+                SolidYellowTimer = PowerupDuration;
+                RemovePowerup(col.gameObject);
+                break;
+        }
+    }
+
+    bool IsPowerupActive(string powerupName)
+    {
+        switch (powerupName)
+        {
+            case PowerupNames.SolidBlack:
+                return SolidBlackTimer > 0f;
+                break;
+            case PowerupNames.SolidYellow:
+                return SolidYellowTimer > 0f;
+                break;
+            default:
+                return false;
+                break;
+        }
+        /*if(PowerupTimers.ContainsKey(powerupName))
+        {
+            return PowerupTimers[powerupName] > 0f;
+        }
+        return false;*/
+    }
+
+    [Client]
+    void ActivatePowerup(string powerupName)
+    {
+        Debug.Log(String.Format("Activating powerup {0}", powerupName));
+        PowerupTimers[powerupName] = PowerupDuration;
+    }
+
+    [Client]
+    void RemovePowerup(GameObject obj)
+    {
+        Debug.Log(String.Format("Removing powerup object {0}", obj.name));
+        NetworkServer.Destroy(obj);
+        Destroy(obj);
+    }
 
     IEnumerator SpawnFireball()
     {
