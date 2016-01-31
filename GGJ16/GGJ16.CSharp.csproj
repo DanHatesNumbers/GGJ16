@@ -62,6 +62,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Assets\PowerUps\PowerupNames.cs" />
     <Compile Include="Assets\PowerUps\RandomRotationOnSpawn.cs" />
     <Compile Include="Assets\Scripts\AnimationState.cs" />
     <Compile Include="Assets\Scripts\Attack.cs" />

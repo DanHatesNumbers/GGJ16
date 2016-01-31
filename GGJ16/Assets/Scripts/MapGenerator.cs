@@ -518,7 +518,7 @@ public class MapGenerator : NetworkBehaviour {
 
         //GameObject back = backgroundPrefab;
         
-        var backobj = (GameObject)Instantiate(backgroundPrefab, new Vector3(0, 0), new Quaternion());
+        var backobj = (GameObject)Instantiate(backgroundPrefab, new Vector3(0, 0, -1.5f), new Quaternion());
         BackgroundScript move = backobj.GetComponent(typeof(BackgroundScript)) as BackgroundScript;
         move.MapSize = new Vector2(WidthSize * Tilesize, HeightSize * Tilesize);
         move.DividerLevel = dividerLevel;
