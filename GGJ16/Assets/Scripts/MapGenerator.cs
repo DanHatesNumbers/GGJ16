@@ -192,9 +192,15 @@ public class MapGenerator : NetworkBehaviour {
         for (int idx = 0; idx < platformNo; idx++)
         {
             int height = UnityEngine.Random.Range(0, HeightSize);
-            int platformLength = UnityEngine.Random.Range(2, WidthSize - 2);
+            
 
-            int platformStart = UnityEngine.Random.Range(1, WidthSize - platformLength);
+            int platformStart = UnityEngine.Random.Range(1, WidthSize - 1);
+            //platformStart -= platformLength; 
+            //if (platformStart <= 0)
+            //{
+            //    platformStart = 1; 
+            //}
+            int platformLength = UnityEngine.Random.Range(2, WidthSize - 2);
 
             int lastDirection = 1; //0 is down, 1 is straight, 2 is up. 
 
