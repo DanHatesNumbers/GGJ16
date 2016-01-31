@@ -40,7 +40,7 @@ public class PlayerMovement : NetworkBehaviour {
 		{
 			IsTriggered = () => 
                     Input.GetButtonDown("Jump") 
-                    && Player.GetComponent<Collider2D>().IsTouchingLayers()
+                    && (IsPowerupActive(PowerupNames.SolidYellow) || Player.GetComponent<Collider2D>().IsTouchingLayers())
                     && !IsPowerupActive(PowerupNames.SolidBlack),
             PlayerAction = (c, delta) => 
             {
@@ -170,6 +170,10 @@ public class PlayerMovement : NetworkBehaviour {
         {
             case PowerupNames.SolidBlack:
                 ActivatePowerup(PowerupNames.SolidBlack);
+                RemovePowerup(col.gameObject);
+                break;
+            case PowerupNames.SolidYellow:
+                ActivatePowerup(PowerupNames.SolidYellow);
                 RemovePowerup(col.gameObject);
                 break;
         }
