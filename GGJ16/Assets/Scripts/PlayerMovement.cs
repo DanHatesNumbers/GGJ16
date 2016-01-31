@@ -37,6 +37,8 @@ public class PlayerMovement : NetworkBehaviour {
     private float SolidYellowTimer;
     [SyncVar]
     private float SolidPurpleTimer;
+    [SyncVar]
+    private float StripyPurpleTimer;
 
     private AnimationStateEnum playerAnimation;
 
@@ -102,6 +104,7 @@ public class PlayerMovement : NetworkBehaviour {
         SolidBlackTimer = 0f;
         SolidYellowTimer = 0f;
         SolidPurpleTimer = 0f;
+        StripyPurpleTimer = 0f;
 
         var networkId = GetComponent<NetworkIdentity>();
         GetComponentInChildren<Camera>().enabled = hasAuthority;
@@ -138,6 +141,7 @@ public class PlayerMovement : NetworkBehaviour {
             SolidBlackTimer -= Time.deltaTime;
             SolidYellowTimer -= Time.deltaTime;
             SolidPurpleTimer -= Time.deltaTime;
+            StripyPurpleTimer -= Time.deltaTime;
 
             if(SolidBlackTimer <= 0f)
             {
@@ -151,12 +155,16 @@ public class PlayerMovement : NetworkBehaviour {
             {
                 SolidPurpleTimer = 0f;
             }
+            if(StripyPurpleTimer <= 0f)
+            {
+                StripyPurpleTimer = 0f;
+            }
             var particles = this.gameObject.GetComponentInChildren<ParticleSystem>();
-            if(SolidPurpleTimer == 0f && particles.isPlaying)
+            if((SolidPurpleTimer == 0f && StripyPurpleTimer == 0f) && particles.isPlaying)
             {
                 particles.Stop();
             }
-            else if (SolidPurpleTimer != 0f && particles.isStopped)
+            else if ((SolidPurpleTimer != 0f || StripyPurpleTimer != 0f) && particles.isStopped)
             {
                 particles.Play();
             }
@@ -218,6 +226,11 @@ public class PlayerMovement : NetworkBehaviour {
             case PowerupNames.SolidPurple:
                 //ActivatePowerup(PowerupNames.SolidYellow);
                 SolidPurpleTimer = PowerupDuration;
+                RemovePowerup(col.gameObject);
+                break;
+            case PowerupNames.StripyPurple:
+                //ActivatePowerup(PowerupNames.SolidYellow);
+                StripyPurpleTimer = PowerupDuration * 2;
                 RemovePowerup(col.gameObject);
                 break;
         }
