@@ -14,6 +14,7 @@ GameObject:
   - 114: {fileID: 11452250}
   - 114: {fileID: 11433714}
   - 60: {fileID: 6053330}
+  - 82: {fileID: 8262176}
   m_Layer: 0
   m_Name: Player
   m_TagString: Untagged
@@ -30,6 +31,7 @@ GameObject:
   m_Component:
   - 4: {fileID: 429028}
   - 20: {fileID: 2031664}
+  - 81: {fileID: 8152758}
   m_Layer: 0
   m_Name: PlayerCamera
   m_TagString: Untagged
@@ -200,6 +202,87 @@ PolygonCollider2D:
       - {x: -1.5951443, y: -1.4678645}
       - {x: -2.0548725, y: -0.04536748}
       - {x: -2.1068883, y: 1.324749}
+--- !u!81 &8152758
+AudioListener:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 142334}
+  m_Enabled: 1
+--- !u!82 &8262176
+AudioSource:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 124892}
+  m_Enabled: 1
+  serializedVersion: 4
+  OutputAudioMixerGroup: {fileID: 0}
+  m_audioClip: {fileID: 0}
+  m_PlayOnAwake: 1
+  m_Volume: 1
+  m_Pitch: 1
+  Loop: 0
+  Mute: 0
+  Spatialize: 0
+  Priority: 128
+  DopplerLevel: 1
+  MinDistance: 1
+  MaxDistance: 500
+  Pan2D: 0
+  rolloffMode: 0
+  BypassEffects: 0
+  BypassListenerEffects: 0
+  BypassReverbZones: 0
+  rolloffCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    - time: 1
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  panLevelCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 0
+  spreadCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 0
+  reverbZoneMixCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 0
 --- !u!95 &9529034
 Animator:
   serializedVersion: 3
@@ -279,6 +362,7 @@ MonoBehaviour:
   JumpSoundClip: {fileID: 8300000, guid: 016b700bcb3554b1999c391b9661d285, type: 3}
   JoinSound: {fileID: 8300000, guid: bf7c660e4b34144d1a60a5063a3b1f4a, type: 3}
   ShootSound: {fileID: 8300000, guid: 9ab7ac9f6e729457d8a8dfa89151ee30, type: 3}
+  PickupSound: {fileID: 8300000, guid: 257ad41856c414a4fa83c51d7778725c, type: 3}
   FacingLeft: 0
   CanFire: 0
 --- !u!114 &11452250
@@ -1982,6 +2066,10 @@ Prefab:
       propertyPath: deathSound
       value: 
       objectReference: {fileID: 8300000, guid: 4668d9fcf8d264f3693f23878a14042b, type: 3}
+    - target: {fileID: 0}
+      propertyPath: PickupSound
+      value: 
+      objectReference: {fileID: 8300000, guid: 257ad41856c414a4fa83c51d7778725c, type: 3}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 0}
   m_RootGameObject: {fileID: 124892}
