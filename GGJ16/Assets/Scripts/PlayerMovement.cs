@@ -35,7 +35,8 @@ public class PlayerMovement : NetworkBehaviour {
     private float SolidBlackTimer;
     [SyncVar]
     private float SolidYellowTimer;
-
+    [SyncVar]
+    private float SolidPurpleTimer;
 
     private AnimationStateEnum playerAnimation;
 
@@ -100,6 +101,7 @@ public class PlayerMovement : NetworkBehaviour {
         PowerupTimers = new Dictionary<string, float>();
         SolidBlackTimer = 0f;
         SolidYellowTimer = 0f;
+        SolidPurpleTimer = 0f;
 
         var networkId = GetComponent<NetworkIdentity>();
         GetComponentInChildren<Camera>().enabled = hasAuthority;
@@ -135,6 +137,7 @@ public class PlayerMovement : NetworkBehaviour {
             }*/
             SolidBlackTimer -= Time.deltaTime;
             SolidYellowTimer -= Time.deltaTime;
+            SolidPurpleTimer -= Time.deltaTime;
 
             if(SolidBlackTimer <= 0f)
             {
@@ -144,13 +147,18 @@ public class PlayerMovement : NetworkBehaviour {
             {
                 SolidYellowTimer = 0f;
             }
-            if (SolidBlackTimer != 0f)
+            if(SolidPurpleTimer <= 0f)
             {
-                Debug.Log(String.Format("Power up black remaining duraction {0}", SolidBlackTimer));
+                SolidPurpleTimer = 0f;
             }
-            if (SolidYellowTimer != 0f)
+            var particles = this.gameObject.GetComponentInChildren<ParticleSystem>();
+            if(SolidPurpleTimer == 0f && particles.isPlaying)
             {
-                Debug.Log(String.Format("Power up yellow remaining duraction {0}", SolidYellowTimer));
+                particles.Stop();
+            }
+            else if (SolidPurpleTimer != 0f && particles.isStopped)
+            {
+                particles.Play();
             }
         }
         var playerVelocity = this.GetComponent<Rigidbody2D>().velocity;
@@ -205,6 +213,11 @@ public class PlayerMovement : NetworkBehaviour {
             case PowerupNames.SolidYellow:
                 //ActivatePowerup(PowerupNames.SolidYellow);
                 SolidYellowTimer = PowerupDuration;
+                RemovePowerup(col.gameObject);
+                break;
+            case PowerupNames.SolidPurple:
+                //ActivatePowerup(PowerupNames.SolidYellow);
+                SolidPurpleTimer = PowerupDuration;
                 RemovePowerup(col.gameObject);
                 break;
         }
