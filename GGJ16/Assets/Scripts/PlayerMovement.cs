@@ -119,6 +119,7 @@ public class PlayerMovement : NetworkBehaviour {
             foreach(var key in keys)
             {
                 PowerupTimers[key] -= Time.deltaTime;
+                Debug.Log("Powerup {0} remaining duration {1}", key, PowerupTimers[key]);
                 if(PowerupTimers[key] <= 0f)
                 {
                     PowerupTimers[key] = 0f;
@@ -190,11 +191,13 @@ public class PlayerMovement : NetworkBehaviour {
 
     void ActivatePowerup(string powerupName)
     {
+        Debug.Log(String.Format("Activating powerup {0}", powerupName));
         PowerupTimers[powerupName] = PowerupDuration;
     }
 
     void RemovePowerup(GameObject obj)
     {
+        Debug.Log(String.Format("Removing powerup object {0}", obj.name));
         NetworkServer.Destroy(obj);
         Destroy(obj);
     }
