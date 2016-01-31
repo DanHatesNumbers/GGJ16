@@ -165,6 +165,7 @@ public class PlayerMovement : NetworkBehaviour {
         }
 	}
 
+    [Client]
     void OnCollisionEnter2D(Collision2D col)
     {
         var collidedObjectName = col.gameObject.name;
